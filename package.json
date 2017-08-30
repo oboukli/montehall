@@ -1,0 +1,60 @@
+{
+  "name": "montehall",
+  "version": "0.7.0",
+  "description": "A Monte Carlo machine for the Monty Hall Problem",
+  "author": "Omar Boukli-Hacene",
+  "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oboukli/montehall.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oboukli/montehall/issues"
+  },
+  "main": "./dist/index.js",
+  "bin": "./dist/cli.js",
+  "engines": {
+    "node": "^8.1.0"
+  },
+  "scripts": {
+    "lint": "tslint --config tslint.json --project tsconfig.json",
+    "montehall": "node ./dist/cli.js",
+    "prepare": "tsc",
+    "start": "node ./dist/cli.js --help",
+    "pretest": "tsc --project ./spec/tsconfig.spec_files.json",
+    "test": "jasmine"
+  },
+  "dependencies": {
+    "commander": "^2.11.0",
+    "random-number-csprng": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/commander": "^2.9.2",
+    "@types/jasmine": "^2.5.54",
+    "@types/node": "^8.0.26",
+    "eslint": "^4.5.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jasmine": "^2.8.0",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.1"
+  },
+  "keywords": [
+    "async",
+    "es2017",
+    "fun",
+    "game",
+    "monty",
+    "probability",
+    "probabilities",
+    "random",
+    "sample",
+    "statistics",
+    "stats",
+    "typescript"
+  ]
+}
