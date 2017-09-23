@@ -31,9 +31,9 @@
   },
   "devDependencies": {
     "@types/commander": "^2.9.2",
-    "@types/jasmine": "^2.5.54",
-    "@types/node": "^8.0.26",
-    "eslint": "^4.5.0",
+    "@types/jasmine": "^2.6.0",
+    "@types/node": "^8.0.30",
+    "eslint": "^4.7.2",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-node": "^5.1.1",
@@ -41,7 +41,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "jasmine": "^2.8.0",
     "tslint": "^5.7.0",
-    "typescript": "^2.5.1"
+    "typescript": "^2.5.2"
   },
   "keywords": [
     "async",
