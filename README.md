@@ -1,5 +1,7 @@
 # Montehall: A Monte Carlo Machine for the Monty Hall Problem
 
+[![Build Status](https://travis-ci.org/oboukli/montehall.svg?branch=master)](https://travis-ci.org/oboukli/montehall)
+
 An experiment with TypeScript/JavaScript (ECMAScript 2017) aimed at
 
 1. Creating a simulation of the famous counterintuitive [Monty Hall problem](https://en.wikipedia.org/wiki/Monty_Hall_problem)
