@@ -93,7 +93,7 @@ describe("Standard Monty Hall problem simulator", () => {
                 const rngSpy = spyOn(rng, "random").and.callThrough();
 
                 const s = standardSimulator(setupOptions, rng);
-                const gs = await s.simulateGame();
+                await s.simulateGame();
 
                 expect(rngSpy.calls.count()).toBeGreaterThanOrEqual(2);
             });

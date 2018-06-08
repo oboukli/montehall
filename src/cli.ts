@@ -16,7 +16,6 @@ import {
 
 import {
     gameSimulatorFactory,
-    RandomNumberProviderType,
     rngFactory,
 } from "./cli_util";
 
@@ -75,7 +74,7 @@ if (program.verbose) {
     };
 }
 else {
-    gameSummaryCallback = (gameSummary) => { return; };
+    gameSummaryCallback = () => { return; };
 }
 
 const setupOptions: SetupOptions = {

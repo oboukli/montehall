@@ -4,7 +4,6 @@ Licensed under an MIT-style license.
 */
 
 import {
-    GameSimulator,
     GameSimulatorFactory,
     GameSummary,
     GameSummaryCallback,
