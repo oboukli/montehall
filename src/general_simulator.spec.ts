@@ -54,7 +54,7 @@ describe("GeneralSimulator", () => {
             const rngSpy = spyOn(rng, "random").and.callThrough();
 
             const s = generalSimulator(setupOptions, rng);
-            const gameSummary = await s.simulateGame();
+            await s.simulateGame();
 
             expect(rngSpy.calls.count()).toBeGreaterThanOrEqual(3);
         });
@@ -96,7 +96,7 @@ describe("GeneralSimulator", () => {
             const rngSpy = spyOn(rng, "random").and.callThrough();
 
             const s = generalSimulator(setupOptions, rng);
-            const gameSummary = await s.simulateGame();
+            await s.simulateGame();
 
             expect(rngSpy.calls.count()).toBeGreaterThanOrEqual(4);
         });

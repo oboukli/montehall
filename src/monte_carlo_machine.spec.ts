@@ -9,8 +9,6 @@ import {
     GameSummary,
     MonteCarloMachine,
     monteCarloMachine,
-    RandomNumberProvider,
-    SetupOptions,
     SimulationSummary,
 } from ".";
 
@@ -32,8 +30,6 @@ describe("Monte Carlo machine", () => {
         const numGames = 10;
 
         const gameSimulatorFactory: GameSimulatorFactory = (
-            so: SetupOptions,
-            rng: RandomNumberProvider
         ): GameSimulator => {
             return {
                 simulateGame: async (): Promise<GameSummary> => {
@@ -50,7 +46,7 @@ describe("Monte Carlo machine", () => {
         };
 
         const gameSummaryCallbackWrapper = {
-            gameCompleted: (gameSummary: GameSummary) => {
+            gameCompleted: () => {
                 return;
             }
         };
@@ -64,7 +60,7 @@ describe("Monte Carlo machine", () => {
             setupOptions,
             numGames,
             gameSimulatorFactory,
-            { random: (min, max) => -1 },
+            { random: () => -1 },
             gameSummaryCallbackWrapper.gameCompleted
         );
         simulationSummary = await mcm.run();

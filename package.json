@@ -1,6 +1,6 @@
 {
   "name": "montehall",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "A Monte Carlo machine for the Monty Hall Problem",
   "author": "Omar Boukli-Hacene",
   "license": "MIT",
@@ -41,7 +41,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "jasmine": "^2.8.0",
     "tslint": "^5.7.0",
-    "typescript": "^2.5.2"
+    "typescript": "^2.9.1"
   },
   "keywords": [
     "async",
