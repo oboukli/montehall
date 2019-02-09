@@ -98,7 +98,7 @@ export const standardSimulator = ((
     };
   };
 
-  const pickRandomIndexes = async (excludedIndex: number = -1): Promise<number> => {
+  const pickRandomIndexes = async (excludedIndex = -1): Promise<number> => {
     try {
       const index = await randomNumberProvider.random(0, 2);
       if (excludedIndex !== index) {
