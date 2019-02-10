@@ -4,14 +4,14 @@ Licensed under an MIT-style license.
 */
 
 export {
-    GameSimulator,
-    GameSimulatorFactory,
-    GameSummary,
-    GameSummaryCallback,
-    MonteCarloMachine,
-    RandomNumberProvider,
-    SetupOptions,
-    SimulationSummary,
+  GameSimulator,
+  GameSimulatorFactory,
+  GameSummary,
+  GameSummaryCallback,
+  MonteCarloMachine,
+  RandomNumberProvider,
+  SetupOptions,
+  SimulationSummary,
 } from "./montehall";
 
 export { generalSimulator } from "./general_simulator";

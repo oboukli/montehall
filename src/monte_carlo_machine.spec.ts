@@ -4,86 +4,86 @@ Licensed under an MIT-style license.
 */
 
 import {
-    GameSimulator,
-    GameSimulatorFactory,
-    GameSummary,
-    MonteCarloMachine,
-    monteCarloMachine,
-    SimulationSummary,
+  GameSimulator,
+  GameSimulatorFactory,
+  GameSummary,
+  MonteCarloMachine,
+  monteCarloMachine,
+  SimulationSummary,
 } from ".";
 
 describe("Monte Carlo machine", () => {
-    let mcm: MonteCarloMachine;
-    let simulationSummary: SimulationSummary;
-    let gameSummaryCallbackSpy: jasmine.Spy;
+  let mcm: MonteCarloMachine;
+  let simulationSummary: SimulationSummary;
+  let gameSummaryCallbackSpy: jasmine.Spy;
 
-    beforeAll(() => {
+  beforeAll(() => {
+    return;
+  });
+
+  beforeEach(async (done) => {
+    const setupOptions = {
+      isPlayerStubborn: false,
+      size: 3,
+    };
+
+    const numGames = 10;
+
+    const gameSimulatorFactory: GameSimulatorFactory = (
+    ): GameSimulator => {
+      return {
+        simulateGame: async (): Promise<GameSummary> => {
+          return {
+            confirmedPlayerPickedIndex: 1,
+            isPlayerStubborn: setupOptions.isPlayerStubborn,
+            playerInitialPickedIndex: 0,
+            revealedLosingIndexes: 2,
+            setupSize: setupOptions.size,
+            winningIndex: 0
+          };
+        }
+      };
+    };
+
+    const gameSummaryCallbackWrapper = {
+      gameCompleted: () => {
         return;
-    });
+      }
+    };
 
-    beforeEach(async (done) => {
-        const setupOptions = {
-            isPlayerStubborn: false,
-            size: 3,
-        };
+    gameSummaryCallbackSpy = spyOn(
+      gameSummaryCallbackWrapper,
+      "gameCompleted"
+    ).and.callThrough();
 
-        const numGames = 10;
+    mcm = monteCarloMachine(
+      setupOptions,
+      numGames,
+      gameSimulatorFactory,
+      { random: () => -1 },
+      gameSummaryCallbackWrapper.gameCompleted
+    );
+    simulationSummary = await mcm.run();
+    done();
+  });
 
-        const gameSimulatorFactory: GameSimulatorFactory = (
-        ): GameSimulator => {
-            return {
-                simulateGame: async (): Promise<GameSummary> => {
-                    return {
-                        confirmedPlayerPickedIndex: 1,
-                        isPlayerStubborn: setupOptions.isPlayerStubborn,
-                        playerInitialPickedIndex: 0,
-                        revealedLosingIndexes: 2,
-                        setupSize: setupOptions.size,
-                        winningIndex: 0
-                    };
-                }
-            };
-        };
+  it("should not have an exception", () => {
+    expect(simulationSummary.exception).toBeUndefined();
+  });
 
-        const gameSummaryCallbackWrapper = {
-            gameCompleted: () => {
-                return;
-            }
-        };
+  it("should have zero won games count", () => {
+    expect(simulationSummary.gamesWonCount).toEqual(0);
+  });
 
-        gameSummaryCallbackSpy = spyOn(
-            gameSummaryCallbackWrapper,
-            "gameCompleted"
-        ).and.callThrough();
+  it("should have completed successfully", () => {
+    expect(simulationSummary.isCompletedSuccessfully).toBeTruthy();
+  });
 
-        mcm = monteCarloMachine(
-            setupOptions,
-            numGames,
-            gameSimulatorFactory,
-            { random: () => -1 },
-            gameSummaryCallbackWrapper.gameCompleted
-        );
-        simulationSummary = await mcm.run();
-        done();
-    });
+  it("should have simulation count of ten", () => {
+    expect(simulationSummary.simulationCount).toEqual(10);
+  });
 
-    it("should not have an exception", () => {
-        expect(simulationSummary.exception).toBeUndefined();
-    });
-
-    it("should have zero won games count", () => {
-        expect(simulationSummary.gamesWonCount).toEqual(0);
-    });
-
-    it("should have completed successfully", () => {
-        expect(simulationSummary.isCompletedSuccessfully).toBeTruthy();
-    });
-
-    it("should have simulation count of ten", () => {
-        expect(simulationSummary.simulationCount).toEqual(10);
-    });
-
-    it("should call the game summary callback ten times", async () => {
-        expect(gameSummaryCallbackSpy.calls.count()).toEqual(10);
-    });
+  it("should call the game summary callback ten times", async () => {
+    expect(gameSummaryCallbackSpy.calls.count()).toEqual(10);
+  });
 });
