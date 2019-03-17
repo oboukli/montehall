@@ -1,26 +1,50 @@
-# Build a general Node.js project with npm.
-# Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
 - master
-
-pool:
-  vmImage: 'ubuntu-16.04'
+- develop
 
 strategy:
   matrix:
-    node_8_x:
+    linux_node_8_x:
+      imageName: 'ubuntu-16.04'
       node_version: 8.x
-    node_10_x:
+    linux_node_10_x:
+      imageName: 'ubuntu-16.04'
       node_version: 10.x
-    node_11_x:
+    linux_node_11_x:
+      imageName: 'ubuntu-16.04'
+      node_version: 11.x
+    mac_node_8_x:
+      imageName: 'macOS-10.13'
+      node_version: 8.x
+    mac_node_10_x:
+      imageName: 'macOS-10.13'
+      node_version: 10.x
+    mac_node_11_x:
+      imageName: 'macOS-10.13'
+      node_version: 11.x
+    windows_node_8_x:
+      imageName: 'windows-2019'
+      node_version: 8.x
+    windows_node_10_x:
+      imageName: 'windows-2019'
+      node_version: 10.x
+    windows_node_11_x:
+      imageName: 'windows-2019'
       node_version: 11.x
 
+pool:
+  vmImage: $(imageName)
+
 steps:
-- task: NodeTool@0 
+- task: NodeTool@0
   inputs:
     versionSpec: $(node_version)
 
-- script: npm ci
+- script: |
+    node --version
+    npm --version
+    npm ci
+    npm test
   displayName: 'build'
