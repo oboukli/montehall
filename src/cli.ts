@@ -20,15 +20,18 @@ import {
 } from "./cli_util";
 
 // tslint:disable-next-line:no-require-imports no-var-requires
+const pkgInfo = require("../package.json");
 const config = require("../montehall.json");
 
-const VERSION: string = config.version || "";
-const DEFAULT_NUM_GAMES = Number(config.montehall.games || 0);
+const VERSION: string = pkgInfo.version;
+const DEFAULT_NUM_GAMES = Number(config.games || 0);
 let numGames = DEFAULT_NUM_GAMES;
 let isWisePlayer = false;
 
 program
-  .version(VERSION)
+  .name(pkgInfo.name)
+  .version(VERSION, '-V, --version', 'Output version information')
+  .helpOption('-h, --help', 'Output usage information')
   .option(
     "-g, --games <n>",
     `Number of games (default: ${DEFAULT_NUM_GAMES})`, Number
@@ -55,13 +58,13 @@ if (program.wise) {
 }
 
 let isDecimalTable = false;
-const numTableFileName: string = program.tableFile || config.montehall.numTableFileName || "";
+const numTableFileName: string = program.tableFile || config.numTableFileName || "";
 if (program.random === "table") {
   if (!numTableFileName) {
     process.stdout.write("Random number table file not specified.");
     process.exit(1);
   }
-  isDecimalTable = program.decimalTable || config.montehall.isDecimalNumTable;
+  isDecimalTable = program.decimalTable || config.isDecimalNumTable;
 }
 
 const rng = rngFactory(program.random, numTableFileName, isDecimalTable);
@@ -74,7 +77,7 @@ if (program.verbose) {
   };
 }
 else {
-  gameSummaryCallback = () => { return; };
+  gameSummaryCallback = () => { };
 }
 
 const setupOptions: SetupOptions = {
@@ -90,7 +93,8 @@ const mcm = monteCarloMachine(
   gameSummaryCallback,
 );
 
-mcm.run().then((simulationSummary) => {
+mcm.run()
+.then((simulationSummary) => {
   const formatter = simulationSummaryFormater(
     setupOptions,
     numGames,
@@ -98,4 +102,5 @@ mcm.run().then((simulationSummary) => {
     os.EOL
   );
   process.stdout.write(`${formatter.toString()}${os.EOL}`);
-}).catch((reason) => { process.stdout.write(reason); });
+})
+.catch((reason) => { process.stdout.write(reason); });

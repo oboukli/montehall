@@ -1,7 +1,5 @@
 {
-  "montehall": {
-    "games": 16384,
-    "numTableFileName": "./data/rand_decimals.txt",
-    "isDecimalNumTable": true
-  }
+  "games": 16384,
+  "numTableFileName": "./data/rand_decimals.txt",
+  "isDecimalNumTable": true
 }
