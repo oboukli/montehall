@@ -1,9 +1,9 @@
 # Montehall: a Monte Carlo machine for the Monty Hall problem
 
-[![Travis CI build status](https://travis-ci.org/oboukli/montehall.svg?branch=main)](https://travis-ci.org/oboukli/montehall)
+[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/oboukli/montehall)
 [![Azure Pipelines build status](https://dev.azure.com/omarboukli/montehall/_apis/build/status/oboukli.montehall?branchName=main)](https://dev.azure.com/omarboukli/montehall/_build/latest?definitionId=1&branchName=main)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/83xhfdcxi9q2d1so/branch/main?svg=true)](https://ci.appveyor.com/project/oboukli/montehall/branch/main)
 [![Known vulnerabilities](https://snyk.io/test/github/oboukli/montehall/badge.svg)](https://snyk.io/test/github/oboukli/montehall)
+[![CodeQL](https://github.com/oboukli/montehall/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/oboukli/montehall/actions/workflows/codeql-analysis.yml?query=branch%3Amain)
 
 An over-engineered experiment with TypeScript/JavaScript (ECMAScript 2017) aimed at:
 
@@ -18,7 +18,7 @@ Inspired by a Numberphile [video](https://www.youtube.com/watch?v=4Lb-6rxZxx0).
 
 ## Requirements
 
-Node.js (8.1 or equivalent.)
+Node.js (8.1 or higher.)
 
 Note: the source code was developed and tested on Node.js v8.1 (ES2017). However, the TypeScript transpiler can be configured to target older versions of ECMAScript.
 
