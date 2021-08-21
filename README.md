@@ -1,8 +1,8 @@
 # Montehall: a Monte Carlo machine for the Monty Hall problem
 
-[![Travis CI build status](https://travis-ci.org/oboukli/montehall.svg?branch=master)](https://travis-ci.org/oboukli/montehall)
-[![Azure Pipelines build status](https://dev.azure.com/omarboukli/montehall/_apis/build/status/oboukli.montehall?branchName=master)](https://dev.azure.com/omarboukli/montehall/_build/latest?definitionId=1&branchName=master)
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/83xhfdcxi9q2d1so/branch/master?svg=true)](https://ci.appveyor.com/project/oboukli/montehall/branch/master)
+[![Travis CI build status](https://travis-ci.org/oboukli/montehall.svg?branch=main)](https://travis-ci.org/oboukli/montehall)
+[![Azure Pipelines build status](https://dev.azure.com/omarboukli/montehall/_apis/build/status/oboukli.montehall?branchName=main)](https://dev.azure.com/omarboukli/montehall/_build/latest?definitionId=1&branchName=main)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/83xhfdcxi9q2d1so/branch/main?svg=true)](https://ci.appveyor.com/project/oboukli/montehall/branch/main)
 [![Known vulnerabilities](https://snyk.io/test/github/oboukli/montehall/badge.svg)](https://snyk.io/test/github/oboukli/montehall)
 
 An over-engineered experiment with TypeScript/JavaScript (ECMAScript 2017) aimed at:
