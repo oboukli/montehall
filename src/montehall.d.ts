@@ -61,7 +61,7 @@ export interface RandomNumberProvider {
 }
 
 export interface SimulationSummary {
-  readonly exception?: Error;
+  readonly exception?: unknown;
   readonly gamesWonCount: number;
   readonly isCompletedSuccessfully: boolean;
   readonly simulationCount: number;

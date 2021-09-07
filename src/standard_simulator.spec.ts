@@ -154,13 +154,13 @@ describe("Standard Monty Hall problem simulator", () => {
   describe("asynchronous exception specs", () => {
     describe("for invalid game size (size not three)", () => {
       it("should asynchronously throw RangeError", async () => {
-        let exception: RangeError | undefined;
+        let exception: unknown;
         const sim = standardSimulator({ size: 2, isPlayerStubborn: false }, rng);
 
         try {
           await sim.simulateGame();
         }
-        catch (ex) {
+        catch (ex: unknown) {
           exception = ex;
         }
 
@@ -170,7 +170,7 @@ describe("Standard Monty Hall problem simulator", () => {
 
     describe("for RNG exceptions", () => {
       it("should asynchronously throw Error", async () => {
-        let exception: Error | undefined;
+        let exception: unknown;
         const sim = standardSimulator(
           {
             isPlayerStubborn: false,
@@ -186,7 +186,7 @@ describe("Standard Monty Hall problem simulator", () => {
         try {
           await sim.simulateGame();
         }
-        catch (ex) {
+        catch (ex: unknown) {
           exception = ex;
         }
 

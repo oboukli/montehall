@@ -54,7 +54,7 @@ export const monteCarloMachine = ((
           gameSummaryCallback(gameSummary);
         }
       }
-      catch (ex) {
+      catch (ex: any) {
         error = true;
         exception = ex;
         break;

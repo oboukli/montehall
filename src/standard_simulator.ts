@@ -105,8 +105,8 @@ export const standardSimulator = ((
         return index;
       }
     }
-    catch (ex) {
-      throw new Error(`Cannot generate random number. ${ex.message}`);
+    catch (ex: any) {
+      throw new Error(`Cannot generate random number. ${ex instanceof Error ? ex.message : ex?.toString()}`);
     }
 
     return pickRandomIndexes(excludedIndex);
