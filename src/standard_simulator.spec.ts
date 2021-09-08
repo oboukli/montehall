@@ -20,9 +20,8 @@ describe("Standard Monty Hall problem simulator", () => {
 
   const validatePlayerIndependentSpecs = () => {
     describe("Game summary", () => {
-      beforeEach(async (done) => {
+      beforeEach(async () => {
         gameSummary = await simulator.simulateGame();
-        done();
       });
 
       it("should have valid setup size of three", () => {

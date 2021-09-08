@@ -21,7 +21,7 @@ describe("Monte Carlo machine", () => {
     return;
   });
 
-  beforeEach(async (done) => {
+  beforeEach(async () => {
     const setupOptions = {
       isPlayerStubborn: false,
       size: 3,
@@ -64,7 +64,6 @@ describe("Monte Carlo machine", () => {
       gameSummaryCallbackWrapper.gameCompleted
     );
     simulationSummary = await mcm.run();
-    done();
   });
 
   it("should not have an exception", () => {
