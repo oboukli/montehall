@@ -32,10 +32,10 @@
   "devDependencies": {
     "@types/commander": "^2.12.2",
     "@types/jasmine": "^3.9.0",
-    "@types/node": "^16.7.13",
+    "@types/node": "^16.9.1",
     "jasmine": "^3.9.0",
     "tslint": "^5.20.1",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.3"
   },
   "keywords": [
     "async",
