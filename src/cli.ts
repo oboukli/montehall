@@ -30,8 +30,8 @@ let isWisePlayer = false;
 
 program
   .name(pkgInfo.name)
-  .version(VERSION, '-V, --version', 'Output version information')
-  .helpOption('-h, --help', 'Output usage information')
+  .version(VERSION, "-V, --version", "Output version information")
+  .helpOption("-h, --help", "Output usage information")
   .option(
     "-g, --games <n>",
     `Number of games (default: ${DEFAULT_NUM_GAMES})`, Number
