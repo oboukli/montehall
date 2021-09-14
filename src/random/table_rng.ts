@@ -77,8 +77,8 @@ export const tableRng = ((
     try {
       dataBuffer = await readFile(numTableFileName, "utf8");
     }
-    catch (ex: any) {
-      throw new Error(`Cannot read number table. ${ex instanceof Error ? ex.message : ex.toString()}`);
+    catch (ex) {
+      throw new Error(`Cannot read number table. ${ex instanceof Error ? ex.message : ex}`);
     }
 
     randomNumberTable = dataBuffer
