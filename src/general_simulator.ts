@@ -111,8 +111,8 @@ export const generalSimulator = ((
         try {
           index = await randomNumberProvider.random(0, setupOptions.size - 1);
         }
-        catch (ex: any) {
-          throw new Error(`Cannot generate random number. ${ex instanceof Error ? ex.message : ex?.toString()}`);
+        catch (ex) {
+          throw new Error(`Cannot generate random number. ${ex instanceof Error ? ex.message : ex}`);
         }
       } while (excludedIndexes.indexOf(index) !== -1);
       indexes[i] = index;
