@@ -13,7 +13,7 @@ export const simulationSummaryFormater = ((
   numRequestedGames: number,
   summary: SimulationSummary,
   eol = "\n",
-) => {
+): { toString: () => string } => {
   const toString = (): string => {
     const padding = 17;
     const gamesWonPercentage = (summary.gamesWonCount * 100) / summary.simulationCount;

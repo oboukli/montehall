@@ -26,7 +26,7 @@ export const monteCarloMachine = ((
   gameSimulatorFactory: GameSimulatorFactory,
   rng: RandomNumberProvider,
   gameSummaryCallback: GameSummaryCallback
-) => {
+): { run: () => Promise<SimulationSummary> } => {
 
   /**
    * Runs the Monte Carlo machine.

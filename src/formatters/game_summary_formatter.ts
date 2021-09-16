@@ -7,7 +7,7 @@ import {
   GameSummary,
 } from "../montehall";
 
-export const gameSummaryFormatter = ((gameSummary: GameSummary, eol = "\n") => {
+export const gameSummaryFormatter = ((gameSummary: GameSummary, eol = "\n"): { toString: () => string } => {
   const toString = (): string => {
     const padding = 27;
     const g = gameSummary;
