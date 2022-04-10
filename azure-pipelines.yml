@@ -1,37 +1,33 @@
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 strategy:
   matrix:
     linux_node_lts:
-      imageName: 'ubuntu-latest'
-      node_version: 14.x
+      imageName: ubuntu-latest
+      node_version: 16.x
     linux_node_current:
-      imageName: 'ubuntu-latest'
-      node_version: 16.x
-    mac_node_lts:
-      imageName: 'macOS-latest'
-      node_version: 14.x
+      imageName: ubuntu-latest
+      node_version: 17.x
     mac_node_current:
-      imageName: 'macOS-latest'
-      node_version: 16.x
-    windows_node_lts:
-      imageName: 'windows-latest'
-      node_version: 14.x
+      imageName: macOS-latest
+      node_version: 17.x
     windows_node_current:
-      imageName: 'windows-latest'
-      node_version: 16.x
+      imageName: windows-latest
+      node_version: 17.x
 
 pool:
   vmImage: $(imageName)
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: $(node_version)
+  - task: NodeTool@0
+    inputs:
+      versionSpec: $(node_version)
 
-- script: |
-    node --version
-    npm --version
-    npm ci
-    npm test
-  displayName: 'build'
+  - script: |
+      node --version
+      npm --version
+    displayName: Node.js and npm version
+
+  - script: npm ci
+    displayName: Build
+
+  - script: npm test
+    displayName: Run tests
