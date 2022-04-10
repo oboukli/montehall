@@ -1,6 +1,5 @@
 # Montehall: a Monte Carlo machine for the Monty Hall problem
 
-[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/oboukli/montehall)
 [![Azure Pipelines build status](https://dev.azure.com/omarboukli/montehall/_apis/build/status/oboukli.montehall?branchName=main)](https://dev.azure.com/omarboukli/montehall/_build/latest?definitionId=1&branchName=main)
 [![Known vulnerabilities](https://snyk.io/test/github/oboukli/montehall/badge.svg)](https://snyk.io/test/github/oboukli/montehall)
 [![CodeQL](https://github.com/oboukli/montehall/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/oboukli/montehall/actions/workflows/codeql-analysis.yml?query=branch%3Amain)
@@ -8,7 +7,7 @@
 An over-engineered experiment with TypeScript/JavaScript (ECMAScript 2017+) aimed at:
 
 1. Creating a simulation of the famous counterintuitive [Monty Hall problem](https://en.wikipedia.org/wiki/Monty_Hall_problem)
-2. Solving the strategy problem with [Monte Carlo methods](https://en.wikipedia.org/wiki/Monte_Carlo_method#Definitions)—for the joy of it.
+2. Solving the strategy problem with [Monte Carlo methods](https://en.wikipedia.org/wiki/Monte_Carlo_method#Definitions)
 3. Producing a fairly readable code and Node.js solution suitable for a best practice tutorial.
 
 Inspired by a Numberphile [video](https://www.youtube.com/watch?v=4Lb-6rxZxx0).
@@ -18,7 +17,7 @@ Inspired by a Numberphile [video](https://www.youtube.com/watch?v=4Lb-6rxZxx0).
 
 ## Requirements
 
-Node.js (14.x, or higher.)
+Node.js (recommended 16.x, or higher.)
 
 ## Setup
 
@@ -74,7 +73,7 @@ Coming soon.
 
 ## License
 
-This software is released under an [MIT-style license](LICENSE). Copyright © 2017 Omar Boukli-Hacene.
+This software is released under an [MIT-style license](LICENSE). Copyright © 2017-2022 Omar Boukli-Hacene.
 
 ---
 
