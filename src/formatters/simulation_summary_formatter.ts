@@ -18,8 +18,7 @@ export const simulationSummaryFormater = ((
     const padding = 17;
     const gamesWonPercentage = (summary.gamesWonCount * 100) / summary.simulationCount;
 
-    let s: string;
-    s = `${"Game setup size:".padEnd(padding)}${o.size}${eol}`;
+    let s = `${"Game setup size:".padEnd(padding)}${o.size}${eol}`;
     s += `${"Player switches:".padEnd(padding)}${!o.isPlayerStubborn}${eol}`;
     s += `${"Games requested:".padEnd(padding)}${numRequestedGames}${eol}`;
     s += `${"Games simulated:".padEnd(padding)}${summary.simulationCount}${eol}`;

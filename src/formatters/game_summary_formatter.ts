@@ -12,8 +12,7 @@ export const gameSummaryFormatter = ((gameSummary: GameSummary, eol = "\n"): { t
     const padding = 27;
     const g = gameSummary;
 
-    let s: string;
-    s = `${"Setup size:".padEnd(padding)}${g.setupSize}${eol}`;
+    let s = `${"Setup size:".padEnd(padding)}${g.setupSize}${eol}`;
     s += `${"Winning index(es):".padEnd(padding)}${g.winningIndex.toString()}${eol}`;
     s += `${"Player switches:".padEnd(padding)}${!g.isPlayerStubborn}${eol}`;
     s += `${"Initial picked index(es):".padEnd(padding)}${g.playerInitialPickedIndex.toString()}${eol}`;
