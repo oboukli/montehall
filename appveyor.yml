@@ -1,7 +1,7 @@
 environment:
   matrix:
-    - nodejs_version: "14"
-    - nodejs_version: "16"
+    - nodejs_version: 14
+    - nodejs_version: 16
 
 platform:
   - x64
@@ -22,4 +22,4 @@ test_script:
   - npm test
 
 # Don't actually build.
-build: "off"
+build: off
