@@ -1,6 +1,6 @@
 {
   "name": "montehall",
-  "version": "0.7.28",
+  "version": "0.7.29",
   "description": "A Monte Carlo machine for the Monty Hall Problem",
   "author": "Omar Boukli-Hacene",
   "license": "MIT",
@@ -18,7 +18,6 @@
     "node": ">=14.0.0"
   },
   "scripts": {
-    "lint": "tslint --config tslint.json --project tsconfig.json",
     "montehall": "node ./dist/cli.js",
     "prepare": "tsc",
     "start": "node ./dist/cli.js --help",
