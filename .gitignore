@@ -1,10 +1,7 @@
-# npm
-node_modules
+node_modules/
 
-dist
+dist/
 
 spec/**/*.js
 spec/**/*.js.map
 spec/**/*.d.ts
-
-tmp
