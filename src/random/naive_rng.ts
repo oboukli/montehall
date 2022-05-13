@@ -17,7 +17,6 @@ export const naiveRng = ((): RandomNumberProvider => {
     min = Math.ceil(min);
     max = Math.floor(max);
 
-    // tslint:disable-next-line:insecure-random
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 

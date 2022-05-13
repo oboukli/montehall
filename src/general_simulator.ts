@@ -17,7 +17,6 @@ import {
  * @param setupOptions Setup options.
  * @param randomNumberProvider Random number provider.
  */
-// tslint:disable-next-line:max-func-body-length
 export const generalSimulator = ((
   setupOptions: SetupOptions,
   randomNumberProvider: RandomNumberProvider
@@ -105,7 +104,6 @@ export const generalSimulator = ((
     excludedIndexes: number[]): Promise<number[]> => {
     let index: number;
 
-    // tslint:disable-next-line:prefer-array-literal
     const indexes = new Array<number>(numIndexes);
     for (let i = 0; i < numIndexes; i += 1) {
       do {

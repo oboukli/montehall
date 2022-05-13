@@ -26,17 +26,14 @@ export const rngFactory = (
   let r: RandomNumberProvider;
   switch (rngType) {
     case "crypto":
-      // tslint:disable-next-line:no-require-imports no-var-requires non-literal-require
       const csPrng: typeof csPrngT = require(csprngModule).csPrng;
       r = csPrng();
       break;
     case "table":
-      // tslint:disable-next-line:no-require-imports no-var-requires non-literal-require
       const tableRng: typeof tableRngT = require(tableRngModule).tableRng;
       r = tableRng(numTableFileName, isDecimalTable);
       break;
     default:
-      // tslint:disable-next-line:no-require-imports no-var-requires non-literal-require
       const naiveRng: typeof naiveRngT = require(naiveRngModule).naiveRng;
       r = naiveRng();
       break;

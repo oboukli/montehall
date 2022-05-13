@@ -21,7 +21,6 @@ import {
   rngFactory,
 } from "./cli_util";
 
-// tslint:disable-next-line:no-require-imports no-var-requires
 const pkgInfo = require("../package.json");
 const config = require("../montehall.json");
 

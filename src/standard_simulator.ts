@@ -17,7 +17,6 @@ import {
  * @param setupOptions Setup options.
  * @param randomNumberProvider Random number generator.
  */
-// tslint:disable-next-line:max-func-body-length
 export const standardSimulator = ((
   setupOptions: SetupOptions,
   randomNumberProvider: RandomNumberProvider
