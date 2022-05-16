@@ -5,13 +5,13 @@ strategy:
       node_version: 16.x
     linux_node_current:
       imageName: ubuntu-latest
-      node_version: 17.x
+      node_version: 18.x
     mac_node_current:
       imageName: macOS-latest
-      node_version: 17.x
+      node_version: 18.x
     windows_node_current:
       imageName: windows-latest
-      node_version: 17.x
+      node_version: 18.x
 
 pool:
   vmImage: $(imageName)
@@ -21,7 +21,7 @@ steps:
     inputs:
       versionSpec: $(node_version)
 
-  - script: |
+  - script: |-
       node --version
       npm --version
     displayName: Node.js and npm version
