@@ -1,6 +1,6 @@
 {
   "name": "montehall",
-  "version": "0.7.30",
+  "version": "0.7.33",
   "description": "A Monte Carlo machine for the Monty Hall Problem",
   "author": "Omar Boukli-Hacene",
   "license": "MIT",
@@ -15,7 +15,7 @@
   "main": "./dist/index.js",
   "bin": "./dist/cli.js",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=16.0.0"
   },
   "scripts": {
     "montehall": "node ./dist/cli.js",
