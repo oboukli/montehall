@@ -13,7 +13,7 @@ import {
   gameSummaryFormatter,
   monteCarloMachine,
   SetupOptions,
-  simulationSummaryFormater,
+  simulationSummaryFormatter,
 } from ".";
 
 import {
@@ -96,7 +96,7 @@ const mcm = monteCarloMachine(
 
 mcm.run()
 .then((simulationSummary) => {
-  const formatter = simulationSummaryFormater(
+  const formatter = simulationSummaryFormatter(
     setupOptions,
     numGames,
     simulationSummary,

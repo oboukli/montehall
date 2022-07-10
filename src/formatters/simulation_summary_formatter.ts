@@ -10,7 +10,7 @@ import {
   SimulationSummary,
 } from "../montehall";
 
-export const simulationSummaryFormater = ((
+export const simulationSummaryFormatter = ((
   o: SetupOptions,
   numRequestedGames: number,
   summary: SimulationSummary,

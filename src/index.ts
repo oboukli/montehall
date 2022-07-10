@@ -30,4 +30,4 @@ export { tableRng } from "./random/table_rng";
 
 export { gameSummaryFormatter } from "./formatters/game_summary_formatter";
 
-export { simulationSummaryFormater } from "./formatters/simulation_summary_formatter";
+export { simulationSummaryFormatter } from "./formatters/simulation_summary_formatter";
