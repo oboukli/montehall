@@ -69,11 +69,10 @@ export const generalSimulator = ((
     if (setupOptions.isPlayerStubborn) {
       confirmedPlayerPickedIndex = playerInitialPickedIndex;
     } else {
-      let excludedIndexes: number[];
-      excludedIndexes = Array.from(
-        [playerInitialPickedIndex, ...revealedLosingIndexes]
-      );
-
+      const excludedIndexes = [
+        playerInitialPickedIndex,
+        ...revealedLosingIndexes,
+      ];
       try {
         confirmedPlayerPickedIndex = (await pickRandomIndexes(
           1,
