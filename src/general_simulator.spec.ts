@@ -5,6 +5,8 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 // TODO:
+
+import "jasmine";
 import {
   GameSimulator,
   generalSimulator,
