@@ -34,12 +34,12 @@ describe("Standard Monty Hall problem simulator", () => {
 
       it("should not have revealedLosingIndexes as an array", () => {
         expect(Array.isArray(gameSummary.revealedLosingIndexes))
-          .toBeFalsy();
+          .toBeFalse();
       });
 
       it("should have revealedLosingIndexes as integer", () => {
-        expect(Number.isInteger(gameSummary.revealedLosingIndexes as number))
-          .toBeTruthy();
+        expect(Number.isInteger(gameSummary.revealedLosingIndexes))
+          .toBeTrue();
       });
 
       it("should have a valid playerInitialPickedIndex", () => {
@@ -116,10 +116,10 @@ describe("Standard Monty Hall problem simulator", () => {
       simulator = standardSimulator(setupOptions, rng);
     });
 
-    it("should reflect in the game summary that the stubborn player didn't switch", async () => {
+    it("should reflect in the game summary that the persistent player did not switch", async () => {
       gameSummary = await simulator.simulateGame();
       expect(gameSummary.isPlayerStubborn)
-        .toBeTruthy();
+        .toBeTrue();
 
       expect(gameSummary.confirmedPlayerPickedIndex)
         .toEqual(gameSummary.playerInitialPickedIndex);
@@ -144,7 +144,7 @@ describe("Standard Monty Hall problem simulator", () => {
       gameSummary = await simulator.simulateGame();
 
       expect(gameSummary.isPlayerStubborn)
-        .toBeFalsy();
+        .toBeFalse();
 
       expect(gameSummary.confirmedPlayerPickedIndex)
         .not.toEqual(gameSummary.playerInitialPickedIndex);
@@ -166,7 +166,7 @@ describe("Standard Monty Hall problem simulator", () => {
           exception = ex;
         }
 
-        expect(exception instanceof RangeError).toBeTruthy();
+        expect(exception instanceof RangeError).toBeTrue();
       });
     });
 
@@ -192,7 +192,7 @@ describe("Standard Monty Hall problem simulator", () => {
           exception = ex;
         }
 
-        expect(exception instanceof Error).toBeTruthy();
+        expect(exception instanceof Error).toBeTrue();
       });
     });
   });
