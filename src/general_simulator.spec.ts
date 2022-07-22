@@ -39,8 +39,8 @@ describe("GeneralSimulator", () => {
     it("should return a valid game summary", async () => {
       const gameSummary = await simulator.simulateGame();
 
-      expect(gameSummary.isPlayerStubborn).toBeTruthy();
-      expect(Array.isArray(gameSummary.revealedLosingIndexes)).toBeTruthy();
+      expect(gameSummary.isPlayerStubborn).toBeTrue();
+      expect(Array.isArray(gameSummary.revealedLosingIndexes)).toBeTrue();
       expect((gameSummary.revealedLosingIndexes as number[]).length).toEqual(1);
       expect(gameSummary.setupSize).toEqual(3);
 
@@ -81,8 +81,8 @@ describe("GeneralSimulator", () => {
     it("should return a valid game summary", async () => {
       const gameSummary = await simulator.simulateGame();
 
-      expect(gameSummary.isPlayerStubborn).toBeFalsy();
-      expect(Array.isArray(gameSummary.revealedLosingIndexes)).toBeTruthy();
+      expect(gameSummary.isPlayerStubborn).toBeFalse();
+      expect(Array.isArray(gameSummary.revealedLosingIndexes)).toBeTrue();
       expect((gameSummary.revealedLosingIndexes as number[]).length).toEqual(1);
       expect(gameSummary.setupSize).toEqual(3);
 
@@ -116,8 +116,8 @@ describe("GeneralSimulator", () => {
 
       const gameSummary = await simulator.simulateGame();
 
-      expect(gameSummary.isPlayerStubborn).toBeTruthy();
-      expect(Array.isArray(gameSummary.revealedLosingIndexes)).toBeTruthy();
+      expect(gameSummary.isPlayerStubborn).toBeTrue();
+      expect(Array.isArray(gameSummary.revealedLosingIndexes)).toBeTrue();
       expect((gameSummary.revealedLosingIndexes as number[]).length).toEqual(3);
       expect(gameSummary.setupSize).toEqual(5);
 
@@ -142,8 +142,8 @@ describe("GeneralSimulator", () => {
 
       const gameSummary = await simulator.simulateGame();
 
-      expect(gameSummary.isPlayerStubborn).toBeFalsy();
-      expect(Array.isArray(gameSummary.revealedLosingIndexes)).toBeTruthy();
+      expect(gameSummary.isPlayerStubborn).toBeFalse();
+      expect(Array.isArray(gameSummary.revealedLosingIndexes)).toBeTrue();
       expect((gameSummary.revealedLosingIndexes as number[]).length).toEqual(3);
       expect(gameSummary.setupSize).toEqual(5);
 
