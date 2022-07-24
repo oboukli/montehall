@@ -78,7 +78,7 @@ describe("Monte Carlo machine", () => {
   });
 
   it("should have completed successfully", () => {
-    expect(simulationSummary.isCompletedSuccessfully).toBeTruthy();
+    expect(simulationSummary.isCompletedSuccessfully).toBeTrue();
   });
 
   it("should have simulation count of ten", () => {
