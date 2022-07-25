@@ -52,9 +52,7 @@ export const monteCarloMachine = ((
           gamesWonCount += 1;
         }
 
-        if (gameSummaryCallback) {
-          gameSummaryCallback(gameSummary);
-        }
+        gameSummaryCallback(gameSummary);
       }
       catch (ex) {
         error = true;
