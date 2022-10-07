@@ -1,6 +1,6 @@
 {
   "name": "montehall",
-  "version": "0.7.35",
+  "version": "0.7.36",
   "description": "A Monte Carlo machine for the Monty Hall Problem",
   "author": "Omar Boukli-Hacene",
   "license": "MIT",
@@ -25,7 +25,7 @@
     "test": "jasmine"
   },
   "dependencies": {
-    "commander": "^4.1.1",
+    "commander": "^9.4.1",
     "random-number-csprng": "^1.0.2"
   },
   "devDependencies": {

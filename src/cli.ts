@@ -5,8 +5,9 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import * as program from "commander";
 import * as os from "os";
+
+import { Command, Option } from "commander";
 
 import {
   GameSummaryCallback,
@@ -29,18 +30,21 @@ const DEFAULT_NUM_GAMES = Number(config.games || 0);
 let numGames = DEFAULT_NUM_GAMES;
 let isWisePlayer = false;
 
+const program = new Command();
 program
   .name(pkgInfo.name)
+  .description("A Monte Carlo Machine for the Monty Hall Problem")
   .version(VERSION, "-V, --version", "Output version information")
   .helpOption("-h, --help", "Output usage information")
   .option(
     "-g, --games <n>",
     `Number of games (default: ${DEFAULT_NUM_GAMES})`, Number
   )
-  .option(
-    "-r, --random [type]",
-    "Random number generator type (basic, crypto or table)", /^(basic|crypto)$/i, "basic"
-  )
+  .addOption(
+    new Option(
+      "-r, --random [type]",
+      "Random number generator type"
+    ).choices(["basic", "crypto", "table"]))
   .option(
     "-v, --verbose",
     "Show summary for each game"
@@ -48,30 +52,32 @@ program
   .option("-w, --wise",
     "Wise player"
   )
-  .parse(process.argv);
+  .parse();
 
-if (program.games > 0) {
-  numGames = program.games;
+const options = program.opts();
+
+if (options.games > 0) {
+  numGames = options.games;
 }
 
-if (program.wise) {
+if (options.wise) {
   isWisePlayer = true;
 }
 
 let isDecimalTable = false;
-const numTableFileName: string = program.tableFile || config.numTableFileName || "";
-if (program.random === "table") {
+const numTableFileName: string = options.tableFile || config.numTableFileName || "";
+if (options.random === "table") {
   if (!numTableFileName) {
     process.stdout.write("Random number table file not specified.");
     process.exit(1);
   }
-  isDecimalTable = program.decimalTable || config.isDecimalNumTable;
+  isDecimalTable = options.decimalTable || config.isDecimalNumTable;
 }
 
-const rng = rngFactory(program.random, numTableFileName, isDecimalTable);
+const rng = rngFactory(options.random, numTableFileName, isDecimalTable);
 
 let gameSummaryCallback: GameSummaryCallback;
-if (program.verbose) {
+if (options.verbose) {
   gameSummaryCallback = (gameSummary) => {
     const formatter = gameSummaryFormatter(gameSummary, os.EOL);
     process.stdout.write(`${formatter.toString()}${os.EOL}${os.EOL}`);
