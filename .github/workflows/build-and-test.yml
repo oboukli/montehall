@@ -1,12 +1,8 @@
-name: Node.js CI
+name: Build and test
 
 on:
   pull_request:
-    paths:
-      - "*.ts"
   push:
-    paths:
-      - "**.ts"
   workflow_dispatch:
 
 permissions:
@@ -33,6 +29,9 @@ jobs:
 
       - name: Build
         run: npm ci
+
+      - name: Check code style
+        run: npx prettier --check .
 
       - name: Run tests
         run: npm test
