@@ -4,6 +4,8 @@
 [![Known vulnerabilities](https://snyk.io/test/github/oboukli/montehall/badge.svg)](https://snyk.io/test/github/oboukli/montehall)
 [![CodeQL](https://github.com/oboukli/montehall/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/oboukli/montehall/actions/workflows/codeql-analysis.yml?query=branch%3Amain)
 
+[![Code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 An over-engineered experiment with TypeScript/JavaScript (ECMAScript 2017+)
 aimed at:
 
