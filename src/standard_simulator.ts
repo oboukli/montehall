@@ -17,7 +17,7 @@ import {
  * @param setupOptions Setup options.
  * @param randomNumberProvider Random number generator.
  */
-export const standardSimulator = ((
+export const standardSimulator = (
   setupOptions: SetupOptions,
   randomNumberProvider: RandomNumberProvider
 ): GameSimulator => {
@@ -45,16 +45,14 @@ export const standardSimulator = ((
 
     try {
       winningIndex = await wiPromise;
-    }
-    catch (ex) {
+    } catch (ex) {
       error = true;
       winningIndex = -1;
     }
 
     try {
       playerInitialPickedIndex = await piPromise;
-    }
-    catch (ex) {
+    } catch (ex) {
       error = true;
       playerInitialPickedIndex = -1;
     }
@@ -62,24 +60,21 @@ export const standardSimulator = ((
     if (winningIndex === playerInitialPickedIndex) {
       try {
         revealedLosingIndex = await pickRandomIndexes(winningIndex);
-      }
-      catch (ex) {
+      } catch (ex) {
         error = true;
         revealedLosingIndex = -1;
       }
-    }
-    else {
-      revealedLosingIndex = (3 - winningIndex) - playerInitialPickedIndex;
+    } else {
+      revealedLosingIndex = 3 - winningIndex - playerInitialPickedIndex;
     }
 
     if (setupOptions.isPlayerStubborn) {
       confirmedPlayerPickedIndex = playerInitialPickedIndex;
-    }
-    else {
+    } else {
       try {
-        confirmedPlayerPickedIndex = (3 - revealedLosingIndex) - playerInitialPickedIndex;
-      }
-      catch (ex) {
+        confirmedPlayerPickedIndex =
+          3 - revealedLosingIndex - playerInitialPickedIndex;
+      } catch (ex) {
         error = true;
         confirmedPlayerPickedIndex = -1;
       }
@@ -95,7 +90,7 @@ export const standardSimulator = ((
       playerInitialPickedIndex,
       revealedLosingIndexes: revealedLosingIndex,
       setupSize: setupOptions.size,
-      winningIndex
+      winningIndex,
     };
   };
 
@@ -105,15 +100,18 @@ export const standardSimulator = ((
       if (excludedIndex !== index) {
         return index;
       }
-    }
-    catch (ex) {
-      throw new Error(`Cannot generate random number. ${ex instanceof Error ? ex.message : ex}`);
+    } catch (ex) {
+      throw new Error(
+        `Cannot generate random number. ${
+          ex instanceof Error ? ex.message : ex
+        }`
+      );
     }
 
     return pickRandomIndexes(excludedIndex);
   };
 
   return {
-    simulateGame
+    simulateGame,
   };
-});
+};

@@ -22,14 +22,13 @@ import {
  * @param rng Random number generator.
  * @param gameSummaryCallback A callback to be passed a simulation's GameSummary object.
  */
-export const monteCarloMachine = ((
+export const monteCarloMachine = (
   setupOptions: SetupOptions,
   numGames: number,
   gameSimulatorFactory: GameSimulatorFactory,
   rng: RandomNumberProvider,
   gameSummaryCallback: GameSummaryCallback
 ): { run: () => Promise<SimulationSummary> } => {
-
   /**
    * Runs the Monte Carlo machine.
    * @function run
@@ -48,18 +47,18 @@ export const monteCarloMachine = ((
       try {
         gameSummary = await gameSimulator.simulateGame();
 
-        if (gameSummary.winningIndex === gameSummary.confirmedPlayerPickedIndex) {
+        if (
+          gameSummary.winningIndex === gameSummary.confirmedPlayerPickedIndex
+        ) {
           gamesWonCount += 1;
         }
 
         gameSummaryCallback(gameSummary);
-      }
-      catch (ex) {
+      } catch (ex) {
         error = true;
         exception = ex;
         break;
-      }
-      finally {
+      } finally {
         simulationCount = i + 1;
       }
     }
@@ -73,6 +72,6 @@ export const monteCarloMachine = ((
   };
 
   return {
-    run
+    run,
   };
-});
+};

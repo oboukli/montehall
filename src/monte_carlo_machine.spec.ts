@@ -32,8 +32,7 @@ describe("Monte Carlo machine", () => {
 
     const numGames = 10;
 
-    const gameSimulatorFactory: GameSimulatorFactory = (
-    ): GameSimulator => {
+    const gameSimulatorFactory: GameSimulatorFactory = (): GameSimulator => {
       return {
         simulateGame: async (): Promise<GameSummary> => {
           return {
@@ -42,16 +41,16 @@ describe("Monte Carlo machine", () => {
             playerInitialPickedIndex: 0,
             revealedLosingIndexes: 2,
             setupSize: setupOptions.size,
-            winningIndex: 0
+            winningIndex: 0,
           };
-        }
+        },
       };
     };
 
     const gameSummaryCallbackWrapper = {
       gameCompleted: () => {
         return;
-      }
+      },
     };
 
     gameSummaryCallbackSpy = spyOn(

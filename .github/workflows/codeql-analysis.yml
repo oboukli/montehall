@@ -16,14 +16,14 @@ jobs:
       security-events: write
 
     steps:
-    - name: Check out repository
-      uses: actions/checkout@v3
+      - name: Check out repository
+        uses: actions/checkout@v3
 
-    # Initializes the CodeQL tools for scanning.
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v1
-      with:
-        languages: javascript
+      # Initializes the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          languages: javascript
 
-    - name: Perform CodeQL analysis
-      uses: github/codeql-action/analyze@v1
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v1

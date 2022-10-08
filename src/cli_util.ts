@@ -47,6 +47,9 @@ export const rngFactory = (
  * @param setupOptions
  * @param rng
  */
-export const gameSimulatorFactory: GameSimulatorFactory = (setupOptions, rng) => {
+export const gameSimulatorFactory: GameSimulatorFactory = (
+  setupOptions,
+  rng
+) => {
   return standardSimulator(setupOptions, rng);
 };

@@ -17,7 +17,7 @@ import {
  * @param setupOptions Setup options.
  * @param randomNumberProvider Random number provider.
  */
-export const generalSimulator = ((
+export const generalSimulator = (
   setupOptions: SetupOptions,
   randomNumberProvider: RandomNumberProvider
 ): GameSimulator => {
@@ -37,16 +37,14 @@ export const generalSimulator = ((
     let winningIndex = -1;
     try {
       winningIndex = (await wiPromise)[0];
-    }
-    catch (ex) {
+    } catch (ex) {
       error = true;
     }
 
     let playerInitialPickedIndex = -1;
     try {
       playerInitialPickedIndex = (await piPromise)[0];
-    }
-    catch (ex) {
+    } catch (ex) {
       error = true;
     }
 
@@ -60,8 +58,7 @@ export const generalSimulator = ((
         setupOptions.size - 2,
         indexesExcludedFromReveal
       );
-    }
-    catch (ex) {
+    } catch (ex) {
       error = true;
     }
 
@@ -74,12 +71,10 @@ export const generalSimulator = ((
         ...revealedLosingIndexes,
       ];
       try {
-        confirmedPlayerPickedIndex = (await pickRandomIndexes(
-          1,
-          excludedIndexes
-        ))[0];
-      }
-      catch (ex) {
+        confirmedPlayerPickedIndex = (
+          await pickRandomIndexes(1, excludedIndexes)
+        )[0];
+      } catch (ex) {
         error = true;
       }
     }
@@ -100,7 +95,8 @@ export const generalSimulator = ((
 
   const pickRandomIndexes = async (
     numIndexes: number,
-    excludedIndexes: number[]): Promise<number[]> => {
+    excludedIndexes: number[]
+  ): Promise<number[]> => {
     let index: number;
 
     const indexes = new Array<number>(numIndexes);
@@ -109,9 +105,12 @@ export const generalSimulator = ((
         // The exact number of needed RNG calls is nondeterministic.
         try {
           index = await randomNumberProvider.random(0, setupOptions.size - 1);
-        }
-        catch (ex) {
-          throw new Error(`Cannot generate random number. ${ex instanceof Error ? ex.message : ex}`);
+        } catch (ex) {
+          throw new Error(
+            `Cannot generate random number. ${
+              ex instanceof Error ? ex.message : ex
+            }`
+          );
         }
       } while (excludedIndexes.indexOf(index) !== -1);
       indexes[i] = index;
@@ -121,6 +120,6 @@ export const generalSimulator = ((
   };
 
   return {
-    simulateGame
+    simulateGame,
   };
-});
+};

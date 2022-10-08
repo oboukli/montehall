@@ -17,10 +17,7 @@ import {
   simulationSummaryFormatter,
 } from ".";
 
-import {
-  gameSimulatorFactory,
-  rngFactory,
-} from "./cli_util";
+import { gameSimulatorFactory, rngFactory } from "./cli_util";
 
 const pkgInfo = require("../package.json");
 const config = require("../montehall.json");
@@ -38,20 +35,18 @@ program
   .helpOption("-h, --help", "Output usage information")
   .option(
     "-g, --games <n>",
-    `Number of games (default: ${DEFAULT_NUM_GAMES})`, Number
+    `Number of games (default: ${DEFAULT_NUM_GAMES})`,
+    Number
   )
   .addOption(
-    new Option(
-      "-r, --random [type]",
-      "Random number generator type"
-    ).choices(["basic", "crypto", "table"]))
-  .option(
-    "-v, --verbose",
-    "Show summary for each game"
+    new Option("-r, --random [type]", "Random number generator type").choices([
+      "basic",
+      "crypto",
+      "table",
+    ])
   )
-  .option("-w, --wise",
-    "Wise player"
-  )
+  .option("-v, --verbose", "Show summary for each game")
+  .option("-w, --wise", "Wise player")
   .parse();
 
 const options = program.opts();
@@ -65,7 +60,8 @@ if (options.wise) {
 }
 
 let isDecimalTable = false;
-const numTableFileName: string = options.tableFile || config.numTableFileName || "";
+const numTableFileName: string =
+  options.tableFile || config.numTableFileName || "";
 if (options.random === "table") {
   if (!numTableFileName) {
     process.stdout.write("Random number table file not specified.");
@@ -82,9 +78,8 @@ if (options.verbose) {
     const formatter = gameSummaryFormatter(gameSummary, os.EOL);
     process.stdout.write(`${formatter.toString()}${os.EOL}${os.EOL}`);
   };
-}
-else {
-  gameSummaryCallback = () => { };
+} else {
+  gameSummaryCallback = () => {};
 }
 
 const setupOptions: SetupOptions = {
@@ -97,17 +92,20 @@ const mcm = monteCarloMachine(
   numGames,
   gameSimulatorFactory,
   rng,
-  gameSummaryCallback,
+  gameSummaryCallback
 );
 
-mcm.run()
-.then((simulationSummary) => {
-  const formatter = simulationSummaryFormatter(
-    setupOptions,
-    numGames,
-    simulationSummary,
-    os.EOL
-  );
-  process.stdout.write(`${formatter.toString()}${os.EOL}`);
-})
-.catch((reason) => { process.stdout.write(reason); });
+mcm
+  .run()
+  .then((simulationSummary) => {
+    const formatter = simulationSummaryFormatter(
+      setupOptions,
+      numGames,
+      simulationSummary,
+      os.EOL
+    );
+    process.stdout.write(`${formatter.toString()}${os.EOL}`);
+  })
+  .catch((reason) => {
+    process.stdout.write(reason);
+  });

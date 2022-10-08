@@ -12,7 +12,7 @@ import { RandomNumberProvider } from "../montehall";
  * Exposes a slow but cryptographically secure
  * pseudorandom number generator.
  */
-export const csPrng = ((): RandomNumberProvider => {
+export const csPrng = (): RandomNumberProvider => {
   /**
    * Generates a uniform distribution random integer between two values.
    * @function random
@@ -33,6 +33,6 @@ export const csPrng = ((): RandomNumberProvider => {
   };
 
   return {
-    random
+    random,
   };
-});
+};

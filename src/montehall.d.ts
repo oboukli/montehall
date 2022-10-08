@@ -49,11 +49,14 @@ export interface GameSummary {
   readonly revealedLosingIndexes: number | number[];
 }
 
-export type RandomNumberGenerator = (min: number, max: number) => number | Promise<number>;
+export type RandomNumberGenerator = (
+  min: number,
+  max: number
+) => number | Promise<number>;
 
 export type GameSimulatorFactory = (
   setupOptions: SetupOptions,
-  rng: RandomNumberProvider,
+  rng: RandomNumberProvider
 ) => GameSimulator;
 
 export type GameSummaryCallback = (gameSummary: GameSummary) => void;

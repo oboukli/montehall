@@ -8,18 +8,15 @@ SPDX-License-Identifier: MIT
 import * as fs from "fs";
 import * as util from "util";
 
-import {
-  RandomNumberGenerator,
-  RandomNumberProvider,
-} from "../montehall";
+import { RandomNumberGenerator, RandomNumberProvider } from "../montehall";
 
 /**
  * Provides numbers from pre-prepared, and ideally random, number table text file.
  * The quality of the randomness, or lack of it, depends on the random number table.
  */
-export const tableRng = ((
+export const tableRng = (
   numTableFileName: string,
-  isGeneral = false,
+  isGeneral = false
 ): RandomNumberProvider => {
   /**
    * Provides an integer from a preloaded number table.
@@ -78,25 +75,23 @@ export const tableRng = ((
     let dataBuffer: string;
     try {
       dataBuffer = await readFile(numTableFileName, "utf8");
-    }
-    catch (ex) {
-      throw new Error(`Cannot read number table. ${ex instanceof Error ? ex.message : ex}`);
+    } catch (ex) {
+      throw new Error(
+        `Cannot read number table. ${ex instanceof Error ? ex.message : ex}`
+      );
     }
 
-    randomNumberTable = dataBuffer
-      .split(/\r\n|\r|\n/g)
-      .map(Number);
+    randomNumberTable = dataBuffer.split(/\r\n|\r|\n/g).map(Number);
     randomNumberTableSize = randomNumberTable.length;
   };
 
   if (isGeneral) {
     random = getInt;
-  }
-  else {
+  } else {
     random = getRaw;
   }
 
   return {
     random,
   };
-});
+};

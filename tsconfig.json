@@ -14,19 +14,9 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2021",
-    "lib": [
-      "es2021"
-    ],
-    "types": [
-      "node"
-    ]
+    "lib": ["es2021"],
+    "types": ["node"]
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "dist",
-    "node_modules",
-    "**/*.spec.ts"
-  ]
+  "include": ["src"],
+  "exclude": ["dist", "node_modules", "**/*.spec.ts"]
 }

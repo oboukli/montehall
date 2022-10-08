@@ -28,65 +28,59 @@ describe("Standard Monty Hall problem simulator", () => {
       });
 
       it("should have valid setup size of three", () => {
-        expect(gameSummary.setupSize)
-          .toEqual(3);
+        expect(gameSummary.setupSize).toEqual(3);
       });
 
       it("should not have revealedLosingIndexes as an array", () => {
-        expect(Array.isArray(gameSummary.revealedLosingIndexes))
-          .toBeFalse();
+        expect(Array.isArray(gameSummary.revealedLosingIndexes)).toBeFalse();
       });
 
       it("should have revealedLosingIndexes as integer", () => {
-        expect(Number.isInteger(gameSummary.revealedLosingIndexes))
-          .toBeTrue();
+        expect(Number.isInteger(gameSummary.revealedLosingIndexes)).toBeTrue();
       });
 
       it("should have a valid playerInitialPickedIndex", () => {
-        expect(gameSummary.playerInitialPickedIndex)
-          .toBeGreaterThanOrEqual(0);
+        expect(gameSummary.playerInitialPickedIndex).toBeGreaterThanOrEqual(0);
 
-        expect(gameSummary.playerInitialPickedIndex)
-          .toBeLessThanOrEqual(2);
+        expect(gameSummary.playerInitialPickedIndex).toBeLessThanOrEqual(2);
       });
 
       it("should have a valid confirmedPlayerPickedIndex", () => {
-        expect(gameSummary.confirmedPlayerPickedIndex)
-          .toBeGreaterThanOrEqual(0);
+        expect(gameSummary.confirmedPlayerPickedIndex).toBeGreaterThanOrEqual(
+          0
+        );
 
-        expect(gameSummary.confirmedPlayerPickedIndex)
-          .toBeLessThanOrEqual(2);
+        expect(gameSummary.confirmedPlayerPickedIndex).toBeLessThanOrEqual(2);
       });
 
       it("should have a valid winningIndex", () => {
-        expect(gameSummary.winningIndex)
-          .toBeGreaterThanOrEqual(0);
+        expect(gameSummary.winningIndex).toBeGreaterThanOrEqual(0);
 
-        expect(gameSummary.winningIndex)
-          .toBeLessThanOrEqual(2);
+        expect(gameSummary.winningIndex).toBeLessThanOrEqual(2);
       });
 
       it("should have a valid revealedLosingIndexes", () => {
-        expect(gameSummary.revealedLosingIndexes)
-          .toBeGreaterThanOrEqual(0);
+        expect(gameSummary.revealedLosingIndexes).toBeGreaterThanOrEqual(0);
 
-        expect(gameSummary.revealedLosingIndexes)
-          .toBeLessThanOrEqual(2);
+        expect(gameSummary.revealedLosingIndexes).toBeLessThanOrEqual(2);
       });
 
       it("should have a non-revealed playerInitialPickedIndex", () => {
-        expect(gameSummary.playerInitialPickedIndex)
-          .not.toEqual(gameSummary.revealedLosingIndexes as number);
+        expect(gameSummary.playerInitialPickedIndex).not.toEqual(
+          gameSummary.revealedLosingIndexes as number
+        );
       });
 
       it("should have a non-revealed confirmedPlayerPickedIndex", () => {
-        expect(gameSummary.confirmedPlayerPickedIndex)
-          .not.toEqual(gameSummary.revealedLosingIndexes as number);
+        expect(gameSummary.confirmedPlayerPickedIndex).not.toEqual(
+          gameSummary.revealedLosingIndexes as number
+        );
       });
 
       it("should have a non-revealed winningIndex", () => {
-        expect(gameSummary.winningIndex)
-          .not.toEqual(gameSummary.revealedLosingIndexes as number);
+        expect(gameSummary.winningIndex).not.toEqual(
+          gameSummary.revealedLosingIndexes as number
+        );
       });
     });
 
@@ -118,14 +112,17 @@ describe("Standard Monty Hall problem simulator", () => {
 
     it("should reflect in the game summary that the persistent player did not switch", async () => {
       gameSummary = await simulator.simulateGame();
-      expect(gameSummary.isPlayerStubborn)
-        .toBeTrue();
+      expect(gameSummary.isPlayerStubborn).toBeTrue();
 
-      expect(gameSummary.confirmedPlayerPickedIndex)
-        .toEqual(gameSummary.playerInitialPickedIndex);
+      expect(gameSummary.confirmedPlayerPickedIndex).toEqual(
+        gameSummary.playerInitialPickedIndex
+      );
     });
 
-    describe("Validate player-type-independent specs", validatePlayerIndependentSpecs);
+    describe(
+      "Validate player-type-independent specs",
+      validatePlayerIndependentSpecs
+    );
   });
 
   describe("with a player that switches (non-stubborn)", () => {
@@ -143,26 +140,31 @@ describe("Standard Monty Hall problem simulator", () => {
     it("should reflect in the game summary that the wise (non-stubborn) player switched", async () => {
       gameSummary = await simulator.simulateGame();
 
-      expect(gameSummary.isPlayerStubborn)
-        .toBeFalse();
+      expect(gameSummary.isPlayerStubborn).toBeFalse();
 
-      expect(gameSummary.confirmedPlayerPickedIndex)
-        .not.toEqual(gameSummary.playerInitialPickedIndex);
+      expect(gameSummary.confirmedPlayerPickedIndex).not.toEqual(
+        gameSummary.playerInitialPickedIndex
+      );
     });
 
-    describe("Validate player-type-independent specs", validatePlayerIndependentSpecs);
+    describe(
+      "Validate player-type-independent specs",
+      validatePlayerIndependentSpecs
+    );
   });
 
   describe("asynchronous exception specs", () => {
     describe("for invalid game size (size not three)", () => {
       it("should asynchronously throw RangeError", async () => {
         let exception: unknown;
-        const sim = standardSimulator({ size: 2, isPlayerStubborn: false }, rng);
+        const sim = standardSimulator(
+          { size: 2, isPlayerStubborn: false },
+          rng
+        );
 
         try {
           await sim.simulateGame();
-        }
-        catch (ex: unknown) {
+        } catch (ex: unknown) {
           exception = ex;
         }
 
@@ -181,14 +183,13 @@ describe("Standard Monty Hall problem simulator", () => {
           {
             random: async () => {
               throw Error();
-            }
+            },
           }
         );
 
         try {
           await sim.simulateGame();
-        }
-        catch (ex: unknown) {
+        } catch (ex: unknown) {
           exception = ex;
         }
 

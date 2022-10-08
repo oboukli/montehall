@@ -4,6 +4,7 @@ Licensed under an MIT-style license.
 
 SPDX-License-Identifier: MIT
 */
+
 // TODO:
 
 import "jasmine";
@@ -44,14 +45,21 @@ describe("GeneralSimulator", () => {
       expect((gameSummary.revealedLosingIndexes as number[]).length).toEqual(1);
       expect(gameSummary.setupSize).toEqual(3);
 
-      expect(gameSummary.confirmedPlayerPickedIndex)
-        .toEqual(gameSummary.playerInitialPickedIndex);
+      expect(gameSummary.confirmedPlayerPickedIndex).toEqual(
+        gameSummary.playerInitialPickedIndex
+      );
 
-      expect(gameSummary.revealedLosingIndexes).not.toContain(gameSummary.playerInitialPickedIndex);
+      expect(gameSummary.revealedLosingIndexes).not.toContain(
+        gameSummary.playerInitialPickedIndex
+      );
 
-      expect(gameSummary.revealedLosingIndexes).not.toContain(gameSummary.confirmedPlayerPickedIndex);
+      expect(gameSummary.revealedLosingIndexes).not.toContain(
+        gameSummary.confirmedPlayerPickedIndex
+      );
 
-      expect(gameSummary.revealedLosingIndexes).not.toContain(gameSummary.winningIndex);
+      expect(gameSummary.revealedLosingIndexes).not.toContain(
+        gameSummary.winningIndex
+      );
     });
 
     it("should call the RNG a minimum of three times for the stubborn player", async () => {
@@ -86,14 +94,21 @@ describe("GeneralSimulator", () => {
       expect((gameSummary.revealedLosingIndexes as number[]).length).toEqual(1);
       expect(gameSummary.setupSize).toEqual(3);
 
-      expect(gameSummary.confirmedPlayerPickedIndex)
-        .not.toEqual(gameSummary.playerInitialPickedIndex);
+      expect(gameSummary.confirmedPlayerPickedIndex).not.toEqual(
+        gameSummary.playerInitialPickedIndex
+      );
 
-      expect(gameSummary.revealedLosingIndexes).not.toContain(gameSummary.playerInitialPickedIndex);
+      expect(gameSummary.revealedLosingIndexes).not.toContain(
+        gameSummary.playerInitialPickedIndex
+      );
 
-      expect(gameSummary.revealedLosingIndexes).not.toContain(gameSummary.confirmedPlayerPickedIndex);
+      expect(gameSummary.revealedLosingIndexes).not.toContain(
+        gameSummary.confirmedPlayerPickedIndex
+      );
 
-      expect(gameSummary.revealedLosingIndexes).not.toContain(gameSummary.winningIndex);
+      expect(gameSummary.revealedLosingIndexes).not.toContain(
+        gameSummary.winningIndex
+      );
     });
 
     it("should call the RNG a minimum of four times for the wise player", async () => {
@@ -121,14 +136,21 @@ describe("GeneralSimulator", () => {
       expect((gameSummary.revealedLosingIndexes as number[]).length).toEqual(3);
       expect(gameSummary.setupSize).toEqual(5);
 
-      expect(gameSummary.confirmedPlayerPickedIndex)
-        .toEqual(gameSummary.playerInitialPickedIndex);
+      expect(gameSummary.confirmedPlayerPickedIndex).toEqual(
+        gameSummary.playerInitialPickedIndex
+      );
 
-      expect(gameSummary.revealedLosingIndexes).not.toContain(gameSummary.playerInitialPickedIndex);
+      expect(gameSummary.revealedLosingIndexes).not.toContain(
+        gameSummary.playerInitialPickedIndex
+      );
 
-      expect(gameSummary.revealedLosingIndexes).not.toContain(gameSummary.confirmedPlayerPickedIndex);
+      expect(gameSummary.revealedLosingIndexes).not.toContain(
+        gameSummary.confirmedPlayerPickedIndex
+      );
 
-      expect(gameSummary.revealedLosingIndexes).not.toContain(gameSummary.winningIndex);
+      expect(gameSummary.revealedLosingIndexes).not.toContain(
+        gameSummary.winningIndex
+      );
     });
   });
 
@@ -147,14 +169,21 @@ describe("GeneralSimulator", () => {
       expect((gameSummary.revealedLosingIndexes as number[]).length).toEqual(3);
       expect(gameSummary.setupSize).toEqual(5);
 
-      expect(gameSummary.confirmedPlayerPickedIndex)
-        .not.toEqual(gameSummary.playerInitialPickedIndex);
+      expect(gameSummary.confirmedPlayerPickedIndex).not.toEqual(
+        gameSummary.playerInitialPickedIndex
+      );
 
-      expect(gameSummary.revealedLosingIndexes).not.toContain(gameSummary.playerInitialPickedIndex);
+      expect(gameSummary.revealedLosingIndexes).not.toContain(
+        gameSummary.playerInitialPickedIndex
+      );
 
-      expect(gameSummary.revealedLosingIndexes).not.toContain(gameSummary.confirmedPlayerPickedIndex);
+      expect(gameSummary.revealedLosingIndexes).not.toContain(
+        gameSummary.confirmedPlayerPickedIndex
+      );
 
-      expect(gameSummary.revealedLosingIndexes).not.toContain(gameSummary.winningIndex);
+      expect(gameSummary.revealedLosingIndexes).not.toContain(
+        gameSummary.winningIndex
+      );
     });
   });
 });
