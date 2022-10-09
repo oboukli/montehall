@@ -41,7 +41,7 @@ program
   .addOption(
     new Option("-r, --random [type]", "Random number generator type").choices([
       "basic",
-      "crypto",
+      "advanced",
       "table",
     ])
   )

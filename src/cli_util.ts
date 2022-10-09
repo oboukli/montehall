@@ -1,17 +1,14 @@
 import {
-  csPrng as csPrngT,
   GameSimulatorFactory,
-  naiveRng as naiveRngT,
   RandomNumberProvider,
   standardSimulator,
-  tableRng as tableRngT,
 } from ".";
 
 const naiveRngModule = "./random/naive_rng";
 const csprngModule = "./random/csprng";
 const tableRngModule = "./random/table_rng";
 
-export type RandomNumberProviderType = "basic" | "crypto" | "table";
+export type RandomNumberProviderType = "basic" | "advanced" | "table";
 
 /**
  * Creates a random number provider.
@@ -23,23 +20,14 @@ export const rngFactory = (
   numTableFileName: string,
   isDecimalTable: boolean
 ): RandomNumberProvider => {
-  let r: RandomNumberProvider;
   switch (rngType) {
-    case "crypto":
-      const csPrng: typeof csPrngT = require(csprngModule).csPrng;
-      r = csPrng();
-      break;
+    case "advanced":
+      return require(csprngModule).csPrng();
     case "table":
-      const tableRng: typeof tableRngT = require(tableRngModule).tableRng;
-      r = tableRng(numTableFileName, isDecimalTable);
-      break;
+      return require(tableRngModule).tableRng(numTableFileName, isDecimalTable);
     default:
-      const naiveRng: typeof naiveRngT = require(naiveRngModule).naiveRng;
-      r = naiveRng();
-      break;
+      return require(naiveRngModule).naiveRng();
   }
-
-  return r;
 };
 
 /**

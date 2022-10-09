@@ -72,12 +72,12 @@ function.
 
 ### A higher quality randomness source
 
-For a higher quality, but slower, randomness source,use the `--random crypto`
+For a higher quality, but slower, randomness source,use the `--random advanced`
 option, which employs a cryptographically secure pseudorandom number
 generator (CSPRNG.)
 
 ```shell
-npm run montehall -- --wise --random crypto
+npm run montehall -- --wise --random advanced
 ```
 
 ### Using pre-generated random numbers (experimental)
