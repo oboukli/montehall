@@ -1,9 +1,0 @@
-{
-  "extends": "../tsconfig",
-  "compilerOptions": {
-    "outDir": ".",
-    "types": ["node", "jasmine"]
-  },
-  "include": ["../src"],
-  "exclude": [".", "node_modules"]
-}
