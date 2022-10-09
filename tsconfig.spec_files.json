@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "outDir": "spec",
+    "types": ["node", "jasmine"]
+  }
+}
