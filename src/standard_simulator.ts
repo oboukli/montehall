@@ -29,11 +29,8 @@ export const standardSimulator = (
    * @throws {Error} On simulation failure due to random number provider failure.
    */
   const simulateGame = async (): Promise<GameSummary> => {
-    let winningIndex;
-    let playerInitialPickedIndex;
     let revealedLosingIndex;
     let confirmedPlayerPickedIndex;
-    let error = false;
 
     if (setupOptions.size !== 3) {
       throw new RangeError("Unsupported non-standard size.");
@@ -42,28 +39,13 @@ export const standardSimulator = (
     // Picking winning and player indices are independent events.
     const wiPromise = pickRandomIndexes();
     const piPromise = pickRandomIndexes();
-
-    try {
-      winningIndex = await wiPromise;
-    } catch (ex) {
-      error = true;
-      winningIndex = -1;
-    }
-
-    try {
-      playerInitialPickedIndex = await piPromise;
-    } catch (ex) {
-      error = true;
-      playerInitialPickedIndex = -1;
-    }
+    const [winningIndex, playerInitialPickedIndex] = await Promise.all([
+      wiPromise,
+      piPromise,
+    ]);
 
     if (winningIndex === playerInitialPickedIndex) {
-      try {
-        revealedLosingIndex = await pickRandomIndexes(winningIndex);
-      } catch (ex) {
-        error = true;
-        revealedLosingIndex = -1;
-      }
+      revealedLosingIndex = await pickRandomIndexes(winningIndex);
     } else {
       revealedLosingIndex = 3 - winningIndex - playerInitialPickedIndex;
     }
@@ -71,17 +53,8 @@ export const standardSimulator = (
     if (setupOptions.isPlayerStubborn) {
       confirmedPlayerPickedIndex = playerInitialPickedIndex;
     } else {
-      try {
-        confirmedPlayerPickedIndex =
-          3 - revealedLosingIndex - playerInitialPickedIndex;
-      } catch (ex) {
-        error = true;
-        confirmedPlayerPickedIndex = -1;
-      }
-    }
-
-    if (error) {
-      throw new Error("Simulation failed.");
+      confirmedPlayerPickedIndex =
+        3 - revealedLosingIndex - playerInitialPickedIndex;
     }
 
     return {
