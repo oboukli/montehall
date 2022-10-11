@@ -13,22 +13,23 @@ export const gameSummaryFormatter = (
 ): { toString: () => string } => {
   const toString = (): string => {
     const padding = 27;
-    const g = gameSummary;
 
-    let s = `${"Setup size:".padEnd(padding)}${g.setupSize}${eol}`;
+    let s = `${"Setup size:".padEnd(padding)}${gameSummary.setupSize}${eol}`;
     s += `${"Winning index(es):".padEnd(
       padding
-    )}${g.winningIndex.toString()}${eol}`;
-    s += `${"Player switches:".padEnd(padding)}${!g.isPlayerStubborn}${eol}`;
+    )}${gameSummary.winningIndex.toString()}${eol}`;
+    s += `${"Player switches:".padEnd(
+      padding
+    )}${!gameSummary.isPlayerStubborn}${eol}`;
     s += `${"Initial picked index(es):".padEnd(
       padding
-    )}${g.playerInitialPickedIndex.toString()}${eol}`;
+    )}${gameSummary.playerInitialPickedIndex.toString()}${eol}`;
     s += `${"Confirmed index(es):".padEnd(
       padding
-    )}${g.confirmedPlayerPickedIndex.toString()}${eol}`;
+    )}${gameSummary.confirmedPlayerPickedIndex.toString()}${eol}`;
     s += `${"Revealed losing index(es):".padEnd(
       padding
-    )}${g.revealedLosingIndexes.toString()}`;
+    )}${gameSummary.revealedLosingIndexes.toString()}`;
 
     return s;
   };
