@@ -17,10 +17,27 @@ import {
  * @param setupOptions Setup options.
  * @param randomNumberProvider Random number generator.
  */
-export const standardSimulator = (
+export function standardSimulator(
   setupOptions: SetupOptions,
   randomNumberProvider: RandomNumberProvider
-): GameSimulator => {
+): GameSimulator {
+  async function pickRandomIndexes(excludedIndex = -1): Promise<number> {
+    try {
+      const index = await randomNumberProvider.random(0, 2);
+      if (excludedIndex !== index) {
+        return index;
+      }
+    } catch (ex) {
+      throw new Error(
+        `Cannot generate random number. ${
+          ex instanceof Error ? ex.message : ex
+        }`
+      );
+    }
+
+    return pickRandomIndexes(excludedIndex);
+  }
+
   /**
    * Runs simulation.
    * @function simulateGame
@@ -28,7 +45,7 @@ export const standardSimulator = (
    * @throws {RangeError} On encountering a setupOption.size value other than 3.
    * @throws {Error} On simulation failure due to random number provider failure.
    */
-  const simulateGame = async (): Promise<GameSummary> => {
+  async function simulateGame(): Promise<GameSummary> {
     let revealedLosingIndex;
     let confirmedPlayerPickedIndex;
 
@@ -65,26 +82,9 @@ export const standardSimulator = (
       setupSize: setupOptions.size,
       winningIndex,
     };
-  };
-
-  const pickRandomIndexes = async (excludedIndex = -1): Promise<number> => {
-    try {
-      const index = await randomNumberProvider.random(0, 2);
-      if (excludedIndex !== index) {
-        return index;
-      }
-    } catch (ex) {
-      throw new Error(
-        `Cannot generate random number. ${
-          ex instanceof Error ? ex.message : ex
-        }`
-      );
-    }
-
-    return pickRandomIndexes(excludedIndex);
-  };
+  }
 
   return {
     simulateGame,
   };
-};
+}
