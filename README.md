@@ -1,8 +1,10 @@
 # Montehall: a Monte Carlo machine for the Monty Hall problem
 
+[![Build and test](https://github.com/oboukli/montehall/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/oboukli/montehall/actions/workflows/build-and-test.yml)
 [![Azure Pipelines build status](https://dev.azure.com/omarboukli/montehall/_apis/build/status/oboukli.montehall?branchName=main)](https://dev.azure.com/omarboukli/montehall/_build/latest?definitionId=1&branchName=main)
-[![Known vulnerabilities](https://snyk.io/test/github/oboukli/montehall/badge.svg)](https://snyk.io/test/github/oboukli/montehall)
+
 [![CodeQL](https://github.com/oboukli/montehall/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/oboukli/montehall/actions/workflows/codeql-analysis.yml?query=branch%3Amain)
+[![Known vulnerabilities](https://snyk.io/test/github/oboukli/montehall/badge.svg)](https://snyk.io/test/github/oboukli/montehall)
 
 [![Code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
@@ -82,7 +84,8 @@ npm run montehall -- --wise --random advanced
 
 ### Using pre-generated random numbers (experimental)
 
-Coming soon.
+A file of (random) numbers can be loaded to run a deterministic simulation.
+See source code for details.
 
 ## License
 
