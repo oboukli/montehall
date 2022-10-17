@@ -68,7 +68,7 @@ export function generalSimulator(
       new Set([winningIndex, playerInitialPickedIndex])
     );
 
-    let revealedLosingIndexes: number[] = await pickRandomIndexes(
+    const revealedLosingIndexes = await pickRandomIndexes(
       setupOptions.size - 2,
       indexesExcludedFromReveal
     );
