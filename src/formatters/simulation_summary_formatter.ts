@@ -6,6 +6,7 @@ SPDX-License-Identifier: MIT
 */
 
 import { SetupOptions, SimulationSummary } from "../montehall";
+import { b2text } from "./common";
 
 export const simulationSummaryFormatter = (
   o: SetupOptions,
@@ -17,9 +18,10 @@ export const simulationSummaryFormatter = (
     const padding = 17;
     const gamesWonPercentage =
       (summary.gamesWonCount * 100) / summary.simulationCount;
+    const playerStrategy = b2text(o.isPlayerStubborn, "stubborn", "prudent");
 
     let s = `${"Game setup size:".padEnd(padding)}${o.size}${eol}`;
-    s += `${"Player switches:".padEnd(padding)}${!o.isPlayerStubborn}${eol}`;
+    s += `${"Player strategy:".padEnd(padding)}${playerStrategy}${eol}`;
     s += `${"Games requested:".padEnd(padding)}${numRequestedGames}${eol}`;
     s += `${"Games simulated:".padEnd(padding)}${
       summary.simulationCount

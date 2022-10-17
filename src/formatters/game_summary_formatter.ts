@@ -6,6 +6,7 @@ SPDX-License-Identifier: MIT
 */
 
 import { GameSummary } from "../montehall";
+import { b2text } from "./common";
 
 export const gameSummaryFormatter = (
   gameSummary: GameSummary,
@@ -13,14 +14,17 @@ export const gameSummaryFormatter = (
 ): { toString: () => string } => {
   const toString = (): string => {
     const padding = 27;
+    const playerStrategy = b2text(
+      gameSummary.isPlayerStubborn,
+      "stubborn",
+      "prudent"
+    );
 
     let s = `${"Setup size:".padEnd(padding)}${gameSummary.setupSize}${eol}`;
     s += `${"Winning index(es):".padEnd(
       padding
     )}${gameSummary.winningIndex.toString()}${eol}`;
-    s += `${"Player switches:".padEnd(
-      padding
-    )}${!gameSummary.isPlayerStubborn}${eol}`;
+    s += `${"Player strategy:".padEnd(padding)}${playerStrategy}${eol}`;
     s += `${"Initial picked index(es):".padEnd(
       padding
     )}${gameSummary.playerInitialPickedIndex.toString()}${eol}`;
