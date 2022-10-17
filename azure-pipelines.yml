@@ -20,11 +20,10 @@ steps:
   - task: NodeTool@0
     inputs:
       versionSpec: $(node_version)
+    displayName: Set up Node.js
 
-  - script: |-
-      node --version
-      npm --version
-    displayName: Node.js and npm version
+  - script: npm --version
+    displayName: npm version
 
   - script: npm ci
     displayName: Build
