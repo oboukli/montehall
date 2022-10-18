@@ -71,3 +71,9 @@ export interface SimulationSummary {
   readonly isCompletedSuccessfully: boolean;
   readonly simulationCount: number;
 }
+
+export interface AppConfig {
+  readonly games: number;
+  readonly numTableFileName: string;
+  readonly isDecimalNumTable: boolean;
+}
