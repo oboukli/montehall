@@ -1,6 +1,6 @@
 {
   "name": "montehall",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "A Monte Carlo machine for the Monty Hall Problem",
   "author": "Omar Boukli-Hacene",
   "license": "MIT",
@@ -33,6 +33,7 @@
     "@types/node": "^18.11.0",
     "jasmine": "^4.4.0",
     "jasmine-ts-console-reporter": "^3.1.1",
+    "package-json-type": "^1.0.3",
     "prettier": "2.7.1",
     "typescript": "^4.8.4"
   },

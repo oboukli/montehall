@@ -6,6 +6,7 @@ SPDX-License-Identifier: MIT
 */
 
 export {
+  AppConfig,
   GameSimulator,
   GameSimulatorFactory,
   GameSummary,
