@@ -154,6 +154,7 @@ main()
   .then((x) => {
     process.exitCode = x;
   })
-  .catch((_) => {
+  .catch((e) => {
+    process.stderr.write(`${e}${EOL}`);
     process.exitCode = 1;
   });
