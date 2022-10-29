@@ -23,7 +23,7 @@ export function generalSimulator(
   setupOptions: SetupOptions,
   randomNumberProvider: RandomNumberProvider
 ): GameSimulator {
-  /*eslint complexity: ["error", 5]*/
+  // eslint complexity: ["error", 5]
   /**
    *
    * @param numIndexes Count of numbers to be generated.

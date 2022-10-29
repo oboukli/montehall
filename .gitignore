@@ -1,4 +1,7 @@
 dist/
 node_modules/
-spec/
+spec/**/*.d.ts
+spec/**/*.js
+spec/**/*.js.map
+
 !spec/support/jasmine.json

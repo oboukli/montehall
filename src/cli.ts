@@ -25,7 +25,7 @@ import { gameSimulatorFactory, rngFactory } from "./cli_util";
 const pkgFileName = "./package.json";
 const configFileName = "./montehall.json";
 
-/*eslint complexity: ["error", 13]*/
+// eslint complexity: ["error", 13]
 /**
  * CLI app entry point.
  */
@@ -116,6 +116,7 @@ async function main() {
       process.stdout.write(`${formatter.toString()}${EOL}${EOL}`);
     };
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     gameSummaryCallback = () => {};
   }
 
