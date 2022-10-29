@@ -12,7 +12,11 @@ export type RandomNumberProviderType = "basic" | "advanced" | "table";
 
 /**
  * Creates a random number provider.
+ *
+ * @function rngFactory
  * @param rngType
+ * @param numTableFileName
+ * @param isDecimalTable
  * @returns RandomNumberProvider
  */
 export const rngFactory = (

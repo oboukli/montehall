@@ -14,13 +14,20 @@ import {
 
 /**
  * Simulates one standard Monty Hall problem game.
- * @param setupOptions Setup options.
- * @param randomNumberProvider Random number generator.
+ *
+ * @param setupOptions
+ * @param randomNumberProvider Random number generator to use.
+ * @returns A game simulator object.
  */
 export function standardSimulator(
   setupOptions: SetupOptions,
   randomNumberProvider: RandomNumberProvider
 ): GameSimulator {
+  /**
+   *
+   * @param excludedIndex Number that must not be returned as an output.
+   * @returns A positive integer [0, 2] that does not equal excludedIndex.
+   */
   async function pickRandomIndexes(excludedIndex = -1): Promise<number> {
     try {
       const index = await randomNumberProvider.random(0, 2);
@@ -40,7 +47,7 @@ export function standardSimulator(
 
   /**
    * Runs simulation.
-   * @function simulateGame
+   *
    * @returns A new GameSummary.
    * @throws {RangeError} On encountering a setupOption.size value other than 3.
    * @throws {Error} On simulation failure due to random number provider failure.

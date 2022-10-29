@@ -14,14 +14,22 @@ import {
 
 /**
  * Simulates one generalized Monty Hall problem game.
- * @param setupOptions Setup options.
- * @param randomNumberProvider Random number provider.
+ *
+ * @param setupOptions
+ * @param randomNumberProvider Random number generator to use.
+ * @returns A game simulator object.
  */
 export function generalSimulator(
   setupOptions: SetupOptions,
   randomNumberProvider: RandomNumberProvider
 ): GameSimulator {
   /*eslint complexity: ["error", 5]*/
+  /**
+   *
+   * @param numIndexes Count of numbers to be generated.
+   * @param excludedIndexes Numbers that are unaccepted as elements of the output array.
+   * @returns An array of positive integers that is disjoint with excludedIndexes.
+   */
   async function pickRandomIndexes(
     numIndexes: number,
     excludedIndexes: number[]
@@ -50,7 +58,7 @@ export function generalSimulator(
 
   /**
    * Runs simulation.
-   * @function simulateGame
+   *
    * @returns A new GameSummary.
    * @throws {Error} On simulation failure due to random number provider failure.
    */

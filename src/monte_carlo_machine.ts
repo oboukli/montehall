@@ -16,11 +16,14 @@ import {
 
 /**
  * Monte Carlo method machine for the Monty Hall problem.
- * @param setupOptions Setup options.
+ *
+ * @function monteCarloMachine
+ * @param setupOptions
  * @param numGames Number of game simulations.
- * @param gameSimulatorFactory gameSimulator factory.
+ * @param gameSimulatorFactory
  * @param rng Random number generator.
  * @param gameSummaryCallback A callback to be passed a simulation's GameSummary object.
+ * @returns A simulator to simulate a numGames number of games.
  */
 export const monteCarloMachine = (
   setupOptions: SetupOptions,
@@ -31,6 +34,7 @@ export const monteCarloMachine = (
 ): { run: () => Promise<SimulationSummary> } => {
   /**
    * Runs the Monte Carlo machine.
+   *
    * @function run
    * @returns Number of won games.
    */
