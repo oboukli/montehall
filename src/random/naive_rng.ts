@@ -8,6 +8,7 @@ export const naiveRng = (): RandomNumberProvider => {
   /**
    * Generates a uniform distribution random integer between two values.
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+   *
    * @function random
    * @param min Minimum inclusive value (integer).
    * @param max Maximum inclusive value (integer).

@@ -11,13 +11,18 @@ import { RandomNumberProvider } from "../montehall";
 /**
  * Exposes a slow but cryptographically secure
  * pseudorandom number generator.
+ *
+ * @function csPrng
+ * @returns number generator.
  */
 export const csPrng = (): RandomNumberProvider => {
   /**
    * Generates a uniform distribution random integer between two values.
+   *
    * @function random
    * @param min Minimum inclusive value (integer).
    * @param max Maximum inclusive value (integer).
+   * @returns A random number (integer) between min and max inclusive.
    */
   const random = (min: number, max: number): Promise<number> => {
     return new Promise<number>((resolve, reject) => {

@@ -13,6 +13,7 @@ export interface GameSimulator {
 export interface MonteCarloMachine {
   /**
    * Runs the Monte Carlo machine.
+   *
    * @returns Number of won games.
    */
   run(): Promise<SimulationSummary>;
@@ -30,7 +31,7 @@ export interface GameSummary {
   /** Total number of doors. */
   readonly setupSize: number;
 
-  /** Winning doors. */
+  /** Winning door. */
   readonly winningIndex: number;
 
   /** Player that does not switch their choice is "stubborn." */

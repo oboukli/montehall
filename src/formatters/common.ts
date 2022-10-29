@@ -7,6 +7,7 @@ SPDX-License-Identifier: MIT
 
 /**
  * Maps boolean value to string.
+ *
  * @param b Boolean value to convert.
  * @param t String substitute value for true.
  * @param f String substitute value for false.

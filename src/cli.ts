@@ -26,6 +26,9 @@ const pkgFileName = "./package.json";
 const configFileName = "./montehall.json";
 
 /*eslint complexity: ["error", 13]*/
+/**
+ * CLI app entry point.
+ */
 async function main() {
   let pkgInfo: IPackageJson;
   let config: AppConfig;

@@ -13,6 +13,9 @@ import { RandomNumberGenerator, RandomNumberProvider } from "../montehall";
 /**
  * Provides numbers from pre-prepared, and ideally random, number table text file.
  * The quality of the randomness, or lack of it, depends on the random number table.
+ *
+ * @param numTableFileName
+ * @param isGeneral
  */
 export const tableRng = (
   numTableFileName: string,
@@ -20,6 +23,7 @@ export const tableRng = (
 ): RandomNumberProvider => {
   /**
    * Provides an integer from a preloaded number table.
+   *
    * @function random
    * @param min Minimum inclusive value (integer).
    * @param max Maximum inclusive value (integer).
@@ -34,6 +38,7 @@ export const tableRng = (
 
   /**
    * Provides a value from a preloaded list (number table) of values.
+   *
    * @function getRaw
    * @returns A random number (integer) between min and max inclusive.
    * @throws {Error}
@@ -57,6 +62,7 @@ export const tableRng = (
 
   /**
    * Provides an integer from a preloaded number table.
+   *
    * @function getInt
    * @param min Minimum inclusive value (integer).
    * @param max Maximum inclusive value (integer).
