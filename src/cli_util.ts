@@ -4,9 +4,9 @@ import {
   standardSimulator,
 } from ".";
 
-const naiveRngModule = "./random/naive_rng";
-const csprngModule = "./random/csprng";
-const tableRngModule = "./random/table_rng";
+import { naiveRng } from "./random/naive_rng";
+import { csPrng } from "./random/csprng";
+import { tableRng } from "./random/table_rng";
 
 export type RandomNumberProviderType = "basic" | "advanced" | "table";
 
@@ -26,11 +26,11 @@ export const rngFactory = (
 ): RandomNumberProvider => {
   switch (rngType) {
     case "advanced":
-      return require(csprngModule).csPrng();
+      return csPrng();
     case "table":
-      return require(tableRngModule).tableRng(numTableFileName, isDecimalTable);
+      return tableRng(numTableFileName, isDecimalTable);
     default:
-      return require(naiveRngModule).naiveRng();
+      return naiveRng();
   }
 };
 
