@@ -22,11 +22,11 @@ describe("GeneralSimulator", () => {
   let rng: RandomNumberProvider;
 
   describe("Standard three-door Monty Hall problem with a stubborn player", () => {
-    beforeAll(async () => {
+    beforeAll(() => {
       return;
     });
 
-    beforeEach(async () => {
+    beforeEach(() => {
       setupOptions = {
         isPlayerStubborn: true,
         size: 3,
@@ -73,11 +73,11 @@ describe("GeneralSimulator", () => {
   });
 
   describe("Standard three-door Monty Hall problem with a wise player", () => {
-    beforeAll(async () => {
+    beforeAll(() => {
       return;
     });
 
-    beforeEach(async () => {
+    beforeEach(() => {
       setupOptions = {
         isPlayerStubborn: false,
         size: 3,
