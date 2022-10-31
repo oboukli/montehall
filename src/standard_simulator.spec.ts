@@ -126,14 +126,14 @@ describe("Standard Monty Hall problem simulator", () => {
   });
 
   describe("with a player that switches (non-stubborn)", () => {
-    beforeAll(async () => {
+    beforeAll(() => {
       setupOptions = {
         isPlayerStubborn: false,
         size: 3,
       };
     });
 
-    beforeEach(async () => {
+    beforeEach(() => {
       simulator = standardSimulator(setupOptions, rng);
     });
 
@@ -181,7 +181,7 @@ describe("Standard Monty Hall problem simulator", () => {
             size: 3,
           },
           {
-            random: async () => {
+            random: () => {
               throw Error();
             },
           }

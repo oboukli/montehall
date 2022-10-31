@@ -34,16 +34,18 @@ describe("Monte Carlo machine", () => {
 
     const gameSimulatorFactory: GameSimulatorFactory = (): GameSimulator => {
       return {
-        simulateGame: async (): Promise<GameSummary> => {
-          return {
-            confirmedPlayerPickedIndex: 1,
-            isPlayerStubborn: setupOptions.isPlayerStubborn,
-            playerInitialPickedIndex: 0,
-            revealedLosingIndexes: 2,
-            setupSize: setupOptions.size,
-            winningIndex: 0,
-          };
-        },
+        simulateGame: (): Promise<GameSummary> =>
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          new Promise((resolve, _reject): void => {
+            resolve({
+              confirmedPlayerPickedIndex: 1,
+              isPlayerStubborn: setupOptions.isPlayerStubborn,
+              playerInitialPickedIndex: 0,
+              revealedLosingIndexes: 2,
+              setupSize: setupOptions.size,
+              winningIndex: 0,
+            });
+          }),
       };
     };
 
@@ -84,7 +86,7 @@ describe("Monte Carlo machine", () => {
     expect(simulationSummary.simulationCount).toEqual(10);
   });
 
-  it("should call the game summary callback ten times", async () => {
+  it("should call the game summary callback ten times", () => {
     expect(gameSummaryCallbackSpy.calls.count()).toEqual(10);
   });
 });
