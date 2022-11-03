@@ -42,7 +42,7 @@ export function generalSimulator(
         // The exact number of needed RNG calls is nondeterministic.
         do {
           index = await randomNumberProvider.random(0, setupOptions.size - 1);
-        } while (excludedIndexes.indexOf(index) !== -1);
+        } while (excludedIndexes.includes(index));
         indexes[i] = index;
       }
     } catch (ex) {
