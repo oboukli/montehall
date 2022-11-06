@@ -33,5 +33,17 @@ jobs:
       - name: Check code style
         run: npx prettier --check .
 
-      - name: Run tests
+      - name: Run unit tests
         run: npm test
+
+      - name: Run smoke tests
+        run: |-
+          npm run montehall -- --version
+          npm run montehall -- --help
+          npm run montehall
+          npm run montehall -- --games 11
+          npm run montehall -- --random advanced
+          npm run montehall -- --wise
+          npm run montehall -- --random advanced --wise
+          npm run montehall -- --games 0 --random advanced --wise
+          npm run montehall -- --games 3 --random advanced --wise --verbose
