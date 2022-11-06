@@ -16,8 +16,7 @@ export const simulationSummaryFormatter = (
 ): { toString: () => string } => {
   const toString = (): string => {
     const padding = 17;
-    const gamesWonPercentage =
-      (summary.gamesWonCount * 100) / summary.simulationCount;
+
     const playerStrategy = b2text(o.isPlayerStubborn, "stubborn", "prudent");
 
     let s = `${"Game setup size:".padEnd(padding)}${o.size}${eol}`;
@@ -26,8 +25,13 @@ export const simulationSummaryFormatter = (
     s += `${"Games simulated:".padEnd(padding)}${
       summary.simulationCount
     }${eol}`;
-    s += `${"Games won:".padEnd(padding)}${summary.gamesWonCount}${eol}`;
-    s += `${"Games won %:".padEnd(padding)}${gamesWonPercentage}`;
+    s += `${"Games won:".padEnd(padding)}${summary.gamesWonCount}`;
+
+    if (summary.simulationCount !== 0) {
+      const gamesWonPercentage =
+        (summary.gamesWonCount * 100) / summary.simulationCount;
+      s += `${eol}${"Games won %:".padEnd(padding)}${gamesWonPercentage}`;
+    }
 
     return s;
   };
