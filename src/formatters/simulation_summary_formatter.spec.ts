@@ -11,7 +11,7 @@ import { simulationSummaryFormatter } from "./simulation_summary_formatter";
 
 describe("simulationSummaryFormatter", () => {
   it("should return a string", () => {
-    const summary = simulationSummaryFormatter(
+    const formattedSimulationSummary = simulationSummaryFormatter(
       {
         size: 3,
         isPlayerStubborn: true,
@@ -23,14 +23,14 @@ describe("simulationSummaryFormatter", () => {
         simulationCount: 17,
       },
       "\n"
-    ).toString();
+    );
 
-    expect(summary).toBeInstanceOf(String);
+    expect(formattedSimulationSummary).toBeInstanceOf(String);
   });
 
   it("should return a string of 6 delimited segments", () => {
     const delimiter = "DUMMY\r\n";
-    const summary = simulationSummaryFormatter(
+    const formattedSimulationSummary = simulationSummaryFormatter(
       {
         size: 3,
         isPlayerStubborn: true,
@@ -42,16 +42,14 @@ describe("simulationSummaryFormatter", () => {
         simulationCount: 17,
       },
       delimiter
-    )
-      .toString()
-      .split(delimiter);
+    ).split(delimiter);
 
-    expect(summary).toHaveSize(6);
+    expect(formattedSimulationSummary).toHaveSize(6);
   });
 
   it("should return a string of 5 delimited segments when simulationCount is 0", () => {
     const delimiter = "DUMMY\r\n";
-    const summary = simulationSummaryFormatter(
+    const formattedSimulationSummary = simulationSummaryFormatter(
       {
         size: 3,
         isPlayerStubborn: true,
@@ -63,10 +61,8 @@ describe("simulationSummaryFormatter", () => {
         simulationCount: 0,
       },
       delimiter
-    )
-      .toString()
-      .split(delimiter);
+    ).split(delimiter);
 
-    expect(summary).toHaveSize(5);
+    expect(formattedSimulationSummary).toHaveSize(5);
   });
 });
