@@ -136,13 +136,13 @@ async function main() {
   mcm
     .run()
     .then((simulationSummary) => {
-      const formatter = simulationSummaryFormatter(
+      const formattedSimulationSummary = simulationSummaryFormatter(
         setupOptions,
         numGames,
         simulationSummary,
         EOL
       );
-      process.stdout.write(`${formatter.toString()}${EOL}`);
+      process.stdout.write(`${formattedSimulationSummary}${EOL}`);
     })
     .catch((reason) => {
       process.stdout.write(`${reason}${EOL}`);
