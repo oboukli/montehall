@@ -11,34 +11,35 @@ import { b2text } from "./common";
 export const gameSummaryFormatter = (
   gameSummary: GameSummary,
   eol = "\n"
-): { toString: () => string } => {
-  const toString = (): string => {
-    const padding = 27;
-    const playerStrategy = b2text(
-      gameSummary.isPlayerStubborn,
-      "stubborn",
-      "prudent"
-    );
+): string => {
+  const padding = 27;
+  const playerStrategy = b2text(
+    gameSummary.isPlayerStubborn,
+    "stubborn",
+    "prudent"
+  );
 
-    let s = `${"Setup size:".padEnd(padding)}${gameSummary.setupSize}${eol}`;
-    s += `${"Winning index(es):".padEnd(
-      padding
-    )}${gameSummary.winningIndex.toString()}${eol}`;
-    s += `${"Player strategy:".padEnd(padding)}${playerStrategy}${eol}`;
-    s += `${"Initial picked index(es):".padEnd(
-      padding
-    )}${gameSummary.playerInitialPickedIndex.toString()}${eol}`;
-    s += `${"Confirmed index(es):".padEnd(
-      padding
-    )}${gameSummary.confirmedPlayerPickedIndex.toString()}${eol}`;
-    s += `${"Revealed losing index(es):".padEnd(
-      padding
-    )}${gameSummary.revealedLosingIndexes.toString()}`;
+  let s = `${"Setup size (doors):".padEnd(padding)}${
+    gameSummary.setupSize
+  }${eol}`;
 
-    return s;
-  };
+  s += `${"Player strategy:".padEnd(padding)}${playerStrategy}${eol}`;
 
-  return {
-    toString,
-  };
+  s += `${"Initial picked index(es):".padEnd(
+    padding
+  )}${gameSummary.playerInitialPickedIndex.toString()}${eol}`;
+
+  s += `${"Revealed losing index(es):".padEnd(
+    padding
+  )}${gameSummary.revealedLosingIndexes.toString()}${eol}`;
+
+  s += `${"Confirmed index(es):".padEnd(
+    padding
+  )}${gameSummary.confirmedPlayerPickedIndex.toString()}${eol}`;
+
+  s += `${"Winning index(es):".padEnd(
+    padding
+  )}${gameSummary.winningIndex.toString()}`;
+
+  return s;
 };

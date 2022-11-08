@@ -112,8 +112,8 @@ async function main() {
   let gameSummaryCallback: GameSummaryCallback;
   if (options.verbose) {
     gameSummaryCallback = (gameSummary) => {
-      const formatter = gameSummaryFormatter(gameSummary, EOL);
-      process.stdout.write(`${formatter.toString()}${EOL}${EOL}`);
+      const formattedGameSummary = gameSummaryFormatter(gameSummary, EOL);
+      process.stdout.write(`${formattedGameSummary}${EOL}${EOL}`);
     };
   } else {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
