@@ -58,7 +58,6 @@ async function main() {
   }
 
   const DEFAULT_NUM_GAMES = Number(config.games || 0);
-  let isWisePlayer = false;
 
   const program = new Command();
   program
@@ -89,16 +88,13 @@ async function main() {
       )
     )
     .option("-v, --verbose", "Show summary for each game")
-    .option("-w, --wise", "Wise player")
+    .option("-w, --wise", "Wise player", false)
     .parse();
 
   const options = program.opts();
 
   const numGames = options.games as number;
-
-  if (options.wise) {
-    isWisePlayer = true;
-  }
+  const isWisePlayer = options.wise as boolean;
 
   let isDecimalTable = false;
   const numTableFileName: string =
