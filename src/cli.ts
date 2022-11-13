@@ -8,7 +8,7 @@ SPDX-License-Identifier: MIT
 import { readFile } from "node:fs/promises";
 import { EOL } from "node:os";
 
-import { Command, Option } from "commander";
+import { Command, InvalidArgumentError, Option } from "commander";
 import { IPackageJson } from "package-json-type";
 
 import {
@@ -58,7 +58,6 @@ async function main() {
   }
 
   const DEFAULT_NUM_GAMES = Number(config.games || 0);
-  let numGames = DEFAULT_NUM_GAMES;
   let isWisePlayer = false;
 
   const program = new Command();
@@ -72,9 +71,17 @@ async function main() {
     )
     .helpOption("-h, --help", "Output usage information")
     .option(
-      "-g, --games <n>",
-      `Number of games (default: ${DEFAULT_NUM_GAMES})`,
-      Number
+      "-g, --games <number>",
+      `Number of games to simulate (default: ${DEFAULT_NUM_GAMES})`,
+      (x) => {
+        const n = Number(x);
+        if (typeof n !== "number" || !Number.isSafeInteger(n) || n < 0) {
+          throw new InvalidArgumentError("Not a valid number of simulations.");
+        }
+
+        return n;
+      },
+      DEFAULT_NUM_GAMES
     )
     .addOption(
       new Option("-r, --random [type]", "Random number generator type").choices(
@@ -87,9 +94,7 @@ async function main() {
 
   const options = program.opts();
 
-  if (options.games > 0) {
-    numGames = options.games;
-  }
+  const numGames = options.games as number;
 
   if (options.wise) {
     isWisePlayer = true;
