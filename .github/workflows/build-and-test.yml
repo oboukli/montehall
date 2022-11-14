@@ -34,7 +34,7 @@ jobs:
         run: npx prettier --check .
 
       - name: Run unit tests
-        run: npm test
+        run: npm run coverage
 
       - name: Run smoke tests
         run: |-
