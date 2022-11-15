@@ -50,6 +50,13 @@ export interface GameSummary {
   readonly revealedLosingIndexes: number | number[];
 }
 
+/**
+ * Generates a uniform distribution random integer between two values.
+ *
+ * @param min Minimum inclusive value (integer).
+ * @param max Maximum inclusive value (integer).
+ * @returns A random number (integer) between min and max inclusive.
+ */
 export type RandomNumberGenerator = (
   min: number,
   max: number
@@ -68,13 +75,18 @@ export interface RandomNumberProvider {
 
 export interface SimulationSummary {
   readonly exception?: unknown;
+
   readonly gamesWonCount: number;
+
   readonly isCompletedSuccessfully: boolean;
+
   readonly simulationCount: number;
 }
 
 export interface AppConfig {
   readonly games: number;
+
   readonly numTableFileName: string;
+
   readonly isDecimalNumTable: boolean;
 }
