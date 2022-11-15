@@ -16,25 +16,8 @@ import { RandomNumberProvider } from "../montehall";
  * @returns number generator.
  */
 export const csPrng = (): RandomNumberProvider => {
-  /**
-   * Generates a uniform distribution random integer between two values.
-   *
-   * @function random
-   * @param min Minimum inclusive value (integer).
-   * @param max Maximum inclusive value (integer).
-   * @returns A random number (integer) between min and max inclusive.
-   */
-  const random = (min: number, max: number): Promise<number> => {
-    return new Promise<number>((resolve, reject) => {
-      csprng(min, max, (err: Error, num: number) => {
-        if (err) {
-          reject(err.message);
-
-          return;
-        }
-        resolve(num);
-      });
-    });
+  const random = async (min: number, max: number): Promise<number> => {
+    return await csprng(min, max);
   };
 
   return {
