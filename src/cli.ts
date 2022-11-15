@@ -62,7 +62,7 @@ async function main() {
   const program = new Command();
   program
     .name(pkgInfo.name || "")
-    .description("A Monte Carlo Machine for the Monty Hall Problem")
+    .description("Montehall: A Monte Carlo Machine for the Monty Hall Problem")
     .version(
       pkgInfo.version || "",
       "-V, --version",
@@ -87,7 +87,7 @@ async function main() {
         ["basic", "advanced", "table"]
       )
     )
-    .option("-v, --verbose", "Show summary for each game")
+    .option("-v, --verbose", "Show a summary for each game")
     .option("-w, --wise", "Wise player", false)
     .parse();
 
