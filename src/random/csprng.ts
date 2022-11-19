@@ -5,7 +5,7 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import * as csprng from "random-number-csprng";
+import secureRandomNumber from "random-number-csprng";
 import { RandomNumberProvider } from "../montehall";
 
 /**
@@ -17,7 +17,7 @@ import { RandomNumberProvider } from "../montehall";
  */
 export const csPrng = (): RandomNumberProvider => {
   const random = async (min: number, max: number): Promise<number> => {
-    return await csprng(min, max);
+    return await secureRandomNumber(min, max);
   };
 
   return {
