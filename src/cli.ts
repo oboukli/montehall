@@ -20,7 +20,11 @@ import {
   simulationSummaryFormatter,
 } from ".";
 
-import { gameSimulatorFactory, rngFactory } from "./cli_util";
+import {
+  gameSimulatorFactory,
+  RandomNumberProviderType,
+  rngFactory,
+} from "./cli_util";
 
 const pkgFileName = "./package.json";
 const configFileName = "./montehall.json";
@@ -71,7 +75,7 @@ async function main() {
     .helpOption("-h, --help", "Output usage information")
     .option(
       "-g, --games <number>",
-      `Number of games to simulate (default: ${DEFAULT_NUM_GAMES})`,
+      `Number of games to simulate`,
       (x) => {
         const n = Number(x);
         if (typeof n !== "number" || !Number.isSafeInteger(n) || n < 0) {
@@ -83,11 +87,24 @@ async function main() {
       DEFAULT_NUM_GAMES
     )
     .addOption(
-      new Option("-r, --random [type]", "Random number generator type").choices(
-        ["basic", "advanced", "table"]
-      )
+      new Option("-r, --random [type]", "Random number generator type")
+        .default("basic")
+        .preset("advanced")
+        .choices(["basic", "advanced", "table"])
     )
-    .option("-v, --verbose", "Show a summary for each game")
+    .addOption(
+      new Option(
+        "-t, --table-file",
+        "Pre-generated random numbers file path"
+      ).implies({ random: "table" })
+    )
+    .addOption(
+      new Option(
+        "-m, --decimal-table",
+        "Assume pre-generated random numbers are decimals, not integers"
+      ).default(false)
+    )
+    .option("-v, --verbose", "Show a summary for each game", false)
     .option("-w, --wise", "Wise player", false)
     .parse();
 
@@ -96,19 +113,23 @@ async function main() {
   const numGames = options.games as number;
   const isWisePlayer = options.wise as boolean;
 
-  let isDecimalTable = false;
+  const isDecimalTable =
+    (options.decimalTable as boolean) || config.isDecimalNumTable;
   const numTableFileName: string =
-    options.tableFile || config.numTableFileName || "";
+    (options.tableFile as string) || config.numTableFileName || "";
   if (options.random === "table") {
-    if (!numTableFileName) {
+    if (numTableFileName === "") {
       process.stdout.write(`Random number table file not specified.${EOL}`);
 
       return 1;
     }
-    isDecimalTable = options.decimalTable || config.isDecimalNumTable;
   }
 
-  const rng = rngFactory(options.random, numTableFileName, isDecimalTable);
+  const rng = rngFactory(
+    options.random as RandomNumberProviderType,
+    numTableFileName,
+    isDecimalTable
+  );
 
   let gameSummaryCallback: GameSummaryCallback;
   if (options.verbose) {
