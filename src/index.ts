@@ -12,9 +12,9 @@ export {
   GameSummary,
   GameSummaryCallback,
   MonteCarloMachine,
+  MonteCarloMachineResult,
   RandomNumberProvider,
   SetupOptions,
-  SimulationSummary,
 } from "./montehall";
 
 export { generalSimulator } from "./general_simulator";

@@ -13,33 +13,29 @@ export const gameSummaryFormatter = (
   eol = "\n"
 ): string => {
   const padding = 27;
-  const playerStrategy = b2text(
-    gameSummary.isPlayerStubborn,
-    "stubborn",
-    "prudent"
-  );
+  const playerStrategy = b2text(gameSummary.isNaivePlayer, "naive", "prudent");
 
   let s = `${"Setup size (doors):".padEnd(padding)}${
-    gameSummary.setupSize
+    gameSummary.numSlots
   }${eol}`;
 
   s += `${"Player strategy:".padEnd(padding)}${playerStrategy}${eol}`;
 
-  s += `${"Initial picked index(es):".padEnd(
+  s += `${"Initial picked slot(s):".padEnd(
     padding
-  )}${gameSummary.playerInitialPickedIndex.toString()}${eol}`;
+  )}${gameSummary.playerInitialPickedSlot.toString()}${eol}`;
 
-  s += `${"Revealed losing index(es):".padEnd(
+  s += `${"Revealed losing slot(s):".padEnd(
     padding
-  )}${gameSummary.revealedLosingIndexes.toString()}${eol}`;
+  )}${gameSummary.revealedLosingSlots.toString()}${eol}`;
 
-  s += `${"Confirmed index(es):".padEnd(
+  s += `${"Confirmed slot(s):".padEnd(
     padding
-  )}${gameSummary.confirmedPlayerPickedIndex.toString()}${eol}`;
+  )}${gameSummary.confirmedPlayerPickedSlot.toString()}${eol}`;
 
-  s += `${"Winning index(es):".padEnd(
+  s += `${"Winning slot(s):".padEnd(
     padding
-  )}${gameSummary.winningIndex.toString()}`;
+  )}${gameSummary.winningSlot.toString()}`;
 
   return s;
 };

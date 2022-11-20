@@ -25,14 +25,14 @@ export function standardSimulator(
 ): GameSimulator {
   /**
    *
-   * @param excludedIndex Number that must not be returned as an output.
-   * @returns A positive integer [0, 2] that does not equal excludedIndex.
+   * @param excludedSlot Number that must not be returned as an output.
+   * @returns A positive integer [0, 2] that does not equal excludedSlot.
    */
-  async function pickRandomIndexes(excludedIndex = -1): Promise<number> {
+  async function pickRandomSlots(excludedSlot = -1): Promise<number> {
     try {
-      const index = await randomNumberProvider.random(0, 2);
-      if (excludedIndex !== index) {
-        return index;
+      const slot = await randomNumberProvider.random(0, 2);
+      if (excludedSlot !== slot) {
+        return slot;
       }
     } catch (ex) {
       throw new Error(
@@ -42,7 +42,7 @@ export function standardSimulator(
       );
     }
 
-    return pickRandomIndexes(excludedIndex);
+    return pickRandomSlots(excludedSlot);
   }
 
   /**
@@ -53,41 +53,41 @@ export function standardSimulator(
    * @throws {Error} On simulation failure due to random number provider failure.
    */
   async function simulateGame(): Promise<GameSummary> {
-    let revealedLosingIndex;
-    let confirmedPlayerPickedIndex;
+    let revealedLosingSlot;
+    let confirmedPlayerPickedSlot;
 
-    if (setupOptions.size !== 3) {
+    if (setupOptions.numSlots !== 3) {
       throw new RangeError("Unsupported non-standard size.");
     }
 
     // Picking winning and player indices are independent events.
-    const wiPromise = pickRandomIndexes();
-    const piPromise = pickRandomIndexes();
-    const [winningIndex, playerInitialPickedIndex] = await Promise.all([
+    const wiPromise = pickRandomSlots();
+    const piPromise = pickRandomSlots();
+    const [winningSlot, playerInitialPickedSlot] = await Promise.all([
       wiPromise,
       piPromise,
     ]);
 
-    if (winningIndex === playerInitialPickedIndex) {
-      revealedLosingIndex = await pickRandomIndexes(winningIndex);
+    if (winningSlot === playerInitialPickedSlot) {
+      revealedLosingSlot = await pickRandomSlots(winningSlot);
     } else {
-      revealedLosingIndex = 3 - winningIndex - playerInitialPickedIndex;
+      revealedLosingSlot = 3 - winningSlot - playerInitialPickedSlot;
     }
 
-    if (setupOptions.isPlayerStubborn) {
-      confirmedPlayerPickedIndex = playerInitialPickedIndex;
+    if (setupOptions.isNaivePlayer) {
+      confirmedPlayerPickedSlot = playerInitialPickedSlot;
     } else {
-      confirmedPlayerPickedIndex =
-        3 - revealedLosingIndex - playerInitialPickedIndex;
+      confirmedPlayerPickedSlot =
+        3 - revealedLosingSlot - playerInitialPickedSlot;
     }
 
     return {
-      confirmedPlayerPickedIndex,
-      isPlayerStubborn: setupOptions.isPlayerStubborn,
-      playerInitialPickedIndex,
-      revealedLosingIndexes: revealedLosingIndex,
-      setupSize: setupOptions.size,
-      winningIndex,
+      confirmedPlayerPickedSlot,
+      isNaivePlayer: setupOptions.isNaivePlayer,
+      playerInitialPickedSlot,
+      revealedLosingSlots: revealedLosingSlot,
+      numSlots: setupOptions.numSlots,
+      winningSlot,
     };
   }
 

@@ -14,11 +14,11 @@ import { RandomNumberGenerator, RandomNumberProvider } from "../montehall";
  * Provides numbers from pre-prepared, and ideally random, number table text file.
  * The quality of the randomness, or lack of it, depends on the random number table.
  *
- * @param numTableFileName
+ * @param numbersFilePath
  * @param isGeneral
  */
 export const tableRng = (
-  numTableFileName: string,
+  numbersFilePath: string,
   isGeneral = false
 ): RandomNumberProvider => {
   /**
@@ -80,7 +80,7 @@ export const tableRng = (
 
     let dataBuffer: string;
     try {
-      dataBuffer = await readFile(numTableFileName, "utf8");
+      dataBuffer = await readFile(numbersFilePath, "utf8");
     } catch (ex) {
       throw new Error(
         `Cannot read number table. ${ex instanceof Error ? ex.message : ex}`

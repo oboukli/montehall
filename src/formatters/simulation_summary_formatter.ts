@@ -5,28 +5,28 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import { SetupOptions, SimulationSummary } from "../montehall";
+import { SetupOptions, MonteCarloMachineResult } from "../montehall";
 import { b2text } from "./common";
 
 export const simulationSummaryFormatter = (
   o: SetupOptions,
   numRequestedGames: number,
-  summary: SimulationSummary,
+  summary: MonteCarloMachineResult,
   eol = "\n"
 ): string => {
   const padding = 17;
 
-  const playerStrategy = b2text(o.isPlayerStubborn, "stubborn", "prudent");
+  const playerStrategy = b2text(o.isNaivePlayer, "naive", "prudent");
 
-  let s = `${"Game setup size:".padEnd(padding)}${o.size}${eol}`;
+  let s = `${"Game setup size:".padEnd(padding)}${o.numSlots}${eol}`;
   s += `${"Player strategy:".padEnd(padding)}${playerStrategy}${eol}`;
   s += `${"Games requested:".padEnd(padding)}${numRequestedGames}${eol}`;
-  s += `${"Games simulated:".padEnd(padding)}${summary.simulationCount}${eol}`;
-  s += `${"Games won:".padEnd(padding)}${summary.gamesWonCount}`;
+  s += `${"Games simulated:".padEnd(padding)}${summary.numSimulations}${eol}`;
+  s += `${"Games won:".padEnd(padding)}${summary.numWonGames}`;
 
-  if (summary.simulationCount !== 0) {
+  if (summary.numSimulations !== 0) {
     const gamesWonPercentage =
-      (summary.gamesWonCount * 100) / summary.simulationCount;
+      (summary.numWonGames * 100) / summary.numSimulations;
     s += `${eol}${"Games won %:".padEnd(padding)}${gamesWonPercentage}`;
   }
 
