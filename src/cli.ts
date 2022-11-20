@@ -93,16 +93,17 @@ async function main() {
         .choices(["basic", "advanced", "table"])
     )
     .addOption(
-      new Option(
-        "-t, --table-file",
-        "Pre-generated random numbers file path"
-      ).implies({ random: "table" })
+      new Option("-t, --table-file", "Pre-generated random numbers file path")
+        .implies({ random: "table" })
+        .hideHelp(true)
     )
     .addOption(
       new Option(
         "-m, --decimal-table",
         "Assume pre-generated random numbers are decimals, not integers"
-      ).default(false)
+      )
+        .default(false)
+        .hideHelp(true)
     )
     .option("-v, --verbose", "Show a summary for each game", false)
     .option("-w, --wise", "Wise player", false)
