@@ -11,7 +11,7 @@ import {
   GameSummaryCallback,
   RandomNumberProvider,
   SetupOptions,
-  SimulationSummary,
+  MonteCarloMachineResult,
 } from "./montehall";
 
 /**
@@ -31,14 +31,14 @@ export const monteCarloMachine = (
   gameSimulatorFactory: GameSimulatorFactory,
   rng: RandomNumberProvider,
   gameSummaryCallback: GameSummaryCallback
-): { run: () => Promise<SimulationSummary> } => {
+): { run: () => Promise<MonteCarloMachineResult> } => {
   /**
    * Runs the Monte Carlo machine.
    *
    * @function run
    * @returns Number of won games.
    */
-  const run = async (): Promise<SimulationSummary> => {
+  const run = async (): Promise<MonteCarloMachineResult> => {
     let simulationCount = 0;
     let gameSummary: GameSummary;
     let gamesWonCount = 0;
@@ -51,9 +51,7 @@ export const monteCarloMachine = (
       try {
         gameSummary = await gameSimulator.simulateGame();
 
-        if (
-          gameSummary.winningIndex === gameSummary.confirmedPlayerPickedIndex
-        ) {
+        if (gameSummary.winningSlot === gameSummary.confirmedPlayerPickedSlot) {
           gamesWonCount += 1;
         }
 
@@ -68,10 +66,10 @@ export const monteCarloMachine = (
     }
 
     return {
-      exception,
-      gamesWonCount,
+      error: exception,
+      numWonGames: gamesWonCount,
       isCompletedSuccessfully: !error,
-      simulationCount,
+      numSimulations: simulationCount,
     };
   };
 

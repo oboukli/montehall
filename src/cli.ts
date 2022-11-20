@@ -61,7 +61,7 @@ async function main() {
     return 1;
   }
 
-  const DEFAULT_NUM_GAMES = Number(config.games || 0);
+  const DEFAULT_NUM_GAMES = Number(config.numGamesToSimulate || 0);
 
   const program = new Command();
   program
@@ -112,14 +112,14 @@ async function main() {
   const options = program.opts();
 
   const numGames = options.games as number;
-  const isWisePlayer = options.wise as boolean;
+  const isPrudentPlayer = options.wise as boolean;
 
   const isDecimalTable =
     (options.decimalTable as boolean) || config.isDecimalNumTable;
-  const numTableFileName: string =
-    (options.tableFile as string) || config.numTableFileName || "";
+  const numbersFilePath: string =
+    (options.tableFile as string) || config.numbersFilePath || "";
   if (options.random === "table") {
-    if (numTableFileName === "") {
+    if (numbersFilePath === "") {
       process.stdout.write(`Random number table file not specified.${EOL}`);
 
       return 1;
@@ -128,7 +128,7 @@ async function main() {
 
   const rng = rngFactory(
     options.random as RandomNumberProviderType,
-    numTableFileName,
+    numbersFilePath,
     isDecimalTable
   );
 
@@ -144,8 +144,8 @@ async function main() {
   }
 
   const setupOptions: SetupOptions = {
-    isPlayerStubborn: !isWisePlayer,
-    size: 3,
+    isNaivePlayer: !isPrudentPlayer,
+    numSlots: 3,
   };
 
   const mcm = monteCarloMachine(

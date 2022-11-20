@@ -22,20 +22,20 @@ export type RandomNumberProviderType = "basic" | "advanced" | "table";
  *
  * @function rngFactory
  * @param rngType
- * @param numTableFileName
+ * @param numbersFilePath
  * @param isDecimalTable
  * @returns RandomNumberProvider
  */
 export const rngFactory = (
   rngType: RandomNumberProviderType,
-  numTableFileName: string,
+  numbersFilePath: string,
   isDecimalTable: boolean
 ): RandomNumberProvider => {
   switch (rngType) {
     case "advanced":
       return csPrng();
     case "table":
-      return tableRng(numTableFileName, isDecimalTable);
+      return tableRng(numbersFilePath, isDecimalTable);
     default:
       return naiveRng();
   }

@@ -28,58 +28,56 @@ describe("Standard Monty Hall problem simulator", () => {
       });
 
       it("should have valid setup size of three", () => {
-        expect(gameSummary.setupSize).toEqual(3);
+        expect(gameSummary.numSlots).toEqual(3);
       });
 
-      it("should not have revealedLosingIndexes as an array", () => {
-        expect(Array.isArray(gameSummary.revealedLosingIndexes)).toBeFalse();
+      it("should not have revealedLosingSlots as an array", () => {
+        expect(Array.isArray(gameSummary.revealedLosingSlots)).toBeFalse();
       });
 
-      it("should have revealedLosingIndexes as integer", () => {
-        expect(Number.isInteger(gameSummary.revealedLosingIndexes)).toBeTrue();
+      it("should have revealedLosingSlots as integer", () => {
+        expect(Number.isInteger(gameSummary.revealedLosingSlots)).toBeTrue();
       });
 
-      it("should have a valid playerInitialPickedIndex", () => {
-        expect(gameSummary.playerInitialPickedIndex).toBeGreaterThanOrEqual(0);
+      it("should have a valid playerInitialPickedSlot", () => {
+        expect(gameSummary.playerInitialPickedSlot).toBeGreaterThanOrEqual(0);
 
-        expect(gameSummary.playerInitialPickedIndex).toBeLessThanOrEqual(2);
+        expect(gameSummary.playerInitialPickedSlot).toBeLessThanOrEqual(2);
       });
 
-      it("should have a valid confirmedPlayerPickedIndex", () => {
-        expect(gameSummary.confirmedPlayerPickedIndex).toBeGreaterThanOrEqual(
-          0
-        );
+      it("should have a valid confirmedPlayerPickedSlot", () => {
+        expect(gameSummary.confirmedPlayerPickedSlot).toBeGreaterThanOrEqual(0);
 
-        expect(gameSummary.confirmedPlayerPickedIndex).toBeLessThanOrEqual(2);
+        expect(gameSummary.confirmedPlayerPickedSlot).toBeLessThanOrEqual(2);
       });
 
-      it("should have a valid winningIndex", () => {
-        expect(gameSummary.winningIndex).toBeGreaterThanOrEqual(0);
+      it("should have a valid winningSlot", () => {
+        expect(gameSummary.winningSlot).toBeGreaterThanOrEqual(0);
 
-        expect(gameSummary.winningIndex).toBeLessThanOrEqual(2);
+        expect(gameSummary.winningSlot).toBeLessThanOrEqual(2);
       });
 
-      it("should have a valid revealedLosingIndexes", () => {
-        expect(gameSummary.revealedLosingIndexes).toBeGreaterThanOrEqual(0);
+      it("should have a valid revealedLosingSlots", () => {
+        expect(gameSummary.revealedLosingSlots).toBeGreaterThanOrEqual(0);
 
-        expect(gameSummary.revealedLosingIndexes).toBeLessThanOrEqual(2);
+        expect(gameSummary.revealedLosingSlots).toBeLessThanOrEqual(2);
       });
 
-      it("should have a non-revealed playerInitialPickedIndex", () => {
-        expect(gameSummary.playerInitialPickedIndex).not.toEqual(
-          gameSummary.revealedLosingIndexes as number
+      it("should have a non-revealed playerInitialPickedSlot", () => {
+        expect(gameSummary.playerInitialPickedSlot).not.toEqual(
+          gameSummary.revealedLosingSlots as number
         );
       });
 
-      it("should have a non-revealed confirmedPlayerPickedIndex", () => {
-        expect(gameSummary.confirmedPlayerPickedIndex).not.toEqual(
-          gameSummary.revealedLosingIndexes as number
+      it("should have a non-revealed confirmedPlayerPickedSlot", () => {
+        expect(gameSummary.confirmedPlayerPickedSlot).not.toEqual(
+          gameSummary.revealedLosingSlots as number
         );
       });
 
-      it("should have a non-revealed winningIndex", () => {
-        expect(gameSummary.winningIndex).not.toEqual(
-          gameSummary.revealedLosingIndexes as number
+      it("should have a non-revealed winningSlot", () => {
+        expect(gameSummary.winningSlot).not.toEqual(
+          gameSummary.revealedLosingSlots as number
         );
       });
     });
@@ -96,10 +94,10 @@ describe("Standard Monty Hall problem simulator", () => {
     });
   };
 
-  describe("with a player that doesn't switch (stubborn)", () => {
+  describe("with a player that doesn't switch (naive)", () => {
     setupOptions = {
-      isPlayerStubborn: true,
-      size: 3,
+      isNaivePlayer: true,
+      numSlots: 3,
     };
 
     beforeAll(() => {
@@ -112,10 +110,10 @@ describe("Standard Monty Hall problem simulator", () => {
 
     it("should reflect in the game summary that the persistent player did not switch", async () => {
       gameSummary = await simulator.simulateGame();
-      expect(gameSummary.isPlayerStubborn).toBeTrue();
+      expect(gameSummary.isNaivePlayer).toBeTrue();
 
-      expect(gameSummary.confirmedPlayerPickedIndex).toEqual(
-        gameSummary.playerInitialPickedIndex
+      expect(gameSummary.confirmedPlayerPickedSlot).toEqual(
+        gameSummary.playerInitialPickedSlot
       );
     });
 
@@ -125,11 +123,11 @@ describe("Standard Monty Hall problem simulator", () => {
     );
   });
 
-  describe("with a player that switches (non-stubborn)", () => {
+  describe("with a player that switches (non-naive)", () => {
     beforeAll(() => {
       setupOptions = {
-        isPlayerStubborn: false,
-        size: 3,
+        isNaivePlayer: false,
+        numSlots: 3,
       };
     });
 
@@ -137,13 +135,13 @@ describe("Standard Monty Hall problem simulator", () => {
       simulator = standardSimulator(setupOptions, rng);
     });
 
-    it("should reflect in the game summary that the wise (non-stubborn) player switched", async () => {
+    it("should reflect in the game summary that the wise (non-naive) player switched", async () => {
       gameSummary = await simulator.simulateGame();
 
-      expect(gameSummary.isPlayerStubborn).toBeFalse();
+      expect(gameSummary.isNaivePlayer).toBeFalse();
 
-      expect(gameSummary.confirmedPlayerPickedIndex).not.toEqual(
-        gameSummary.playerInitialPickedIndex
+      expect(gameSummary.confirmedPlayerPickedSlot).not.toEqual(
+        gameSummary.playerInitialPickedSlot
       );
     });
 
@@ -158,7 +156,7 @@ describe("Standard Monty Hall problem simulator", () => {
       it("should asynchronously throw RangeError", async () => {
         let exception: unknown;
         const sim = standardSimulator(
-          { size: 2, isPlayerStubborn: false },
+          { numSlots: 2, isNaivePlayer: false },
           rng
         );
 
@@ -177,8 +175,8 @@ describe("Standard Monty Hall problem simulator", () => {
         let exception: unknown;
         const sim = standardSimulator(
           {
-            isPlayerStubborn: false,
-            size: 3,
+            isNaivePlayer: false,
+            numSlots: 3,
           },
           {
             random: () => {

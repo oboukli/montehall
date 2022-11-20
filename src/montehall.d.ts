@@ -16,38 +16,38 @@ export interface MonteCarloMachine {
    *
    * @returns Number of won games.
    */
-  run(): Promise<SimulationSummary>;
+  run(): Promise<MonteCarloMachineResult>;
 }
 
 export interface SetupOptions {
-  /** Total number of doors. */
-  readonly size: number;
+  /** Total number of slots (doors.) */
+  readonly numSlots: number;
 
-  /** Player that does not switch their choice is "stubborn." */
-  readonly isPlayerStubborn: boolean;
+  /** Player that does not switch their choice is "naive." */
+  readonly isNaivePlayer: boolean;
 }
 
 export interface GameSummary {
-  /** Total number of doors. */
-  readonly setupSize: number;
+  /** Number of slots (doors.) */
+  readonly numSlots: number;
 
-  /** Winning door. */
-  readonly winningIndex: number;
+  /** Winning slot (door.) */
+  readonly winningSlot: number;
 
-  /** Player that does not switch their choice is "stubborn." */
-  readonly isPlayerStubborn: boolean;
+  /** Player that does not switch their choice is "naive." */
+  readonly isNaivePlayer: boolean;
 
   /** Initial pick by player. */
-  readonly playerInitialPickedIndex: number;
+  readonly playerInitialPickedSlot: number;
 
   /** Confirmed pick by player. */
-  readonly confirmedPlayerPickedIndex: number;
+  readonly confirmedPlayerPickedSlot: number;
 
   /**
    * Opened (eliminated) after first player pick
    * and before the second player confirmation or pick switch.
    */
-  readonly revealedLosingIndexes: number | number[];
+  readonly revealedLosingSlots: number | number[];
 }
 
 /**
@@ -73,20 +73,20 @@ export interface RandomNumberProvider {
   random: RandomNumberGenerator;
 }
 
-export interface SimulationSummary {
-  readonly exception?: unknown;
+export interface MonteCarloMachineResult {
+  readonly error?: unknown;
 
-  readonly gamesWonCount: number;
+  readonly numWonGames: number;
 
   readonly isCompletedSuccessfully: boolean;
 
-  readonly simulationCount: number;
+  readonly numSimulations: number;
 }
 
 export interface AppConfig {
-  readonly games: number;
+  readonly numGamesToSimulate: number;
 
-  readonly numTableFileName: string;
+  readonly numbersFilePath: string;
 
   readonly isDecimalNumTable: boolean;
 }

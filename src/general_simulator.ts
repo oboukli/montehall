@@ -26,24 +26,27 @@ export function generalSimulator(
   // eslint complexity: ["error", 5]
   /**
    *
-   * @param numIndexes Count of numbers to be generated.
-   * @param excludedIndexes Numbers that are unaccepted as elements of the output array.
-   * @returns An array of positive integers that is disjoint with excludedIndexes.
+   * @param numSlots Count of numbers to be generated.
+   * @param excludedSlots Numbers that are unaccepted as elements of the output array.
+   * @returns An array of positive integers that is disjoint with excludedSlots.
    */
-  async function pickRandomIndexes(
-    numIndexes: number,
-    excludedIndexes: number[]
+  async function pickRandomSlots(
+    numSlots: number,
+    excludedSlots: number[]
   ): Promise<number[]> {
-    let index: number;
+    let slot: number;
 
-    const indexes = new Array<number>(numIndexes);
+    const slots = new Array<number>(numSlots);
     try {
-      for (let i = 0; i < numIndexes; i += 1) {
+      for (let i = 0; i < numSlots; i += 1) {
         // The exact number of needed RNG calls is nondeterministic.
         do {
-          index = await randomNumberProvider.random(0, setupOptions.size - 1);
-        } while (excludedIndexes.includes(index));
-        indexes[i] = index;
+          slot = await randomNumberProvider.random(
+            0,
+            setupOptions.numSlots - 1
+          );
+        } while (excludedSlots.includes(slot));
+        slots[i] = slot;
       }
     } catch (ex) {
       throw new Error(
@@ -53,7 +56,7 @@ export function generalSimulator(
       );
     }
 
-    return indexes;
+    return slots;
   }
 
   /**
@@ -64,44 +67,40 @@ export function generalSimulator(
    */
   async function simulateGame(): Promise<GameSummary> {
     // Picking winning and player indices are independent events.
-    const wiPromise = pickRandomIndexes(1, []);
-    const piPromise = pickRandomIndexes(1, []);
-    const [winningIndexArray, playerInitialPickedIndexArray] =
-      await Promise.all([wiPromise, piPromise]);
+    const wiPromise = pickRandomSlots(1, []);
+    const piPromise = pickRandomSlots(1, []);
+    const [winningSlotArray, playerInitialPickedSlotArray] = await Promise.all([
+      wiPromise,
+      piPromise,
+    ]);
 
-    const [winningIndex] = winningIndexArray;
-    const [playerInitialPickedIndex] = playerInitialPickedIndexArray;
+    const [winningSlot] = winningSlotArray;
+    const [playerInitialPickedSlot] = playerInitialPickedSlotArray;
 
     const indexesExcludedFromReveal = Array.from(
-      new Set([winningIndex, playerInitialPickedIndex])
+      new Set([winningSlot, playerInitialPickedSlot])
     );
 
-    const revealedLosingIndexes = await pickRandomIndexes(
-      setupOptions.size - 2,
+    const revealedLosingSlots = await pickRandomSlots(
+      setupOptions.numSlots - 2,
       indexesExcludedFromReveal
     );
 
-    let confirmedPlayerPickedIndex;
-    if (setupOptions.isPlayerStubborn) {
-      confirmedPlayerPickedIndex = playerInitialPickedIndex;
+    let confirmedPlayerPickedSlot;
+    if (setupOptions.isNaivePlayer) {
+      confirmedPlayerPickedSlot = playerInitialPickedSlot;
     } else {
-      const excludedIndexes = [
-        playerInitialPickedIndex,
-        ...revealedLosingIndexes,
-      ];
-      [confirmedPlayerPickedIndex] = await pickRandomIndexes(
-        1,
-        excludedIndexes
-      );
+      const excludedSlots = [playerInitialPickedSlot, ...revealedLosingSlots];
+      [confirmedPlayerPickedSlot] = await pickRandomSlots(1, excludedSlots);
     }
 
     return {
-      confirmedPlayerPickedIndex,
-      isPlayerStubborn: setupOptions.isPlayerStubborn,
-      playerInitialPickedIndex,
-      revealedLosingIndexes,
-      setupSize: setupOptions.size,
-      winningIndex,
+      confirmedPlayerPickedSlot,
+      isNaivePlayer: setupOptions.isNaivePlayer,
+      playerInitialPickedSlot,
+      revealedLosingSlots,
+      numSlots: setupOptions.numSlots,
+      winningSlot,
     };
   }
 

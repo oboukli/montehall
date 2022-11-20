@@ -13,14 +13,14 @@ describe("simulationSummaryFormatter", () => {
   it("should return a string", () => {
     const formattedSimulationSummary = simulationSummaryFormatter(
       {
-        size: 3,
-        isPlayerStubborn: true,
+        numSlots: 3,
+        isNaivePlayer: true,
       },
       17,
       {
-        gamesWonCount: 5,
+        numWonGames: 5,
         isCompletedSuccessfully: true,
-        simulationCount: 17,
+        numSimulations: 17,
       },
       "\n"
     );
@@ -32,14 +32,14 @@ describe("simulationSummaryFormatter", () => {
     const delimiter = "DUMMY\r\n";
     const formattedSimulationSummary = simulationSummaryFormatter(
       {
-        size: 3,
-        isPlayerStubborn: true,
+        numSlots: 3,
+        isNaivePlayer: true,
       },
       17,
       {
-        gamesWonCount: 5,
+        numWonGames: 5,
         isCompletedSuccessfully: true,
-        simulationCount: 17,
+        numSimulations: 17,
       },
       delimiter
     ).split(delimiter);
@@ -51,14 +51,14 @@ describe("simulationSummaryFormatter", () => {
     const delimiter = "DUMMY\r\n";
     const formattedSimulationSummary = simulationSummaryFormatter(
       {
-        size: 3,
-        isPlayerStubborn: true,
+        numSlots: 3,
+        isNaivePlayer: true,
       },
       17,
       {
-        gamesWonCount: 5,
+        numWonGames: 5,
         isCompletedSuccessfully: true,
-        simulationCount: 0,
+        numSimulations: 0,
       },
       delimiter
     ).split(delimiter);

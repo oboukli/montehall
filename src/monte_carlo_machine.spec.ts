@@ -10,14 +10,15 @@ import {
   GameSimulator,
   GameSimulatorFactory,
   GameSummary,
-  MonteCarloMachine,
   monteCarloMachine,
-  SimulationSummary,
+  MonteCarloMachine,
+  MonteCarloMachineResult,
+  SetupOptions,
 } from ".";
 
 describe("Monte Carlo machine", () => {
   let mcm: MonteCarloMachine;
-  let simulationSummary: SimulationSummary;
+  let simulationSummary: MonteCarloMachineResult;
   let gameSummaryCallbackSpy: jasmine.Spy;
 
   beforeAll(() => {
@@ -25,9 +26,9 @@ describe("Monte Carlo machine", () => {
   });
 
   beforeEach(async () => {
-    const setupOptions = {
-      isPlayerStubborn: false,
-      size: 3,
+    const setupOptions: SetupOptions = {
+      isNaivePlayer: false,
+      numSlots: 3,
     };
 
     const numGames = 10;
@@ -38,12 +39,12 @@ describe("Monte Carlo machine", () => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           new Promise((resolve, _reject): void => {
             resolve({
-              confirmedPlayerPickedIndex: 1,
-              isPlayerStubborn: setupOptions.isPlayerStubborn,
-              playerInitialPickedIndex: 0,
-              revealedLosingIndexes: 2,
-              setupSize: setupOptions.size,
-              winningIndex: 0,
+              confirmedPlayerPickedSlot: 1,
+              isNaivePlayer: setupOptions.isNaivePlayer,
+              playerInitialPickedSlot: 0,
+              revealedLosingSlots: 2,
+              numSlots: setupOptions.numSlots,
+              winningSlot: 0,
             });
           }),
       };
@@ -71,11 +72,11 @@ describe("Monte Carlo machine", () => {
   });
 
   it("should not have an exception", () => {
-    expect(simulationSummary.exception).toBeUndefined();
+    expect(simulationSummary.error).toBeUndefined();
   });
 
   it("should have zero won games count", () => {
-    expect(simulationSummary.gamesWonCount).toEqual(0);
+    expect(simulationSummary.numWonGames).toEqual(0);
   });
 
   it("should have completed successfully", () => {
@@ -83,7 +84,7 @@ describe("Monte Carlo machine", () => {
   });
 
   it("should have simulation count of ten", () => {
-    expect(simulationSummary.simulationCount).toEqual(10);
+    expect(simulationSummary.numSimulations).toEqual(10);
   });
 
   it("should call the game summary callback ten times", () => {

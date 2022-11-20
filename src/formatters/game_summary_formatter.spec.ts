@@ -12,12 +12,12 @@ import { gameSummaryFormatter } from "./game_summary_formatter";
 describe("gameSummaryFormatter", () => {
   it("should return a string", () => {
     const summary = gameSummaryFormatter({
-      setupSize: 3,
-      playerInitialPickedIndex: 1,
-      confirmedPlayerPickedIndex: 1,
-      isPlayerStubborn: true,
-      revealedLosingIndexes: 2,
-      winningIndex: 0,
+      numSlots: 3,
+      playerInitialPickedSlot: 1,
+      confirmedPlayerPickedSlot: 1,
+      isNaivePlayer: true,
+      revealedLosingSlots: 2,
+      winningSlot: 0,
     });
 
     expect(summary).toBeInstanceOf(String);
@@ -27,12 +27,12 @@ describe("gameSummaryFormatter", () => {
     const delimiter = "DUMMY\r\n";
     const summary = gameSummaryFormatter(
       {
-        setupSize: 3,
-        playerInitialPickedIndex: 1,
-        confirmedPlayerPickedIndex: 1,
-        isPlayerStubborn: true,
-        revealedLosingIndexes: 2,
-        winningIndex: 0,
+        numSlots: 3,
+        playerInitialPickedSlot: 1,
+        confirmedPlayerPickedSlot: 1,
+        isNaivePlayer: true,
+        revealedLosingSlots: 2,
+        winningSlot: 0,
       },
       delimiter
     ).split(delimiter);
