@@ -13,7 +13,7 @@ import {
   SetupOptions,
   standardSimulator,
 } from ".";
-import { naiveRng } from "./random/naive_rng";
+import { naiveRng } from "./random/naive-rng";
 
 describe("Standard Monty Hall problem simulator", () => {
   let setupOptions: SetupOptions;

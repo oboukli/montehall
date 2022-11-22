@@ -7,7 +7,7 @@ SPDX-License-Identifier: MIT
 
 import "jasmine";
 
-import { gameSummaryFormatter } from "./game_summary_formatter";
+import { gameSummaryFormatter } from "./game-summary-formatter";
 
 describe("gameSummaryFormatter", () => {
   it("should return a string", () => {

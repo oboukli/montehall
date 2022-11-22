@@ -14,7 +14,7 @@ import {
   RandomNumberProvider,
   SetupOptions,
 } from ".";
-import { naiveRng } from "./random/naive_rng";
+import { naiveRng } from "./random/naive-rng";
 
 describe("GeneralSimulator", () => {
   let simulator: GameSimulator;

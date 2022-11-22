@@ -24,7 +24,7 @@ import {
   gameSimulatorFactory,
   RandomNumberProviderType,
   rngFactory,
-} from "./cli_util";
+} from "./cli-util";
 
 const pkgFileName = "./package.json";
 const configFileName = "./montehall.json";

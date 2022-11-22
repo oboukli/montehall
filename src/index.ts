@@ -17,18 +17,18 @@ export {
   SetupOptions,
 } from "./montehall";
 
-export { generalSimulator } from "./general_simulator";
+export { generalSimulator } from "./general-simulator";
 
-export { monteCarloMachine } from "./monte_carlo_machine";
+export { monteCarloMachine } from "./monte-carlo-machine";
 
-export { standardSimulator } from "./standard_simulator";
+export { standardSimulator } from "./standard-simulator";
 
 export { csPrng } from "./random/csprng";
 
-export { naiveRng } from "./random/naive_rng";
+export { naiveRng } from "./random/naive-rng";
 
-export { tableRng } from "./random/table_rng";
+export { tableRng } from "./random/table-rng";
 
-export { gameSummaryFormatter } from "./formatters/game_summary_formatter";
+export { gameSummaryFormatter } from "./formatters/game-summary-formatter";
 
-export { simulationSummaryFormatter } from "./formatters/simulation_summary_formatter";
+export { simulationSummaryFormatter } from "./formatters/simulation-summary-formatter";
