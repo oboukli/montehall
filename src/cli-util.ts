@@ -11,9 +11,9 @@ import {
   standardSimulator,
 } from ".";
 
-import { naiveRng } from "./random/naive_rng";
+import { naiveRng } from "./random/naive-rng";
 import { csPrng } from "./random/csprng";
-import { tableRng } from "./random/table_rng";
+import { tableRng } from "./random/table-rng";
 
 export type RandomNumberProviderType = "basic" | "advanced" | "table";
 
