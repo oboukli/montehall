@@ -65,7 +65,7 @@ describe("Monte Carlo machine", () => {
       setupOptions,
       numGames,
       gameSimulatorFactory,
-      () => -1,
+      () => Promise.resolve(-1),
       gameSummaryCallbackWrapper.gameCompleted
     );
     simulationSummary = await mcm.run();

@@ -60,7 +60,7 @@ export interface GameSummary {
 export type RandomNumberGenerator = (
   min: number,
   max: number
-) => number | Promise<number>;
+) => Promise<number>;
 
 export type GameSimulatorFactory = (
   setupOptions: SetupOptions,

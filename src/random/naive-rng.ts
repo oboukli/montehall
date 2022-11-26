@@ -10,8 +10,10 @@
  * @param max Maximum inclusive value (integer).
  * @returns A random number (integer) between min and max inclusive.
  */
-export function naiveRng(min: number, max: number): number {
+export function naiveRng(min: number, max: number): Promise<number> {
   const _min = Math.ceil(min);
 
-  return Math.floor(Math.random() * (Math.floor(max) - _min + 1)) + _min;
+  return Promise.resolve(
+    Math.floor(Math.random() * (Math.floor(max) - _min + 1)) + _min
+  );
 }

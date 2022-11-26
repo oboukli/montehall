@@ -1,6 +1,6 @@
 {
   "name": "montehall",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "A Monte Carlo machine for the Monty Hall Problem",
   "author": "Omar Boukli-Hacene",
   "license": "MIT",
