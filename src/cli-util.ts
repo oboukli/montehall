@@ -5,9 +5,12 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
+import { readFile } from "node:fs/promises";
+
 import {
-  GameSimulatorFactory,
+  GameSimulator,
   RandomNumberProvider,
+  SetupOptions,
   standardSimulator,
 } from ".";
 
@@ -18,19 +21,32 @@ import { tableRng } from "./random/table-rng";
 export type RandomNumberProviderType = "basic" | "advanced" | "table";
 
 /**
+ * Deserialize configuration JSON UTF-8 file.
+ *
+ * @param filename Path name of JSON file to deserialize
+ * @returns Configuration object
+ */
+export async function getConfig<T>(filename: string): Promise<T> {
+  const content = await readFile(filename, {
+    encoding: "utf8",
+  });
+
+  return JSON.parse(content) as T;
+}
+
+/**
  * Creates a random number provider.
  *
- * @function rngFactory
  * @param rngType
  * @param numbersFilePath
  * @param isDecimalTable
- * @returns RandomNumberProvider
+ * @returns Random number generator
  */
-export const rngFactory = (
+export function rngFactory(
   rngType: RandomNumberProviderType,
   numbersFilePath: string,
   isDecimalTable: boolean
-): RandomNumberProvider => {
+): RandomNumberProvider {
   switch (rngType) {
     case "advanced":
       return csPrng();
@@ -39,16 +55,16 @@ export const rngFactory = (
     default:
       return naiveRng();
   }
-};
+}
 
 /**
  *
  * @param setupOptions
  * @param rng
  */
-export const gameSimulatorFactory: GameSimulatorFactory = (
-  setupOptions,
-  rng
-) => {
+export function gameSimulatorFactory(
+  setupOptions: SetupOptions,
+  rng: RandomNumberProvider
+): GameSimulator {
   return standardSimulator(setupOptions, rng);
-};
+}
