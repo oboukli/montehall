@@ -9,7 +9,7 @@ import "jasmine";
 import {
   GameSimulator,
   GameSummary,
-  RandomNumberProvider,
+  RandomNumberGenerator,
   SetupOptions,
   standardSimulator,
 } from ".";
@@ -17,7 +17,7 @@ import { naiveRng } from "./random/naive-rng";
 
 describe("Standard Monty Hall problem simulator", () => {
   let setupOptions: SetupOptions;
-  let rng: RandomNumberProvider;
+  let rng: RandomNumberGenerator;
   let gameSummary: GameSummary;
   let simulator: GameSimulator;
 
@@ -84,12 +84,12 @@ describe("Standard Monty Hall problem simulator", () => {
 
     describe("The random number generator", () => {
       it("should be called a minimum of times", async () => {
-        const rngSpy = spyOn(rng, "random").and.callThrough();
+        const spyRng = jasmine.createSpy("spyRng", rng).and.callThrough();
+        const s = standardSimulator(setupOptions, spyRng);
 
-        const s = standardSimulator(setupOptions, rng);
         await s.simulateGame();
 
-        expect(rngSpy.calls.count()).toBeGreaterThanOrEqual(2);
+        expect(spyRng.calls.count()).toBeGreaterThanOrEqual(2);
       });
     });
   };
@@ -101,7 +101,7 @@ describe("Standard Monty Hall problem simulator", () => {
     };
 
     beforeAll(() => {
-      rng = naiveRng();
+      rng = naiveRng;
     });
 
     beforeEach(() => {
@@ -178,10 +178,8 @@ describe("Standard Monty Hall problem simulator", () => {
             isNaivePlayer: false,
             numSlots: 3,
           },
-          {
-            random: () => {
-              throw Error();
-            },
+          () => {
+            throw Error();
           }
         );
 

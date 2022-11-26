@@ -9,7 +9,7 @@ import { readFile } from "node:fs/promises";
 
 import {
   GameSimulator,
-  RandomNumberProvider,
+  RandomNumberGenerator,
   SetupOptions,
   standardSimulator,
 } from ".";
@@ -46,14 +46,14 @@ export function rngFactory(
   rngType: RandomNumberProviderType,
   numbersFilePath: string,
   isDecimalTable: boolean
-): RandomNumberProvider {
+): RandomNumberGenerator {
   switch (rngType) {
     case "advanced":
-      return csPrng();
+      return csPrng;
     case "table":
       return tableRng(numbersFilePath, isDecimalTable);
     default:
-      return naiveRng();
+      return naiveRng;
   }
 }
 
@@ -64,7 +64,7 @@ export function rngFactory(
  */
 export function gameSimulatorFactory(
   setupOptions: SetupOptions,
-  rng: RandomNumberProvider
+  rng: RandomNumberGenerator
 ): GameSimulator {
   return standardSimulator(setupOptions, rng);
 }

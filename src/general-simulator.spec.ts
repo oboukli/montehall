@@ -11,7 +11,7 @@ import "jasmine";
 import {
   GameSimulator,
   generalSimulator,
-  RandomNumberProvider,
+  RandomNumberGenerator,
   SetupOptions,
 } from ".";
 import { naiveRng } from "./random/naive-rng";
@@ -19,7 +19,7 @@ import { naiveRng } from "./random/naive-rng";
 describe("GeneralSimulator", () => {
   let simulator: GameSimulator;
   let setupOptions: SetupOptions;
-  let rng: RandomNumberProvider;
+  let rng: RandomNumberGenerator;
 
   describe("Standard three-door Monty Hall problem with a naive player", () => {
     beforeAll(() => {
@@ -32,9 +32,8 @@ describe("GeneralSimulator", () => {
         numSlots: 3,
       };
 
-      rng = naiveRng();
-
-      simulator = generalSimulator(setupOptions, rng);
+      rng = naiveRng;
+      simulator = generalSimulator(setupOptions, naiveRng);
     });
 
     it("should return a valid game summary", async () => {
@@ -63,12 +62,12 @@ describe("GeneralSimulator", () => {
     });
 
     it("should call the RNG a minimum of three times for the naive player", async () => {
-      const rngSpy = spyOn(rng, "random").and.callThrough();
+      const spyRng = jasmine.createSpy("spyRng", rng).and.callThrough();
+      const s = generalSimulator(setupOptions, spyRng);
 
-      const s = generalSimulator(setupOptions, rng);
       await s.simulateGame();
 
-      expect(rngSpy.calls.count()).toBeGreaterThanOrEqual(3);
+      expect(spyRng.calls.count()).toBeGreaterThanOrEqual(3);
     });
   });
 
@@ -112,12 +111,12 @@ describe("GeneralSimulator", () => {
     });
 
     it("should call the RNG a minimum of four times for the wise player", async () => {
-      const rngSpy = spyOn(rng, "random").and.callThrough();
+      const spyRng = jasmine.createSpy("spyRng", rng).and.callThrough();
+      const s = generalSimulator(setupOptions, spyRng);
 
-      const s = generalSimulator(setupOptions, rng);
       await s.simulateGame();
 
-      expect(rngSpy.calls.count()).toBeGreaterThanOrEqual(4);
+      expect(spyRng.calls.count()).toBeGreaterThanOrEqual(4);
     });
   });
 

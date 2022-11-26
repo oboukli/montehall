@@ -8,7 +8,7 @@ SPDX-License-Identifier: MIT
 import {
   GameSimulator,
   GameSummary,
-  RandomNumberProvider,
+  RandomNumberGenerator,
   SetupOptions,
 } from "./montehall";
 
@@ -16,12 +16,12 @@ import {
  * Simulates one generalized Monty Hall problem game.
  *
  * @param setupOptions
- * @param randomNumberProvider Random number generator to use.
+ * @param randomNumberGenerator Random number generator to use.
  * @returns A game simulator object.
  */
 export function generalSimulator(
   setupOptions: SetupOptions,
-  randomNumberProvider: RandomNumberProvider
+  rng: RandomNumberGenerator
 ): GameSimulator {
   // eslint complexity: ["error", 5]
   /**
@@ -41,10 +41,7 @@ export function generalSimulator(
       for (let i = 0; i < numSlots; i += 1) {
         // The exact number of needed RNG calls is nondeterministic.
         do {
-          slot = await randomNumberProvider.random(
-            0,
-            setupOptions.numSlots - 1
-          );
+          slot = await rng(0, setupOptions.numSlots - 1);
         } while (excludedSlots.includes(slot));
         slots[i] = slot;
       }

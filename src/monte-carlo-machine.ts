@@ -9,9 +9,9 @@ import {
   GameSimulatorFactory,
   GameSummary,
   GameSummaryCallback,
-  RandomNumberProvider,
   SetupOptions,
   MonteCarloMachineResult,
+  RandomNumberGenerator,
 } from "./montehall";
 
 /**
@@ -29,7 +29,7 @@ export const monteCarloMachine = (
   setupOptions: SetupOptions,
   numGames: number,
   gameSimulatorFactory: GameSimulatorFactory,
-  rng: RandomNumberProvider,
+  rng: RandomNumberGenerator,
   gameSummaryCallback: GameSummaryCallback
 ): { run: () => Promise<MonteCarloMachineResult> } => {
   /**

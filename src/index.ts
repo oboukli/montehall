@@ -13,7 +13,7 @@ export {
   GameSummaryCallback,
   MonteCarloMachine,
   MonteCarloMachineResult,
-  RandomNumberProvider,
+  RandomNumberGenerator,
   SetupOptions,
 } from "./montehall";
 

@@ -64,14 +64,10 @@ export type RandomNumberGenerator = (
 
 export type GameSimulatorFactory = (
   setupOptions: SetupOptions,
-  rng: RandomNumberProvider
+  rng: RandomNumberGenerator
 ) => GameSimulator;
 
 export type GameSummaryCallback = (gameSummary: GameSummary) => void;
-
-export interface RandomNumberProvider {
-  random: RandomNumberGenerator;
-}
 
 export interface MonteCarloMachineResult {
   readonly error?: unknown;
