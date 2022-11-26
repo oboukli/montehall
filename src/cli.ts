@@ -5,8 +5,8 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import { readFile } from "node:fs/promises";
 import { EOL } from "node:os";
+import process from "node:process";
 
 import { Command, InvalidArgumentError, Option } from "commander";
 import { IPackageJson } from "package-json-type";
@@ -22,6 +22,7 @@ import {
 
 import {
   gameSimulatorFactory,
+  getConfig,
   RandomNumberProviderType,
   rngFactory,
 } from "./cli-util";
@@ -29,42 +30,13 @@ import {
 const pkgFileName = "./package.json";
 const configFileName = "./montehall.json";
 
-// eslint complexity: ["error", 13]
-/**
- * CLI app entry point.
- */
-async function main() {
-  let pkgInfo: IPackageJson;
-  let config: AppConfig;
-
-  try {
-    const pkgInfoFilePromise = await readFile(pkgFileName, {
-      encoding: "utf8",
-    });
-
-    const configFilePromise = await readFile(configFileName, {
-      encoding: "utf8",
-    });
-
-    const [pkgInfoFile, configFile] = await Promise.all([
-      pkgInfoFilePromise,
-      configFilePromise,
-    ]);
-
-    pkgInfo = JSON.parse(pkgInfoFile) as IPackageJson;
-    config = JSON.parse(configFile) as AppConfig;
-  } catch {
-    process.stderr.write(
-      `Could not read configuration. Check the "${pkgFileName}" and the "${configFileName}" files.${EOL}`
-    );
-
-    return 1;
-  }
-
-  const DEFAULT_NUM_GAMES = Number(config.numGamesToSimulate || 0);
-
+function buildCliCommand(
+  pkgInfo: IPackageJson,
+  defaultNumGames: number
+): Command {
   const program = new Command();
-  program
+
+  return program
     .name(pkgInfo.name || "")
     .description("Montehall: A Monte Carlo Machine for the Monty Hall Problem")
     .version(
@@ -84,7 +56,7 @@ async function main() {
 
         return n;
       },
-      DEFAULT_NUM_GAMES
+      defaultNumGames
     )
     .addOption(
       new Option("-r, --random [type]", "Random number generator type")
@@ -108,16 +80,42 @@ async function main() {
     .option("-v, --verbose", "Show a summary for each game", false)
     .option("-w, --wise", "Wise player", false)
     .parse();
+}
 
-  const options = program.opts();
+/**
+ * CLI app entry point.
+ */
+async function main() {
+  let pkgInfo: IPackageJson;
+  let appConfig: AppConfig;
+
+  try {
+    const pkgInfoPromise = getConfig<IPackageJson>(pkgFileName);
+    const appConfigPromise = getConfig<AppConfig>(configFileName);
+
+    [pkgInfo, appConfig] = await Promise.all([
+      pkgInfoPromise,
+      appConfigPromise,
+    ]);
+  } catch {
+    process.stderr.write(
+      `Could not read configuration. Check the "${pkgFileName}" and the "${configFileName}" files.${EOL}`
+    );
+
+    return 1;
+  }
+
+  const defaultNumGames = Number(appConfig.numGamesToSimulate || 0);
+
+  const options = buildCliCommand(pkgInfo, defaultNumGames).opts();
 
   const numGames = options.games as number;
   const isPrudentPlayer = options.wise as boolean;
 
   const isDecimalTable =
-    (options.decimalTable as boolean) || config.isDecimalNumTable;
+    (options.decimalTable as boolean) || appConfig.isDecimalNumTable;
   const numbersFilePath: string =
-    (options.tableFile as string) || config.numbersFilePath || "";
+    (options.tableFile as string) || appConfig.numbersFilePath || "";
   if (options.random === "table") {
     if (numbersFilePath === "") {
       process.stdout.write(`Random number table file not specified.${EOL}`);
