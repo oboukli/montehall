@@ -8,7 +8,7 @@ SPDX-License-Identifier: MIT
 import {
   GameSimulator,
   GameSummary,
-  RandomNumberProvider,
+  RandomNumberGenerator,
   SetupOptions,
 } from "./montehall";
 
@@ -16,12 +16,12 @@ import {
  * Simulates one standard Monty Hall problem game.
  *
  * @param setupOptions
- * @param randomNumberProvider Random number generator to use.
+ * @param rng Random number generator to use.
  * @returns A game simulator object.
  */
 export function standardSimulator(
   setupOptions: SetupOptions,
-  randomNumberProvider: RandomNumberProvider
+  rng: RandomNumberGenerator
 ): GameSimulator {
   /**
    *
@@ -30,7 +30,7 @@ export function standardSimulator(
    */
   async function pickRandomSlots(excludedSlot = -1): Promise<number> {
     try {
-      const slot = await randomNumberProvider.random(0, 2);
+      const slot = await rng(0, 2);
       if (excludedSlot !== slot) {
         return slot;
       }

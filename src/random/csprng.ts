@@ -6,21 +6,15 @@ SPDX-License-Identifier: MIT
 */
 
 import secureRandomNumber from "random-number-csprng";
-import { RandomNumberProvider } from "../montehall";
 
 /**
- * Exposes a slow but cryptographically secure
+ * Slow but high-quality (cryptographically secure)
  * pseudorandom number generator.
  *
- * @function csPrng
- * @returns number generator.
+ * @param min Minimum inclusive value (integer).
+ * @param max Maximum inclusive value (integer).
+ * @returns A random number (integer) between min and max inclusive.
  */
-export const csPrng = (): RandomNumberProvider => {
-  const random = async (min: number, max: number): Promise<number> => {
-    return await secureRandomNumber(min, max);
-  };
-
-  return {
-    random,
-  };
-};
+export async function csPrng(min: number, max: number): Promise<number> {
+  return await secureRandomNumber(min, max);
+}

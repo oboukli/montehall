@@ -8,28 +8,21 @@ SPDX-License-Identifier: MIT
 import * as fs from "fs";
 import * as util from "util";
 
-import { RandomNumberGenerator, RandomNumberProvider } from "../montehall";
+import { RandomNumberGenerator } from "../montehall";
 
 /**
- * Provides numbers from pre-prepared, and ideally random, number table text file.
- * The quality of the randomness, or lack of it, depends on the random number table.
+ * Provides experimental numbers from pre-prepared,
+ * and ideally random, number table text file.
+ * The quality of the randomness, or lack of it,
+ * depends on that of the random number table.
  *
  * @param numbersFilePath
  * @param isGeneral
  */
-export const tableRng = (
+export function tableRng(
   numbersFilePath: string,
   isGeneral = false
-): RandomNumberProvider => {
-  /**
-   * Provides an integer from a preloaded number table.
-   *
-   * @function random
-   * @param min Minimum inclusive value (integer).
-   * @param max Maximum inclusive value (integer).
-   */
-  let random: RandomNumberGenerator;
-
+): RandomNumberGenerator {
   let hits = 0;
   let index = 0;
 
@@ -92,12 +85,8 @@ export const tableRng = (
   };
 
   if (isGeneral) {
-    random = getInt;
-  } else {
-    random = getRaw;
+    return getInt;
   }
 
-  return {
-    random,
-  };
-};
+  return getRaw;
+}
