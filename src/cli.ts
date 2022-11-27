@@ -14,18 +14,17 @@ import { IPackageJson } from "package-json-type";
 import {
   AppConfig,
   GameSummaryCallback,
-  gameSummaryFormatter,
   monteCarloMachine,
   SetupOptions,
-  simulationSummaryFormatter,
 } from ".";
-
 import {
   gameSimulatorFactory,
   getConfig,
   RandomNumberProviderType,
   rngFactory,
 } from "./cli-util";
+import { gameSummaryFormatter } from "./formatters/game-summary-formatter";
+import { simulationSummaryFormatter } from "./formatters/simulation-summary-formatter";
 
 const pkgFileName = "./package.json";
 const configFileName = "./montehall.json";
