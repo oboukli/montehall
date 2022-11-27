@@ -28,9 +28,43 @@ describe("simulationSummaryFormatter", () => {
     expect(formattedSimulationSummary).toBeInstanceOf(String);
   });
 
+  it("should return a string when optional argument is not passed", () => {
+    const formattedSimulationSummary = simulationSummaryFormatter(
+      {
+        numSlots: 3,
+        isNaivePlayer: true,
+      },
+      19,
+      {
+        numWonGames: 7,
+        isCompletedSuccessfully: true,
+        numSimulations: 19,
+      }
+    );
+
+    expect(formattedSimulationSummary).toBeInstanceOf(String);
+  });
+
+  it("should return a string of 6 delimited segments when optional argument is not passed", () => {
+    const formattedSimulationSummarySegments = simulationSummaryFormatter(
+      {
+        numSlots: 3,
+        isNaivePlayer: true,
+      },
+      19,
+      {
+        numWonGames: 7,
+        isCompletedSuccessfully: true,
+        numSimulations: 19,
+      }
+    ).split("\n");
+
+    expect(formattedSimulationSummarySegments).toHaveSize(6);
+  });
+
   it("should return a string of 6 delimited segments", () => {
     const delimiter = "DUMMY\r\n";
-    const formattedSimulationSummary = simulationSummaryFormatter(
+    const formattedSimulationSummarySegments = simulationSummaryFormatter(
       {
         numSlots: 3,
         isNaivePlayer: true,
@@ -44,12 +78,12 @@ describe("simulationSummaryFormatter", () => {
       delimiter
     ).split(delimiter);
 
-    expect(formattedSimulationSummary).toHaveSize(6);
+    expect(formattedSimulationSummarySegments).toHaveSize(6);
   });
 
   it("should return a string of 5 delimited segments when simulationCount is 0", () => {
     const delimiter = "DUMMY\r\n";
-    const formattedSimulationSummary = simulationSummaryFormatter(
+    const formattedSimulationSummarySegments = simulationSummaryFormatter(
       {
         numSlots: 3,
         isNaivePlayer: true,
@@ -63,6 +97,6 @@ describe("simulationSummaryFormatter", () => {
       delimiter
     ).split(delimiter);
 
-    expect(formattedSimulationSummary).toHaveSize(5);
+    expect(formattedSimulationSummarySegments).toHaveSize(5);
   });
 });
