@@ -19,10 +19,11 @@ import { naiveRng } from "./random/naive-rng";
 describe("Standard Monty Hall problem simulator", () => {
   let setupOptions: SetupOptions;
   let rng: RandomNumberGenerator;
-  let gameSummary: GameSummary;
   let simulator: GameSimulator;
 
-  const validatePlayerIndependentSpecs = () => {
+  function playerIndependentSpecs() {
+    let gameSummary: GameSummary;
+
     describe("Game summary", () => {
       beforeEach(async () => {
         gameSummary = await simulator.simulateGame();
@@ -102,26 +103,24 @@ describe("Standard Monty Hall problem simulator", () => {
         expect(spyRng).toHaveBeenCalledWith(0, 2);
       });
     });
-  };
+  }
 
   beforeAll(() => {
     rng = naiveRng;
   });
 
   describe("with a player that does not switch (naive)", () => {
-    beforeAll(() => {
+    beforeEach(() => {
       setupOptions = {
         isNaivePlayer: true,
         numSlots: 3,
       };
-    });
 
-    beforeEach(() => {
       simulator = standardSimulator(setupOptions, rng);
     });
 
     it("should reflect in the game summary that the persistent player did not switch", async () => {
-      gameSummary = await simulator.simulateGame();
+      const gameSummary = await simulator.simulateGame();
 
       expect(gameSummary.isNaivePlayer).toBeTrue();
 
@@ -130,26 +129,23 @@ describe("Standard Monty Hall problem simulator", () => {
       );
     });
 
-    describe(
-      "Validate player-type-independent specs",
-      validatePlayerIndependentSpecs
-    );
+    describe("Validate player-type-independent specs", playerIndependentSpecs);
   });
 
   describe("with a player that switches (prudent)", () => {
-    beforeAll(() => {
+    let simulator: GameSimulator;
+
+    beforeEach(() => {
       setupOptions = {
         isNaivePlayer: false,
         numSlots: 3,
       };
-    });
 
-    beforeEach(() => {
       simulator = standardSimulator(setupOptions, rng);
     });
 
     it("should reflect in the game summary that the wise (non-naive) player switched", async () => {
-      gameSummary = await simulator.simulateGame();
+      const gameSummary = await simulator.simulateGame();
 
       expect(gameSummary.isNaivePlayer).toBeFalse();
 
@@ -158,10 +154,7 @@ describe("Standard Monty Hall problem simulator", () => {
       );
     });
 
-    describe(
-      "Validate player-type-independent specs",
-      validatePlayerIndependentSpecs
-    );
+    describe("Validate player-type-independent specs", playerIndependentSpecs);
   });
 
   describe("asynchronous exception specs", () => {
