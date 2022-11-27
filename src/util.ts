@@ -68,3 +68,23 @@ export function gameSimulatorFactory(
 ): GameSimulator {
   return standardSimulator(setupOptions, rng);
 }
+
+/**
+ * Exception to error message helper.
+ *
+ * @param e Exception
+ * @returns Error message
+ */
+export function toErrString(e: unknown): string {
+  let err: string;
+
+  if (e instanceof Error) {
+    err = e.message;
+  } else if (typeof e === "string") {
+    err = e;
+  } else {
+    err = String(e);
+  }
+
+  return err;
+}
