@@ -6,6 +6,7 @@ SPDX-License-Identifier: MIT
 */
 
 import "jasmine";
+
 import {
   GameSimulator,
   GameSummary,
@@ -27,7 +28,7 @@ describe("Standard Monty Hall problem simulator", () => {
         gameSummary = await simulator.simulateGame();
       });
 
-      it("should have valid setup size of three", () => {
+      it("should have valid setup of three slots", () => {
         expect(gameSummary.numSlots).toEqual(3);
       });
 
@@ -91,17 +92,28 @@ describe("Standard Monty Hall problem simulator", () => {
 
         expect(spyRng.calls.count()).toBeGreaterThanOrEqual(2);
       });
+
+      it("should be called with args 0 and 2", async () => {
+        const spyRng = jasmine.createSpy("spyRng", rng).and.callThrough();
+        const s = standardSimulator(setupOptions, spyRng);
+
+        await s.simulateGame();
+
+        expect(spyRng).toHaveBeenCalledWith(0, 2);
+      });
     });
   };
 
-  describe("with a player that doesn't switch (naive)", () => {
-    setupOptions = {
-      isNaivePlayer: true,
-      numSlots: 3,
-    };
+  beforeAll(() => {
+    rng = naiveRng;
+  });
 
+  describe("with a player that does not switch (naive)", () => {
     beforeAll(() => {
-      rng = naiveRng;
+      setupOptions = {
+        isNaivePlayer: true,
+        numSlots: 3,
+      };
     });
 
     beforeEach(() => {
@@ -110,6 +122,7 @@ describe("Standard Monty Hall problem simulator", () => {
 
     it("should reflect in the game summary that the persistent player did not switch", async () => {
       gameSummary = await simulator.simulateGame();
+
       expect(gameSummary.isNaivePlayer).toBeTrue();
 
       expect(gameSummary.confirmedPlayerPickedSlot).toEqual(
@@ -123,7 +136,7 @@ describe("Standard Monty Hall problem simulator", () => {
     );
   });
 
-  describe("with a player that switches (non-naive)", () => {
+  describe("with a player that switches (prudent)", () => {
     beforeAll(() => {
       setupOptions = {
         isNaivePlayer: false,
@@ -152,27 +165,19 @@ describe("Standard Monty Hall problem simulator", () => {
   });
 
   describe("asynchronous exception specs", () => {
-    describe("for invalid game size (size not three)", () => {
+    describe("for invalid game slots (slots are not three)", () => {
       it("should asynchronously throw RangeError", async () => {
-        let exception: unknown;
         const sim = standardSimulator(
           { numSlots: 2, isNaivePlayer: false },
           rng
         );
 
-        try {
-          await sim.simulateGame();
-        } catch (ex: unknown) {
-          exception = ex;
-        }
-
-        expect(exception instanceof RangeError).toBeTrue();
+        await expectAsync(sim.simulateGame()).toBeRejectedWithError(RangeError);
       });
     });
 
     describe("for RNG exceptions", () => {
       it("should asynchronously throw Error", async () => {
-        let exception: unknown;
         const sim = standardSimulator(
           {
             isNaivePlayer: false,
@@ -183,13 +188,7 @@ describe("Standard Monty Hall problem simulator", () => {
           }
         );
 
-        try {
-          await sim.simulateGame();
-        } catch (ex: unknown) {
-          exception = ex;
-        }
-
-        expect(exception instanceof Error).toBeTrue();
+        await expectAsync(sim.simulateGame()).toBeRejectedWithError(Error);
       });
     });
   });
