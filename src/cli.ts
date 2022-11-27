@@ -22,7 +22,8 @@ import {
   getConfig,
   RandomNumberProviderType,
   rngFactory,
-} from "./cli-util";
+  toErrString,
+} from "./util";
 import { gameSummaryFormatter } from "./formatters/game-summary-formatter";
 import { simulationSummaryFormatter } from "./formatters/simulation-summary-formatter";
 
@@ -163,8 +164,8 @@ async function main() {
       );
       process.stdout.write(`${formattedSimulationSummary}${EOL}`);
     })
-    .catch((reason) => {
-      process.stdout.write(`${reason}${EOL}`);
+    .catch((e) => {
+      process.stdout.write(`${toErrString(e)}${EOL}`);
     });
 
   return 0;
@@ -175,6 +176,6 @@ main()
     process.exitCode = x;
   })
   .catch((e) => {
-    process.stderr.write(`${e}${EOL}`);
+    process.stderr.write(`${toErrString(e)}${EOL}`);
     process.exitCode = 1;
   });
