@@ -147,10 +147,8 @@ async function main() {
   };
 
   const mcm = monteCarloMachine(
-    setupOptions,
     numGames,
-    gameSimulatorFactory,
-    rng,
+    gameSimulatorFactory(setupOptions, rng),
     gameSummaryCallback
   );
 
