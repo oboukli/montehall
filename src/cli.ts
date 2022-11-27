@@ -136,8 +136,9 @@ async function main() {
       process.stdout.write(`${formattedGameSummary}${EOL}${EOL}`);
     };
   } else {
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    gameSummaryCallback = () => {};
+    gameSummaryCallback = () => {
+      return;
+    };
   }
 
   const setupOptions: SetupOptions = {
