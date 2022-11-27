@@ -37,20 +37,12 @@ export function generalSimulator(
     let slot: number;
 
     const slots = new Array<number>(numSlots);
-    try {
-      for (let i = 0; i < numSlots; i += 1) {
-        // The exact number of needed RNG calls is nondeterministic.
-        do {
-          slot = await rng(0, setupOptions.numSlots - 1);
-        } while (excludedSlots.includes(slot));
-        slots[i] = slot;
-      }
-    } catch (ex) {
-      throw new Error(
-        `Cannot generate random number. ${
-          ex instanceof Error ? ex.message : ex
-        }`
-      );
+    for (let i = 0; i < numSlots; i += 1) {
+      // The exact number of needed RNG calls is nondeterministic.
+      do {
+        slot = await rng(0, setupOptions.numSlots - 1);
+      } while (excludedSlots.includes(slot));
+      slots[i] = slot;
     }
 
     return slots;
