@@ -29,17 +29,9 @@ export function standardSimulator(
    * @returns A positive integer [0, 2] that does not equal excludedSlot.
    */
   async function pickRandomSlots(excludedSlot = -1): Promise<number> {
-    try {
-      const slot = await rng(0, 2);
-      if (excludedSlot !== slot) {
-        return slot;
-      }
-    } catch (ex) {
-      throw new Error(
-        `Cannot generate random number. ${
-          ex instanceof Error ? ex.message : ex
-        }`
-      );
+    const slot = await rng(0, 2);
+    if (excludedSlot !== slot) {
+      return slot;
     }
 
     return pickRandomSlots(excludedSlot);
@@ -50,7 +42,6 @@ export function standardSimulator(
    *
    * @returns A new GameSummary.
    * @throws {RangeError} On encountering a setupOption.size value other than 3.
-   * @throws {Error} On simulation failure due to random number provider failure.
    */
   async function simulateGame(): Promise<GameSummary> {
     let revealedLosingSlot;
