@@ -6,46 +6,36 @@ SPDX-License-Identifier: MIT
 */
 
 import {
-  GameSimulatorFactory,
   GameSummary,
   GameSummaryCallback,
-  SetupOptions,
   MonteCarloMachineResult,
-  RandomNumberGenerator,
+  GameSimulator,
 } from "./montehall";
 
 /**
  * Monte Carlo method machine for the Monty Hall problem.
  *
- * @function monteCarloMachine
- * @param setupOptions
  * @param numGames Number of game simulations.
- * @param gameSimulatorFactory
- * @param rng Random number generator.
+ * @param gameSimulator
  * @param gameSummaryCallback A callback to be passed a simulation's GameSummary object.
  * @returns A simulator to simulate a numGames number of games.
  */
-export const monteCarloMachine = (
-  setupOptions: SetupOptions,
+export function monteCarloMachine(
   numGames: number,
-  gameSimulatorFactory: GameSimulatorFactory,
-  rng: RandomNumberGenerator,
+  gameSimulator: GameSimulator,
   gameSummaryCallback: GameSummaryCallback
-): { run: () => Promise<MonteCarloMachineResult> } => {
+): { run: () => Promise<MonteCarloMachineResult> } {
   /**
    * Runs the Monte Carlo machine.
    *
-   * @function run
    * @returns Number of won games.
    */
-  const run = async (): Promise<MonteCarloMachineResult> => {
+  async function run(): Promise<MonteCarloMachineResult> {
     let simulationCount = 0;
     let gameSummary: GameSummary;
     let gamesWonCount = 0;
     let error = false;
     let exception;
-
-    const gameSimulator = gameSimulatorFactory(setupOptions, rng);
 
     for (let i = 0; i < numGames; i += 1) {
       try {
@@ -71,9 +61,9 @@ export const monteCarloMachine = (
       isCompletedSuccessfully: !error,
       numSimulations: simulationCount,
     };
-  };
+  }
 
   return {
     run,
   };
-};
+}
