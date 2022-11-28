@@ -106,7 +106,7 @@ describe("Monte Carlo machine", () => {
     });
 
     it("should call the game summary callback x times", () => {
-      expect(gameSummaryCallbackSpy.calls.count()).toEqual(4);
+      expect(gameSummaryCallbackSpy).toHaveBeenCalledTimes(4);
     });
   });
 
@@ -137,8 +137,8 @@ describe("Monte Carlo machine", () => {
       });
     });
 
-    it("should call the game summary callback x times", () => {
-      expect(gameSummaryCallbackSpy.calls.count()).toEqual(0);
+    it("should not call the game summary callback", () => {
+      expect(gameSummaryCallbackSpy).not.toHaveBeenCalled();
     });
   });
 });

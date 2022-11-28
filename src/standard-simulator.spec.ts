@@ -129,7 +129,10 @@ describe("Standard Monty Hall problem simulator", () => {
       );
     });
 
-    describe("Validate player-type-independent specs", playerIndependentSpecs);
+    describe(
+      "Validate naive player player-type-independent specs",
+      playerIndependentSpecs
+    );
   });
 
   describe("with a player that switches (prudent)", () => {
@@ -154,7 +157,10 @@ describe("Standard Monty Hall problem simulator", () => {
       );
     });
 
-    describe("Validate player-type-independent specs", playerIndependentSpecs);
+    describe(
+      "Validate prudent player player-type-independent specs",
+      playerIndependentSpecs
+    );
   });
 
   describe("asynchronous exception specs", () => {
