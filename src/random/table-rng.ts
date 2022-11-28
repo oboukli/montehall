@@ -5,8 +5,7 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import * as fs from "fs";
-import * as util from "util";
+import { readFile } from "node:fs/promises";
 
 import { RandomNumberGenerator } from "../montehall";
 
@@ -69,16 +68,8 @@ export function tableRng(
 
   const loadNumbers = async (): Promise<void> => {
     // TODO: Verify file, check for empty ln
-    const readFile = util.promisify(fs.readFile);
 
-    let dataBuffer: string;
-    try {
-      dataBuffer = await readFile(numbersFilePath, "utf8");
-    } catch (ex) {
-      throw new Error(
-        `Cannot read number table. ${ex instanceof Error ? ex.message : ex}`
-      );
-    }
+    const dataBuffer = await readFile(numbersFilePath, "utf8");
 
     randomNumberTable = dataBuffer.split(/\r\n|\r|\n/g).map(Number);
     randomNumberTableSize = randomNumberTable.length;
