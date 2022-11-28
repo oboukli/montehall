@@ -25,7 +25,7 @@ describe("Monte Carlo machine", () => {
   let gameSummaryMockIndex: number;
   let gameSummaryMocks: Array<GameSummary>;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     gameSummaryCallbackWrapper = {
       gameCompleted: () => {
         return;
