@@ -12,7 +12,7 @@ aimed at:
 
 1. Creating a simulation of the famous counterintuitive [Monty Hall problem](https://en.wikipedia.org/wiki/Monty_Hall_problem)
 2. Solving the strategy problem with [Monte Carlo methods](https://en.wikipedia.org/wiki/Monte_Carlo_method)
-3. Producing a fairly readable code and Node.js solution suitable
+3. Producing fairly readable code and Node.js solution suitable
    for a best practice tutorial.
 
 Inspired by a Numberphile [video](https://www.youtube.com/watch?v=4Lb-6rxZxx0).
