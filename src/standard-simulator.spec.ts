@@ -17,15 +17,16 @@ import {
 import { naiveRng } from "./random/naive-rng";
 
 describe("Standard Monty Hall problem simulator", () => {
-  let setupOptions: SetupOptions;
   let rng: RandomNumberGenerator;
-  let simulator: GameSimulator;
+  let setupOptions: SetupOptions;
 
   function playerIndependentSpecs() {
+    let simulator: GameSimulator;
     let gameSummary: GameSummary;
 
     describe("Game summary", () => {
       beforeEach(async () => {
+        simulator = standardSimulator(setupOptions, rng);
         gameSummary = await simulator.simulateGame();
       });
 
@@ -43,25 +44,21 @@ describe("Standard Monty Hall problem simulator", () => {
 
       it("should have a valid playerInitialPickedSlot", () => {
         expect(gameSummary.playerInitialPickedSlot).toBeGreaterThanOrEqual(0);
-
         expect(gameSummary.playerInitialPickedSlot).toBeLessThanOrEqual(2);
       });
 
       it("should have a valid confirmedPlayerPickedSlot", () => {
         expect(gameSummary.confirmedPlayerPickedSlot).toBeGreaterThanOrEqual(0);
-
         expect(gameSummary.confirmedPlayerPickedSlot).toBeLessThanOrEqual(2);
       });
 
       it("should have a valid winningSlot", () => {
         expect(gameSummary.winningSlot).toBeGreaterThanOrEqual(0);
-
         expect(gameSummary.winningSlot).toBeLessThanOrEqual(2);
       });
 
       it("should have a valid revealedLosingSlots", () => {
         expect(gameSummary.revealedLosingSlots).toBeGreaterThanOrEqual(0);
-
         expect(gameSummary.revealedLosingSlots).toBeLessThanOrEqual(2);
       });
 
@@ -84,7 +81,7 @@ describe("Standard Monty Hall problem simulator", () => {
       });
     });
 
-    describe("The random number generator", () => {
+    describe("the random number generator", () => {
       it("should be called a minimum of times", async () => {
         const spyRng = jasmine.createSpy("spyRng", rng).and.callThrough();
         const s = standardSimulator(setupOptions, spyRng);
@@ -115,11 +112,11 @@ describe("Standard Monty Hall problem simulator", () => {
         isNaivePlayer: true,
         numSlots: 3,
       };
-
-      simulator = standardSimulator(setupOptions, rng);
     });
 
     it("should reflect in the game summary that the persistent player did not switch", async () => {
+      const simulator = standardSimulator(setupOptions, rng);
+
       const gameSummary = await simulator.simulateGame();
 
       expect(gameSummary.isNaivePlayer).toBeTrue();
@@ -130,24 +127,22 @@ describe("Standard Monty Hall problem simulator", () => {
     });
 
     describe(
-      "Validate naive player player-type-independent specs",
+      "validate naive player player-type-independent specs",
       playerIndependentSpecs
     );
   });
 
   describe("with a player that switches (prudent)", () => {
-    let simulator: GameSimulator;
-
     beforeEach(() => {
       setupOptions = {
         isNaivePlayer: false,
         numSlots: 3,
       };
-
-      simulator = standardSimulator(setupOptions, rng);
     });
 
-    it("should reflect in the game summary that the wise (non-naive) player switched", async () => {
+    it("should reflect in the game summary that the prudent player switched", async () => {
+      const simulator = standardSimulator(setupOptions, rng);
+
       const gameSummary = await simulator.simulateGame();
 
       expect(gameSummary.isNaivePlayer).toBeFalse();
@@ -158,7 +153,7 @@ describe("Standard Monty Hall problem simulator", () => {
     });
 
     describe(
-      "Validate prudent player player-type-independent specs",
+      "validate prudent player player-type-independent specs",
       playerIndependentSpecs
     );
   });
