@@ -52,11 +52,11 @@ export function standardSimulator(
     }
 
     // Picking winning and player indices are independent events.
-    const wiPromise = pickRandomSlots();
-    const piPromise = pickRandomSlots();
+    const winningSlotPromise = pickRandomSlots();
+    const playerInitialPickedSlotPromise = pickRandomSlots();
     const [winningSlot, playerInitialPickedSlot] = await Promise.all([
-      wiPromise,
-      piPromise,
+      winningSlotPromise,
+      playerInitialPickedSlotPromise,
     ]);
 
     if (winningSlot === playerInitialPickedSlot) {
