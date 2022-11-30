@@ -28,13 +28,13 @@ export function standardSimulator(
    * @param excludedSlot Number that must not be returned as an output.
    * @returns A positive integer [0, 2] that does not equal excludedSlot.
    */
-  async function pickRandomSlots(excludedSlot = -1): Promise<number> {
+  async function pickRandomSlot(excludedSlot = -1): Promise<number> {
     const slot = await rng(0, 2);
     if (excludedSlot !== slot) {
       return slot;
     }
 
-    return pickRandomSlots(excludedSlot);
+    return pickRandomSlot(excludedSlot);
   }
 
   /**
@@ -52,15 +52,15 @@ export function standardSimulator(
     }
 
     // Picking winning and player indices are independent events.
-    const winningSlotPromise = pickRandomSlots();
-    const playerInitialPickedSlotPromise = pickRandomSlots();
+    const winningSlotPromise = pickRandomSlot();
+    const playerInitialPickedSlotPromise = pickRandomSlot();
     const [winningSlot, playerInitialPickedSlot] = await Promise.all([
       winningSlotPromise,
       playerInitialPickedSlotPromise,
     ]);
 
     if (winningSlot === playerInitialPickedSlot) {
-      revealedLosingSlot = await pickRandomSlots(winningSlot);
+      revealedLosingSlot = await pickRandomSlot(winningSlot);
     } else {
       revealedLosingSlot = 3 - winningSlot - playerInitialPickedSlot;
     }
