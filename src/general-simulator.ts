@@ -16,36 +16,51 @@ import {
  * Simulates one generalized Monty Hall problem game.
  *
  * @param setupOptions
- * @param randomNumberGenerator Random number generator to use.
+ * @param rng Random number generator to use.
  * @returns A game simulator object.
  */
 export function generalSimulator(
   setupOptions: SetupOptions,
   rng: RandomNumberGenerator
 ): GameSimulator {
-  // eslint complexity: ["error", 5]
-  /**
-   *
-   * @param numSlots Count of numbers to be generated.
-   * @param excludedSlots Numbers that are unaccepted as elements of the output array.
-   * @returns An array of positive integers that is disjoint with excludedSlots.
-   */
-  async function pickRandomSlots(
-    numSlots: number,
-    excludedSlots: number[]
-  ): Promise<number[]> {
-    let slot: number;
+  function getRevealedSlots(
+    len: number,
+    s1: number,
+    s2: number
+  ): Array<number> {
+    const [min, max] = s1 < s2 ? [s1, s2] : [s2, s1];
+    const a = Array<number>(len - 2);
+    let i = 0;
+    let j = 0;
 
-    const slots = new Array<number>(numSlots);
-    for (let i = 0; i < numSlots; i += 1) {
-      // The exact number of needed RNG calls is nondeterministic.
-      do {
-        slot = await rng(0, setupOptions.numSlots - 1);
-      } while (excludedSlots.includes(slot));
-      slots[i] = slot;
+    for (; i < min; ++i) {
+      a[j++] = i;
     }
 
-    return slots;
+    for (i = min + 1; i < max; ++i) {
+      a[j++] = i;
+    }
+
+    for (i = max + 1; i < len; ++i) {
+      a[j++] = i;
+    }
+
+    return a;
+  }
+
+  /**
+   *
+   * @param excludedSlots Numbers that are invalid for output.
+   * @returns A positive integer that is disjoint with excludedSlot.
+   */
+  async function pickRandomSlot(excludedSlots: number[]): Promise<number> {
+    const slot = await rng(0, setupOptions.numSlots - 1);
+
+    if (!excludedSlots.includes(slot)) {
+      return slot;
+    }
+
+    return pickRandomSlot(excludedSlots);
   }
 
   /**
@@ -56,23 +71,16 @@ export function generalSimulator(
    */
   async function simulateGame(): Promise<GameSummary> {
     // Picking winning and player indices are independent events.
-    const wiPromise = pickRandomSlots(1, []);
-    const piPromise = pickRandomSlots(1, []);
-    const [winningSlotArray, playerInitialPickedSlotArray] = await Promise.all([
-      wiPromise,
-      piPromise,
+    const winningSlotPromise = pickRandomSlot([]);
+    const playerInitialPickedSlotPromise = pickRandomSlot([]);
+    const [winningSlot, playerInitialPickedSlot] = await Promise.all([
+      winningSlotPromise,
+      playerInitialPickedSlotPromise,
     ]);
-
-    const [winningSlot] = winningSlotArray;
-    const [playerInitialPickedSlot] = playerInitialPickedSlotArray;
-
-    const indexesExcludedFromReveal = Array.from(
-      new Set([winningSlot, playerInitialPickedSlot])
-    );
-
-    const revealedLosingSlots = await pickRandomSlots(
-      setupOptions.numSlots - 2,
-      indexesExcludedFromReveal
+    const revealedLosingSlots = getRevealedSlots(
+      setupOptions.numSlots,
+      winningSlot,
+      playerInitialPickedSlot
     );
 
     let confirmedPlayerPickedSlot;
@@ -80,7 +88,7 @@ export function generalSimulator(
       confirmedPlayerPickedSlot = playerInitialPickedSlot;
     } else {
       const excludedSlots = [playerInitialPickedSlot, ...revealedLosingSlots];
-      [confirmedPlayerPickedSlot] = await pickRandomSlots(1, excludedSlots);
+      confirmedPlayerPickedSlot = await pickRandomSlot(excludedSlots);
     }
 
     return {
