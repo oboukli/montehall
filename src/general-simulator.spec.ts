@@ -5,184 +5,304 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-// TODO:
-
 import "jasmine";
-import {
-  GameSimulator,
-  generalSimulator,
-  RandomNumberGenerator,
-  SetupOptions,
-} from ".";
-import { naiveRng } from "./random/naive-rng";
 
-describe("GeneralSimulator", () => {
-  let simulator: GameSimulator;
-  let setupOptions: SetupOptions;
-  let rng: RandomNumberGenerator;
+import { generalSimulator, RandomNumberGenerator, SetupOptions } from ".";
 
-  describe("Standard three-door Monty Hall problem with a naive player", () => {
-    beforeAll(() => {
-      return;
+describe("Simulator of Generalized Monty Hall problem", () => {
+  describe("simulating standard three-door problem", () => {
+    function* fakeRngGen(): Generator<number, number, number> {
+      yield 0;
+      yield 1;
+      yield 2;
+
+      return 0;
+    }
+
+    describe("with a player who does not switch (naive)", () => {
+      let setupOptions: SetupOptions;
+      let spyRng: jasmine.Spy<RandomNumberGenerator>;
+
+      beforeEach(() => {
+        const fakeRng = fakeRngGen();
+        spyRng = jasmine
+          .createSpy("spyRng")
+          .and.callFake(
+            (): Promise<number> => Promise.resolve(fakeRng.next().value)
+          );
+
+        setupOptions = {
+          isNaivePlayer: true,
+          numSlots: 3,
+        };
+      });
+
+      it("should return a valid game summary", async () => {
+        const simulator = generalSimulator(setupOptions, spyRng);
+
+        const gameSummary = await simulator.simulateGame();
+
+        expect(gameSummary).toEqual({
+          winningSlot: 0,
+          revealedLosingSlots: [2],
+          isNaivePlayer: true,
+          numSlots: 3,
+          playerInitialPickedSlot: 1,
+          confirmedPlayerPickedSlot: 1,
+        });
+      });
+
+      it("should not return an invalid game summary", async () => {
+        const simulator = generalSimulator(setupOptions, spyRng);
+
+        const gameSummary = await simulator.simulateGame();
+
+        expect(gameSummary.revealedLosingSlots).not.toContain(
+          gameSummary.playerInitialPickedSlot
+        );
+        expect(gameSummary.revealedLosingSlots).not.toContain(
+          gameSummary.confirmedPlayerPickedSlot
+        );
+        expect(gameSummary.revealedLosingSlots).not.toContain(
+          gameSummary.winningSlot
+        );
+      });
+
+      it("should call the RNG a minimum of times for the naive player", async () => {
+        const s = generalSimulator(setupOptions, spyRng);
+
+        await s.simulateGame();
+
+        expect(spyRng.calls.count()).toBeGreaterThanOrEqual(2);
+      });
+
+      it("should call the RNG with args 0 and 2", async () => {
+        const s = generalSimulator(setupOptions, spyRng);
+
+        await s.simulateGame();
+
+        expect(spyRng).toHaveBeenCalledWith(0, 2);
+      });
     });
 
-    beforeEach(() => {
-      setupOptions = {
-        isNaivePlayer: true,
-        numSlots: 3,
-      };
+    describe("with a player who switches (prudent)", () => {
+      let setupOptions: SetupOptions;
+      let spyRng: jasmine.Spy<RandomNumberGenerator>;
 
-      rng = naiveRng;
-      simulator = generalSimulator(setupOptions, naiveRng);
-    });
+      beforeEach(() => {
+        const fakeRng = fakeRngGen();
+        spyRng = jasmine
+          .createSpy("spyRng")
+          .and.callFake(
+            (): Promise<number> => Promise.resolve(fakeRng.next().value)
+          );
 
-    it("should return a valid game summary", async () => {
-      const gameSummary = await simulator.simulateGame();
+        setupOptions = {
+          isNaivePlayer: false,
+          numSlots: 3,
+        };
+      });
 
-      expect(gameSummary.isNaivePlayer).toBeTrue();
-      expect(Array.isArray(gameSummary.revealedLosingSlots)).toBeTrue();
-      expect((gameSummary.revealedLosingSlots as number[]).length).toEqual(1);
-      expect(gameSummary.numSlots).toEqual(3);
+      it("should return a valid game summary", async () => {
+        const simulator = generalSimulator(setupOptions, spyRng);
 
-      expect(gameSummary.confirmedPlayerPickedSlot).toEqual(
-        gameSummary.playerInitialPickedSlot
-      );
+        const gameSummary = await simulator.simulateGame();
 
-      expect(gameSummary.revealedLosingSlots).not.toContain(
-        gameSummary.playerInitialPickedSlot
-      );
+        expect(gameSummary).toEqual({
+          winningSlot: 0,
+          revealedLosingSlots: [2],
+          isNaivePlayer: false,
+          numSlots: 3,
+          playerInitialPickedSlot: 1,
+          confirmedPlayerPickedSlot: 0,
+        });
+      });
 
-      expect(gameSummary.revealedLosingSlots).not.toContain(
-        gameSummary.confirmedPlayerPickedSlot
-      );
+      it("should not return an invalid game summary", async () => {
+        const simulator = generalSimulator(setupOptions, spyRng);
 
-      expect(gameSummary.revealedLosingSlots).not.toContain(
-        gameSummary.winningSlot
-      );
-    });
+        const gameSummary = await simulator.simulateGame();
 
-    it("should call the RNG a minimum of three times for the naive player", async () => {
-      const spyRng = jasmine.createSpy("spyRng", rng).and.callThrough();
-      const s = generalSimulator(setupOptions, spyRng);
+        expect(gameSummary.confirmedPlayerPickedSlot).not.toEqual(
+          gameSummary.playerInitialPickedSlot
+        );
+        expect(gameSummary.revealedLosingSlots).not.toContain(
+          gameSummary.playerInitialPickedSlot
+        );
+        expect(gameSummary.revealedLosingSlots).not.toContain(
+          gameSummary.confirmedPlayerPickedSlot
+        );
+        expect(gameSummary.revealedLosingSlots).not.toContain(
+          gameSummary.winningSlot
+        );
+      });
 
-      await s.simulateGame();
+      it("should call the RNG a minimum of times for the prudent player", async () => {
+        const s = generalSimulator(setupOptions, spyRng);
 
-      expect(spyRng.calls.count()).toBeGreaterThanOrEqual(3);
+        await s.simulateGame();
+
+        expect(spyRng.calls.count()).toBeGreaterThanOrEqual(3);
+      });
+
+      it("should call the RNG with args 0 and 2", async () => {
+        const s = generalSimulator(setupOptions, spyRng);
+
+        await s.simulateGame();
+
+        expect(spyRng).toHaveBeenCalledWith(0, 2);
+      });
     });
   });
 
-  describe("Standard three-door Monty Hall problem with a wise player", () => {
-    beforeAll(() => {
-      return;
+  describe("simulating five-door problem, with one winning door", () => {
+    function* fakeRngGen(): Generator<number, number, number> {
+      yield 4;
+      yield 0;
+      yield 1;
+      yield 2;
+      yield 3;
+
+      return 4;
+    }
+
+    describe("with a player who does not change pick", () => {
+      describe("pick one, reveal three, do not change pick", () => {
+        let setupOptions: SetupOptions;
+        let spyRng: jasmine.Spy<RandomNumberGenerator>;
+
+        beforeEach(() => {
+          const fakeRng = fakeRngGen();
+          spyRng = jasmine
+            .createSpy("spyRng")
+            .and.callFake(
+              (): Promise<number> => Promise.resolve(fakeRng.next().value)
+            );
+
+          setupOptions = {
+            isNaivePlayer: true,
+            numSlots: 5,
+          };
+        });
+
+        it("should return a valid game summary", async () => {
+          const simulator = generalSimulator(setupOptions, spyRng);
+
+          const gameSummary = await simulator.simulateGame();
+
+          expect(gameSummary).toEqual({
+            winningSlot: 4,
+            revealedLosingSlots: [1, 2, 3],
+            isNaivePlayer: true,
+            numSlots: 5,
+            playerInitialPickedSlot: 0,
+            confirmedPlayerPickedSlot: 0,
+          });
+        });
+
+        it("should not return an invalid game summary", async () => {
+          const simulator = generalSimulator(setupOptions, spyRng);
+
+          const gameSummary = await simulator.simulateGame();
+
+          expect(gameSummary.revealedLosingSlots).not.toContain(
+            gameSummary.playerInitialPickedSlot
+          );
+          expect(gameSummary.revealedLosingSlots).not.toContain(
+            gameSummary.confirmedPlayerPickedSlot
+          );
+          expect(gameSummary.revealedLosingSlots).not.toContain(
+            gameSummary.winningSlot
+          );
+        });
+
+        it("should call the RNG a minimum of times for the naive player", async () => {
+          const s = generalSimulator(setupOptions, spyRng);
+
+          await s.simulateGame();
+
+          expect(spyRng.calls.count()).toBeGreaterThanOrEqual(2);
+        });
+
+        it("should call the RNG with args 0 and 4", async () => {
+          const s = generalSimulator(setupOptions, spyRng);
+
+          await s.simulateGame();
+
+          expect(spyRng).toHaveBeenCalledWith(0, 4);
+        });
+      });
     });
 
-    beforeEach(() => {
-      setupOptions = {
-        isNaivePlayer: false,
-        numSlots: 3,
-      };
+    describe("with a player who changes pick", () => {
+      describe("pick one, reveal three, change pick", () => {
+        let setupOptions: SetupOptions;
+        let spyRng: jasmine.Spy<RandomNumberGenerator>;
 
-      simulator = generalSimulator(setupOptions, rng);
-    });
+        beforeEach(() => {
+          const fakeRng = fakeRngGen();
+          spyRng = jasmine
+            .createSpy("spyRng")
+            .and.callFake(
+              (): Promise<number> => Promise.resolve(fakeRng.next().value)
+            );
 
-    it("should return a valid game summary", async () => {
-      const gameSummary = await simulator.simulateGame();
+          setupOptions = {
+            isNaivePlayer: false,
+            numSlots: 5,
+          };
+        });
 
-      expect(gameSummary.isNaivePlayer).toBeFalse();
-      expect(Array.isArray(gameSummary.revealedLosingSlots)).toBeTrue();
-      expect((gameSummary.revealedLosingSlots as number[]).length).toEqual(1);
-      expect(gameSummary.numSlots).toEqual(3);
+        it("should return a valid game summary", async () => {
+          const simulator = generalSimulator(setupOptions, spyRng);
 
-      expect(gameSummary.confirmedPlayerPickedSlot).not.toEqual(
-        gameSummary.playerInitialPickedSlot
-      );
+          const gameSummary = await simulator.simulateGame();
 
-      expect(gameSummary.revealedLosingSlots).not.toContain(
-        gameSummary.playerInitialPickedSlot
-      );
+          expect(gameSummary).toEqual({
+            winningSlot: 4,
+            revealedLosingSlots: [1, 2, 3],
+            isNaivePlayer: false,
+            numSlots: 5,
+            playerInitialPickedSlot: 0,
+            confirmedPlayerPickedSlot: 4,
+          });
+        });
 
-      expect(gameSummary.revealedLosingSlots).not.toContain(
-        gameSummary.confirmedPlayerPickedSlot
-      );
+        it("should not return an invalid game summary", async () => {
+          const simulator = generalSimulator(setupOptions, spyRng);
 
-      expect(gameSummary.revealedLosingSlots).not.toContain(
-        gameSummary.winningSlot
-      );
-    });
+          const gameSummary = await simulator.simulateGame();
 
-    it("should call the RNG a minimum of four times for the wise player", async () => {
-      const spyRng = jasmine.createSpy("spyRng", rng).and.callThrough();
-      const s = generalSimulator(setupOptions, spyRng);
+          expect(gameSummary.confirmedPlayerPickedSlot).not.toEqual(
+            gameSummary.playerInitialPickedSlot
+          );
+          expect(gameSummary.revealedLosingSlots).not.toContain(
+            gameSummary.playerInitialPickedSlot
+          );
+          expect(gameSummary.revealedLosingSlots).not.toContain(
+            gameSummary.confirmedPlayerPickedSlot
+          );
+          expect(gameSummary.revealedLosingSlots).not.toContain(
+            gameSummary.winningSlot
+          );
+        });
 
-      await s.simulateGame();
+        it("should call the RNG a minimum of times for the prudent player", async () => {
+          const s = generalSimulator(setupOptions, spyRng);
 
-      expect(spyRng.calls.count()).toBeGreaterThanOrEqual(4);
-    });
-  });
+          await s.simulateGame();
 
-  describe("Five doors, one winning, pick one, reveal three, don't change pick", () => {
-    it("should return a valid game summary", async () => {
-      setupOptions = {
-        isNaivePlayer: true,
-        numSlots: 5,
-      };
-      simulator = generalSimulator(setupOptions, rng);
+          expect(spyRng.calls.count()).toBeGreaterThanOrEqual(6);
+        });
 
-      const gameSummary = await simulator.simulateGame();
+        it("should call the RNG with args 0 and 4", async () => {
+          const s = generalSimulator(setupOptions, spyRng);
 
-      expect(gameSummary.isNaivePlayer).toBeTrue();
-      expect(Array.isArray(gameSummary.revealedLosingSlots)).toBeTrue();
-      expect((gameSummary.revealedLosingSlots as number[]).length).toEqual(3);
-      expect(gameSummary.numSlots).toEqual(5);
+          await s.simulateGame();
 
-      expect(gameSummary.confirmedPlayerPickedSlot).toEqual(
-        gameSummary.playerInitialPickedSlot
-      );
-
-      expect(gameSummary.revealedLosingSlots).not.toContain(
-        gameSummary.playerInitialPickedSlot
-      );
-
-      expect(gameSummary.revealedLosingSlots).not.toContain(
-        gameSummary.confirmedPlayerPickedSlot
-      );
-
-      expect(gameSummary.revealedLosingSlots).not.toContain(
-        gameSummary.winningSlot
-      );
-    });
-  });
-
-  describe("Five doors, one winning, pick one, change pick, reveal three", () => {
-    it("should return a valid game summary", async () => {
-      setupOptions = {
-        isNaivePlayer: false,
-        numSlots: 5,
-      };
-      simulator = generalSimulator(setupOptions, rng);
-
-      const gameSummary = await simulator.simulateGame();
-
-      expect(gameSummary.isNaivePlayer).toBeFalse();
-      expect(Array.isArray(gameSummary.revealedLosingSlots)).toBeTrue();
-      expect((gameSummary.revealedLosingSlots as number[]).length).toEqual(3);
-      expect(gameSummary.numSlots).toEqual(5);
-
-      expect(gameSummary.confirmedPlayerPickedSlot).not.toEqual(
-        gameSummary.playerInitialPickedSlot
-      );
-
-      expect(gameSummary.revealedLosingSlots).not.toContain(
-        gameSummary.playerInitialPickedSlot
-      );
-
-      expect(gameSummary.revealedLosingSlots).not.toContain(
-        gameSummary.confirmedPlayerPickedSlot
-      );
-
-      expect(gameSummary.revealedLosingSlots).not.toContain(
-        gameSummary.winningSlot
-      );
+          expect(spyRng).toHaveBeenCalledWith(0, 4);
+        });
+      });
     });
   });
 });
