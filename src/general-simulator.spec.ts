@@ -60,9 +60,11 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         expect(gameSummary.revealedLosingSlots).not.toContain(
           gameSummary.playerInitialPickedSlot
         );
+
         expect(gameSummary.revealedLosingSlots).not.toContain(
           gameSummary.confirmedPlayerPickedSlot
         );
+
         expect(gameSummary.revealedLosingSlots).not.toContain(
           gameSummary.winningSlot
         );
@@ -126,12 +128,15 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         expect(gameSummary.confirmedPlayerPickedSlot).not.toEqual(
           gameSummary.playerInitialPickedSlot
         );
+
         expect(gameSummary.revealedLosingSlots).not.toContain(
           gameSummary.playerInitialPickedSlot
         );
+
         expect(gameSummary.revealedLosingSlots).not.toContain(
           gameSummary.confirmedPlayerPickedSlot
         );
+
         expect(gameSummary.revealedLosingSlots).not.toContain(
           gameSummary.winningSlot
         );
@@ -208,9 +213,11 @@ describe("Simulator of Generalized Monty Hall problem", () => {
           expect(gameSummary.revealedLosingSlots).not.toContain(
             gameSummary.playerInitialPickedSlot
           );
+
           expect(gameSummary.revealedLosingSlots).not.toContain(
             gameSummary.confirmedPlayerPickedSlot
           );
+
           expect(gameSummary.revealedLosingSlots).not.toContain(
             gameSummary.winningSlot
           );
@@ -276,12 +283,15 @@ describe("Simulator of Generalized Monty Hall problem", () => {
           expect(gameSummary.confirmedPlayerPickedSlot).not.toEqual(
             gameSummary.playerInitialPickedSlot
           );
+
           expect(gameSummary.revealedLosingSlots).not.toContain(
             gameSummary.playerInitialPickedSlot
           );
+
           expect(gameSummary.revealedLosingSlots).not.toContain(
             gameSummary.confirmedPlayerPickedSlot
           );
+
           expect(gameSummary.revealedLosingSlots).not.toContain(
             gameSummary.winningSlot
           );
@@ -302,6 +312,56 @@ describe("Simulator of Generalized Monty Hall problem", () => {
 
           expect(spyRng).toHaveBeenCalledWith(0, 4);
         });
+      });
+    });
+  });
+
+  describe("revealed slots in", () => {
+    function* fakeRngGen(): Generator<number, number, number> {
+      yield 4;
+      return 3;
+    }
+
+    describe("pick one, reveal three, do not change pick", () => {
+      let setupOptions: SetupOptions;
+      let spyRng: jasmine.Spy<RandomNumberGenerator>;
+
+      beforeEach(() => {
+        const fakeRng = fakeRngGen();
+        spyRng = jasmine
+          .createSpy("spyRng")
+          .and.callFake(
+            (): Promise<number> => Promise.resolve(fakeRng.next().value)
+          );
+
+        setupOptions = {
+          isNaivePlayer: true,
+          numSlots: 5,
+        };
+      });
+
+      it("should be correct ", async () => {
+        const simulator = generalSimulator(setupOptions, spyRng);
+
+        const gameSummary = await simulator.simulateGame();
+
+        expect(gameSummary.revealedLosingSlots).toEqual([0, 1, 2]);
+      });
+
+      it("should call the RNG a minimum of times for the naive player", async () => {
+        const s = generalSimulator(setupOptions, spyRng);
+
+        await s.simulateGame();
+
+        expect(spyRng.calls.count()).toBeGreaterThanOrEqual(2);
+      });
+
+      it("should call the RNG with args 0 and 4", async () => {
+        const s = generalSimulator(setupOptions, spyRng);
+
+        await s.simulateGame();
+
+        expect(spyRng).toHaveBeenCalledWith(0, 4);
       });
     });
   });
