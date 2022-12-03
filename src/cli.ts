@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /*!
 Copyright(c) 2017-2022 Omar Boukli-Hacene. All rights reserved.
 Licensed under an MIT-style license.
