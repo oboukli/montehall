@@ -35,7 +35,7 @@ export async function getConfig<T>(filename: string): Promise<T> {
 }
 
 /**
- * Creates a random number provider.
+ * Create a random number provider.
  *
  * @param rngType
  * @param numbersFilePath
@@ -44,8 +44,8 @@ export async function getConfig<T>(filename: string): Promise<T> {
  */
 export function rngFactory(
   rngType: RandomNumberProviderType,
-  numbersFilePath: string,
-  isDecimalTable: boolean
+  numbersFilePath = "",
+  isDecimalTable = false
 ): RandomNumberGenerator {
   switch (rngType) {
     case "advanced":
@@ -58,9 +58,11 @@ export function rngFactory(
 }
 
 /**
+ * Create game simulator instance.
  *
  * @param setupOptions
  * @param rng
+ * @return Game simulator
  */
 export function gameSimulatorFactory(
   setupOptions: SetupOptions,

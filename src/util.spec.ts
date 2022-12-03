@@ -7,7 +7,14 @@ SPDX-License-Identifier: MIT
 
 import "jasmine";
 
-import { toErrString } from "./util";
+import { AppConfig } from "./montehall";
+
+import {
+  gameSimulatorFactory,
+  getConfig,
+  rngFactory,
+  toErrString,
+} from "./util";
 
 describe("Function toErrString", () => {
   it("should convert base Error message to string", () => {
@@ -44,5 +51,57 @@ describe("Function toErrString", () => {
     const err = toErrString(undefined);
 
     expect(err).toEqual("undefined");
+  });
+});
+
+describe("Function getConfig", () => {
+  it("should return valid object", async () => {
+    const appConfig = await getConfig<AppConfig>("montehall.json");
+
+    expect(appConfig).toEqual({
+      numGamesToSimulate: 16384,
+      numbersFilePath: "./data/rand_decimals.txt",
+      isDecimalNumTable: true,
+    });
+  });
+});
+
+describe("Function rngFactory", () => {
+  it("should return valid object", () => {
+    const rng = rngFactory("advanced");
+
+    expect(rng).toBeInstanceOf(Function);
+  });
+
+  it("should return valid object", () => {
+    const rng = rngFactory("table", "dummy path", true);
+
+    expect(rng).toBeInstanceOf(Function);
+  });
+
+  it("should return valid object", () => {
+    const rng = rngFactory("basic");
+
+    expect(rng).toBeInstanceOf(Function);
+  });
+});
+
+describe("Function gameSimulatorFactory", () => {
+  it("should return valid object", () => {
+    const gameSimulator = gameSimulatorFactory(
+      {
+        isNaivePlayer: true,
+        numSlots: 3,
+      },
+      rngFactory("basic")
+    );
+
+    expect(gameSimulator).toBeInstanceOf(Object);
+
+    expect(gameSimulator.simulateGame.bind(gameSimulator)).toBeInstanceOf(
+      Function
+    );
+
+    expect(gameSimulator.simulateGame()).toBeInstanceOf(Object);
   });
 });
