@@ -1,10 +1,11 @@
 {
   "name": "montehall",
-  "version": "0.11.2",
+  "version": "0.11.3",
   "description": "A Monte Carlo machine for the Monty Hall Problem",
   "author": "Omar Boukli-Hacene",
   "license": "MIT",
   "private": false,
+  "homepage": "https://github.com/oboukli/montehall#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/oboukli/montehall.git"
@@ -35,7 +36,7 @@
     "@types/node": "^18.11.10",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
-    "eslint": "^8.28.0",
+    "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "jasmine": "^4.5.0",
@@ -47,14 +48,17 @@
   },
   "keywords": [
     "async",
+    "asynchronous programming",
     "es2017",
     "fun",
+    "functional programming",
     "game",
-    "monty",
-    "probability",
+    "monty hall",
     "probabilities",
     "random",
+    "randomness",
     "sample",
+    "simulation",
     "statistics",
     "stats",
     "typescript"
