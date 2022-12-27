@@ -83,6 +83,4 @@ export interface AppConfig {
   readonly numGamesToSimulate: number;
 
   readonly numbersFilePath: string;
-
-  readonly isDecimalNumTable: boolean;
 }

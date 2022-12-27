@@ -1,5 +1,4 @@
 {
   "numGamesToSimulate": 16384,
-  "numbersFilePath": "./data/rand_decimals.txt",
-  "isDecimalNumTable": true
+  "numbersFilePath": "./data/numbers.txt"
 }

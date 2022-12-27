@@ -60,8 +60,7 @@ describe("Function getConfig", () => {
 
     expect(appConfig).toEqual({
       numGamesToSimulate: 16384,
-      numbersFilePath: "./data/rand_decimals.txt",
-      isDecimalNumTable: true,
+      numbersFilePath: "./data/numbers.txt",
     });
   });
 });
@@ -74,7 +73,7 @@ describe("Function rngFactory", () => {
   });
 
   it("should return valid object", () => {
-    const rng = rngFactory("table", "dummy path", true);
+    const rng = rngFactory("table", "dummy path");
 
     expect(rng).toBeInstanceOf(Function);
   });

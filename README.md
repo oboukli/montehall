@@ -90,8 +90,40 @@ npm run montehall -- --wise --random advanced
 
 ### Using pre-generated random numbers (experimental)
 
-A file of (random) numbers can be loaded to run a deterministic simulation.
-See source code for details.
+A text file of numbers (random positive integers) can be loaded to run
+a deterministic simulation.
+
+The file path can be passed as a CLI option:
+
+```shell
+npm run montehall -- --games 100 --table-file /src/data/numbers.txt
+```
+
+Or, alternatively, the file path can be configured in `montehall.json`.
+
+Example:
+
+```json
+{
+  "numbersFilePath": "./data/numbers.txt"
+}
+```
+
+```shell
+npm run montehall -- --games 100 --random table
+```
+
+The file must have one number per text line. Example:
+
+```text
+1
+1
+0
+1
+2
+1
+0
+```
 
 ## Technical showcases
 
