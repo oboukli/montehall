@@ -37,7 +37,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         };
       });
 
-      it("should return a valid game summary", async () => {
+      it("should return a valid game summary (case 001)", async () => {
         const simulator = generalSimulator(setupOptions, spyRng);
 
         const gameSummary = await simulator.simulateGame();
@@ -52,7 +52,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         });
       });
 
-      it("should not return an invalid game summary", async () => {
+      it("should not return an invalid game summary (case 001)", async () => {
         const simulator = generalSimulator(setupOptions, spyRng);
 
         const gameSummary = await simulator.simulateGame();
@@ -70,15 +70,15 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         );
       });
 
-      it("should call the RNG a minimum of times for the naive player", async () => {
+      it("should call the RNG a minimum of times for the naive player (case 001)", async () => {
         const s = generalSimulator(setupOptions, spyRng);
 
         await s.simulateGame();
 
-        expect(spyRng.calls.count()).toBeGreaterThanOrEqual(2);
+        expect(spyRng.calls.count()).toEqual(2);
       });
 
-      it("should call the RNG with args 0 and 2", async () => {
+      it("should call the RNG with args 0 and 2 (case 001)", async () => {
         const s = generalSimulator(setupOptions, spyRng);
 
         await s.simulateGame();
@@ -105,7 +105,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         };
       });
 
-      it("should return a valid game summary", async () => {
+      it("should return a valid game summary (case 002)", async () => {
         const simulator = generalSimulator(setupOptions, spyRng);
 
         const gameSummary = await simulator.simulateGame();
@@ -120,7 +120,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         });
       });
 
-      it("should not return an invalid game summary", async () => {
+      it("should not return an invalid game summary (case 002)", async () => {
         const simulator = generalSimulator(setupOptions, spyRng);
 
         const gameSummary = await simulator.simulateGame();
@@ -142,15 +142,15 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         );
       });
 
-      it("should call the RNG a minimum of times for the prudent player", async () => {
+      it("should call the RNG a minimum of times for the prudent player (case 002)", async () => {
         const s = generalSimulator(setupOptions, spyRng);
 
         await s.simulateGame();
 
-        expect(spyRng.calls.count()).toBeGreaterThanOrEqual(3);
+        expect(spyRng.calls.count()).toEqual(4);
       });
 
-      it("should call the RNG with args 0 and 2", async () => {
+      it("should call the RNG with args 0 and 2 (case 002)", async () => {
         const s = generalSimulator(setupOptions, spyRng);
 
         await s.simulateGame();
@@ -161,7 +161,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
   });
 
   describe("simulating five-door problem, with one winning door", () => {
-    function* fakeRngGen(): Generator<number, number, number> {
+    function* naiveFriendlyRngGen(): Generator<number, number, number> {
       yield 4;
       yield 0;
       yield 1;
@@ -171,13 +171,20 @@ describe("Simulator of Generalized Monty Hall problem", () => {
       return 4;
     }
 
+    function* prudentFriendlyRngGen(): Generator<number, number, number> {
+      yield 4;
+      yield 4;
+
+      return 1;
+    }
+
     describe("with a player who does not change pick", () => {
-      describe("pick one, reveal three, do not change pick", () => {
+      describe("pick one, reveal three, do not change pick, player wins", () => {
         let setupOptions: SetupOptions;
         let spyRng: jasmine.Spy<RandomNumberGenerator>;
 
         beforeEach(() => {
-          const fakeRng = fakeRngGen();
+          const fakeRng = prudentFriendlyRngGen();
           spyRng = jasmine
             .createSpy("spyRng")
             .and.callFake(
@@ -190,22 +197,22 @@ describe("Simulator of Generalized Monty Hall problem", () => {
           };
         });
 
-        it("should return a valid game summary", async () => {
+        it("should return a valid game summary where player wins (case 003)", async () => {
           const simulator = generalSimulator(setupOptions, spyRng);
 
           const gameSummary = await simulator.simulateGame();
 
           expect(gameSummary).toEqual({
             winningSlot: 4,
-            revealedLosingSlots: [1, 2, 3],
+            revealedLosingSlots: [0, 2, 3],
             isNaivePlayer: true,
             numSlots: 5,
-            playerInitialPickedSlot: 0,
-            confirmedPlayerPickedSlot: 0,
+            playerInitialPickedSlot: 4,
+            confirmedPlayerPickedSlot: 4,
           });
         });
 
-        it("should not return an invalid game summary", async () => {
+        it("should not return an invalid game summary (case 003)", async () => {
           const simulator = generalSimulator(setupOptions, spyRng);
 
           const gameSummary = await simulator.simulateGame();
@@ -223,20 +230,54 @@ describe("Simulator of Generalized Monty Hall problem", () => {
           );
         });
 
-        it("should call the RNG a minimum of times for the naive player", async () => {
+        it("should call the RNG a minimum of times for the naive player (case 003)", async () => {
           const s = generalSimulator(setupOptions, spyRng);
 
           await s.simulateGame();
 
-          expect(spyRng.calls.count()).toBeGreaterThanOrEqual(2);
+          expect(spyRng.calls.count()).toEqual(3);
         });
 
-        it("should call the RNG with args 0 and 4", async () => {
+        it("should call the RNG with args 0 and 4 (case 003)", async () => {
           const s = generalSimulator(setupOptions, spyRng);
 
           await s.simulateGame();
 
           expect(spyRng).toHaveBeenCalledWith(0, 4);
+        });
+      });
+
+      describe("pick one, reveal three, do not change pick, player loses", () => {
+        let setupOptions: SetupOptions;
+        let spyRng: jasmine.Spy<RandomNumberGenerator>;
+
+        beforeEach(() => {
+          const fakeRng = naiveFriendlyRngGen();
+          spyRng = jasmine
+            .createSpy("spyRng")
+            .and.callFake(
+              (): Promise<number> => Promise.resolve(fakeRng.next().value)
+            );
+
+          setupOptions = {
+            isNaivePlayer: true,
+            numSlots: 5,
+          };
+        });
+
+        it("should return a valid game summary where player loses (case 003)", async () => {
+          const simulator = generalSimulator(setupOptions, spyRng);
+
+          const gameSummary = await simulator.simulateGame();
+
+          expect(gameSummary).toEqual({
+            winningSlot: 4,
+            revealedLosingSlots: [1, 2, 3],
+            isNaivePlayer: true,
+            numSlots: 5,
+            playerInitialPickedSlot: 0,
+            confirmedPlayerPickedSlot: 0,
+          });
         });
       });
     });
@@ -247,7 +288,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         let spyRng: jasmine.Spy<RandomNumberGenerator>;
 
         beforeEach(() => {
-          const fakeRng = fakeRngGen();
+          const fakeRng = naiveFriendlyRngGen();
           spyRng = jasmine
             .createSpy("spyRng")
             .and.callFake(
@@ -260,7 +301,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
           };
         });
 
-        it("should return a valid game summary", async () => {
+        it("should return a valid game summary (case 004)", async () => {
           const simulator = generalSimulator(setupOptions, spyRng);
 
           const gameSummary = await simulator.simulateGame();
@@ -275,7 +316,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
           });
         });
 
-        it("should not return an invalid game summary", async () => {
+        it("should not return an invalid game summary (case 004)", async () => {
           const simulator = generalSimulator(setupOptions, spyRng);
 
           const gameSummary = await simulator.simulateGame();
@@ -297,15 +338,15 @@ describe("Simulator of Generalized Monty Hall problem", () => {
           );
         });
 
-        it("should call the RNG a minimum of times for the prudent player", async () => {
+        it("should call the RNG a minimum of times for the prudent player (case 004)", async () => {
           const s = generalSimulator(setupOptions, spyRng);
 
           await s.simulateGame();
 
-          expect(spyRng.calls.count()).toBeGreaterThanOrEqual(6);
+          expect(spyRng.calls.count()).toEqual(6);
         });
 
-        it("should call the RNG with args 0 and 4", async () => {
+        it("should call the RNG with args 0 and 4 (case 004)", async () => {
           const s = generalSimulator(setupOptions, spyRng);
 
           await s.simulateGame();
@@ -340,7 +381,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         };
       });
 
-      it("should be correct ", async () => {
+      it("should be correct (case 005)", async () => {
         const simulator = generalSimulator(setupOptions, spyRng);
 
         const gameSummary = await simulator.simulateGame();
@@ -348,15 +389,15 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         expect(gameSummary.revealedLosingSlots).toEqual([0, 1, 2]);
       });
 
-      it("should call the RNG a minimum of times for the naive player", async () => {
+      it("should call the RNG a minimum of times for the naive player (case 005)", async () => {
         const s = generalSimulator(setupOptions, spyRng);
 
         await s.simulateGame();
 
-        expect(spyRng.calls.count()).toBeGreaterThanOrEqual(2);
+        expect(spyRng.calls.count()).toEqual(2);
       });
 
-      it("should call the RNG with args 0 and 4", async () => {
+      it("should call the RNG with args 0 and 4 (case 005)", async () => {
         const s = generalSimulator(setupOptions, spyRng);
 
         await s.simulateGame();
