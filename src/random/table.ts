@@ -18,10 +18,7 @@ import { RandomNumberGenerator } from "../montehall";
  * @param numbersFilePath
  * @param isGeneral
  */
-export function tableRng(
-  numbersFilePath: string,
-  isGeneral = false
-): RandomNumberGenerator {
+export function tableRng(numbersFilePath: string): RandomNumberGenerator {
   let hits = 0;
   let index = 0;
 
@@ -31,19 +28,19 @@ export function tableRng(
   /**
    * Provides a value from a preloaded list (number table) of values.
    *
-   * @function getRaw
-   * @returns A random number (integer) between min and max inclusive.
-   * @throws {Error}
+   * @function getNumber
+   * @returns A number loaded and parsed from a text file, as is.
+   * @throws {RangeError} When cannot return due to depletion.
    */
-  const getRaw = async (): Promise<number> => {
+  const getNumber = async (): Promise<number> => {
     hits += 1;
-
-    if (!randomNumberTable) {
-      await loadNumbers();
-    }
 
     if (hits > randomNumberTableSize) {
       throw new RangeError(`Out of random table numbers. Hits: ${hits}`);
+    }
+
+    if (!randomNumberTable) {
+      await loadNumbers();
     }
 
     const i = index;
@@ -52,32 +49,20 @@ export function tableRng(
     return randomNumberTable[i];
   };
 
-  /**
-   * Provides an integer from a preloaded number table.
-   *
-   * @function getInt
-   * @param min Minimum inclusive value (integer).
-   * @param max Maximum inclusive value (integer).
-   */
-  const getInt = async (min: number, max: number): Promise<number> => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-
-    return Math.floor((await getRaw()) * (max - min + 1)) + min;
-  };
-
   const loadNumbers = async (): Promise<void> => {
-    // TODO: Verify file, check for empty ln
-
     const dataBuffer = await readFile(numbersFilePath, "utf8");
 
-    randomNumberTable = dataBuffer.split(/\r\n|\r|\n/g).map(Number);
+    randomNumberTable = dataBuffer.split(/\r?\n/).flatMap((line) => {
+      const s = line.trim();
+      const n = Number(s);
+      if (s === "" || Number.isNaN(n)) {
+        return [];
+      }
+
+      return [n];
+    });
     randomNumberTableSize = randomNumberTable.length;
   };
 
-  if (isGeneral) {
-    return getInt;
-  }
-
-  return getRaw;
+  return getNumber;
 }

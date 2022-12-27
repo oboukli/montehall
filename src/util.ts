@@ -16,7 +16,7 @@ import {
 
 import { naiveRng } from "./random/naive-rng";
 import { csPrng } from "./random/csprng";
-import { tableRng } from "./random/table-rng";
+import { tableRng } from "./random/table";
 
 export type RandomNumberProviderType = "basic" | "advanced" | "table";
 
@@ -44,14 +44,13 @@ export async function getConfig<T>(filename: string): Promise<T> {
  */
 export function rngFactory(
   rngType: RandomNumberProviderType,
-  numbersFilePath = "",
-  isDecimalTable = false
+  numbersFilePath = ""
 ): RandomNumberGenerator {
   switch (rngType) {
     case "advanced":
       return csPrng;
     case "table":
-      return tableRng(numbersFilePath, isDecimalTable);
+      return tableRng(numbersFilePath);
     default:
       return naiveRng;
   }

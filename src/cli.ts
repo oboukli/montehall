@@ -67,17 +67,10 @@ function buildCliCommand(
         .choices(["basic", "advanced", "table"])
     )
     .addOption(
-      new Option("-t, --table-file", "Pre-generated random numbers file path")
-        .implies({ random: "table" })
-        .hideHelp(true)
-    )
-    .addOption(
       new Option(
-        "-m, --decimal-table",
-        "Assume pre-generated random numbers are decimals, not integers"
-      )
-        .default(false)
-        .hideHelp(true)
+        "-t, --table-file <file path>",
+        "Pre-generated random numbers file path"
+      ).implies({ random: "table" })
     )
     .option("-v, --verbose", "Show a summary for each game", false)
     .option("-w, --wise", "Wise player", false)
@@ -114,8 +107,6 @@ async function main() {
   const numGames = options.games as number;
   const isPrudentPlayer = options.wise as boolean;
 
-  const isDecimalTable =
-    (options.decimalTable as boolean) || appConfig.isDecimalNumTable;
   const numbersFilePath: string =
     (options.tableFile as string) || appConfig.numbersFilePath || "";
   if (options.random === "table") {
@@ -128,8 +119,7 @@ async function main() {
 
   const rng = rngFactory(
     options.random as RandomNumberProviderType,
-    numbersFilePath,
-    isDecimalTable
+    numbersFilePath
   );
 
   let gameSummaryCallback: GameSummaryCallback;
