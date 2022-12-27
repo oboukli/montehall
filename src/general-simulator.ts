@@ -5,6 +5,7 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
+import { getRevealedSlots } from "./helpers/algo";
 import {
   GameSimulator,
   GameSummary,
@@ -23,31 +24,6 @@ export function generalSimulator(
   setupOptions: SetupOptions,
   rng: RandomNumberGenerator
 ): GameSimulator {
-  function getRevealedSlots(
-    len: number,
-    s1: number,
-    s2: number
-  ): Array<number> {
-    const [min, max] = s1 < s2 ? [s1, s2] : [s2, s1];
-    const a = Array<number>(len - 2);
-    let i = 0;
-    let j = 0;
-
-    for (; i < min; ++i) {
-      a[j++] = i;
-    }
-
-    for (i = min + 1; i < max; ++i) {
-      a[j++] = i;
-    }
-
-    for (i = max + 1; i < len; ++i) {
-      a[j++] = i;
-    }
-
-    return a;
-  }
-
   /**
    *
    * @param excludedSlots Numbers that are invalid for output.
@@ -77,10 +53,16 @@ export function generalSimulator(
       winningSlotPromise,
       playerInitialPickedSlotPromise,
     ]);
+
+    const untappedSlot =
+      winningSlot === playerInitialPickedSlot
+        ? await pickRandomSlot([winningSlot])
+        : playerInitialPickedSlot;
+
     const revealedLosingSlots = getRevealedSlots(
       setupOptions.numSlots,
       winningSlot,
-      playerInitialPickedSlot
+      untappedSlot
     );
 
     let confirmedPlayerPickedSlot;
