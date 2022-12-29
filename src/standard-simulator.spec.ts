@@ -14,7 +14,7 @@ import {
   SetupOptions,
   standardSimulator,
 } from ".";
-import { naiveRng } from "./random/naive-rng";
+import { naiveRng } from "./random/naive";
 
 describe("Standard Monty Hall problem simulator", () => {
   let rng: RandomNumberGenerator;
