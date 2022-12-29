@@ -14,7 +14,7 @@ import {
   standardSimulator,
 } from ".";
 
-import { naiveRng } from "./random/naive-rng";
+import { naiveRng } from "./random/naive";
 import { csPrng } from "./random/csprng";
 import { tableRng } from "./random/table";
 
