@@ -96,7 +96,7 @@ a deterministic simulation.
 The file path can be passed as a CLI option:
 
 ```shell
-npm run montehall -- --games 100 --table-file /src/data/numbers.txt
+npm run montehall -- --games 100 --table-file vendor/numbers.txt
 ```
 
 Or, alternatively, the file path can be configured in `montehall.json`.
@@ -124,6 +124,8 @@ The file must have one number per text line. Example:
 1
 0
 ```
+
+See `vendor/numbers.txt` for a sample file.
 
 ## Technical showcases
 
