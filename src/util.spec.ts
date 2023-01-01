@@ -103,4 +103,22 @@ describe("Function gameSimulatorFactory", () => {
 
     expect(gameSimulator.simulateGame()).toBeInstanceOf(Object);
   });
+
+  it("should return valid object", () => {
+    const gameSimulator = gameSimulatorFactory(
+      {
+        isNaivePlayer: true,
+        numSlots: 5,
+      },
+      rngFactory("basic")
+    );
+
+    expect(gameSimulator).toBeInstanceOf(Object);
+
+    expect(gameSimulator.simulateGame.bind(gameSimulator)).toBeInstanceOf(
+      Function
+    );
+
+    expect(gameSimulator.simulateGame()).toBeInstanceOf(Object);
+  });
 });

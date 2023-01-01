@@ -9,6 +9,7 @@ import { readFile } from "node:fs/promises";
 
 import {
   GameSimulator,
+  generalSimulator,
   RandomNumberGenerator,
   SetupOptions,
   standardSimulator,
@@ -67,7 +68,12 @@ export function gameSimulatorFactory(
   setupOptions: SetupOptions,
   rng: RandomNumberGenerator
 ): GameSimulator {
-  return standardSimulator(setupOptions, rng);
+  switch (setupOptions.numSlots) {
+    case 3:
+      return standardSimulator(setupOptions, rng);
+    default:
+      return generalSimulator(setupOptions, rng);
+  }
 }
 
 /**
