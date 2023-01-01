@@ -49,3 +49,6 @@ jobs:
           npm run montehall -- --games 3 --random advanced --wise --verbose
           npm run montehall -- --games 100 --table-file vendor/numbers.txt
           npm run montehall -- --games 100 --table-file vendor/numbers.txt --wise
+          npm run montehall -- --doors 100 --games 100
+          npm run montehall -- --doors 100 --games 100 --wise
+          npm run montehall -- --doors 100 --games 3 --wise --verbose

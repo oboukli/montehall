@@ -50,15 +50,14 @@ function buildCliCommand(
     .option(
       "-g, --games <number>",
       `Number of games to simulate`,
-      (x) => {
-        const n = Number(x);
-        if (typeof n !== "number" || !Number.isSafeInteger(n) || n < 0) {
-          throw new InvalidArgumentError("Not a valid number of simulations.");
-        }
-
-        return n;
-      },
+      argToN("Not a valid number of simulations."),
       defaultNumGames
+    )
+    .option(
+      "-s, --doors <number>",
+      `Number of doors to simulate`,
+      argToN("Not a valid number of doors."),
+      3
     )
     .addOption(
       new Option("-r, --random [type]", "Random number generator type")
@@ -75,6 +74,19 @@ function buildCliCommand(
     .option("-v, --verbose", "Show a summary for each game", false)
     .option("-w, --wise", "Wise player", false)
     .parse();
+
+  function argToN(
+    validationErrMsg: string
+  ): (value: string, previous: number) => number {
+    return (x) => {
+      const n = Number(x);
+      if (typeof n !== "number" || !Number.isSafeInteger(n) || n < 0) {
+        throw new InvalidArgumentError(validationErrMsg);
+      }
+
+      return n;
+    };
+  }
 }
 
 /**
@@ -136,7 +148,7 @@ async function main() {
 
   const setupOptions: SetupOptions = {
     isNaivePlayer: !isPrudentPlayer,
-    numSlots: 3,
+    numSlots: options.doors as number,
   };
 
   const mcm = monteCarloMachine(
@@ -155,9 +167,13 @@ async function main() {
         EOL
       );
       process.stdout.write(`${formattedSimulationSummary}${EOL}`);
+
+      if (simulationSummary.error) {
+        process.stderr.write(`${toErrString(simulationSummary.error)}${EOL}`);
+      }
     })
     .catch((e) => {
-      process.stdout.write(`${toErrString(e)}${EOL}`);
+      process.stderr.write(`${toErrString(e)}${EOL}`);
     });
 
   return 0;
