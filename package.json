@@ -1,6 +1,6 @@
 {
   "name": "montehall",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Monte Carlo machine for the Monty Hall Problem",
   "author": "Omar Boukli-Hacene",
   "license": "MIT",
@@ -34,10 +34,10 @@
   "devDependencies": {
     "@types/jasmine": "^4.3.1",
     "@types/node": "^18.11.18",
-    "@typescript-eslint/eslint-plugin": "^5.47.1",
-    "@typescript-eslint/parser": "^5.47.1",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
     "eslint": "^8.31.0",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "jasmine": "^4.5.0",
     "jasmine-ts-console-reporter": "^3.1.1",
