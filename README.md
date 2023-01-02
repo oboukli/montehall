@@ -132,6 +132,7 @@ See `vendor/numbers.txt` for a sample file.
 In alphabetical order:
 
 - Asynchronous programming
+- Azure Pipelines
 - Behavior-driven development (BDD)
 - Code test coverage
 - Coding without `null`
@@ -145,7 +146,10 @@ In alphabetical order:
 - Node.js
 - NPM
 - Prettier
+- Strict static rules and type safety
+- Symantec versioning
 - TypeScript
+- Unbiased pseudo-randomness
 
 ## License
 
