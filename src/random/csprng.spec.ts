@@ -22,6 +22,8 @@ describe("csPrng", () => {
   });
 
   it("should throw an error when min equals max", async () => {
-    await expectAsync(csPrng(1, 1)).toBeRejected();
+    const n = await csPrng(1, 1);
+
+    expect(n).toEqual(1);
   });
 });

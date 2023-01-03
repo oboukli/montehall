@@ -22,7 +22,7 @@ Inspired by a Numberphile [video](https://www.youtube.com/watch?v=4Lb-6rxZxx0).
 
 ## Setup
 
-Node.js (version v16.x, or higher) and NPM are required to run the app.
+Node.js (latest v16.x, or higher) and NPM are required to run the app.
 
 ```shell
 npm install
