@@ -5,7 +5,7 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import "jasmine";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import {
   GameSimulator,
@@ -20,22 +20,14 @@ import {
 describe("Monte Carlo machine", () => {
   let mcm: MonteCarloMachine;
   let simulationSummary: MonteCarloMachineResult;
-  let gameSummaryCallbackSpy: jasmine.Spy;
-  let gameSummaryCallbackWrapper: { gameCompleted: GameSummaryCallback };
+  let gameSummaryCallbackMock: jest.Mock<GameSummaryCallback>;
   let gameSummaryMockIndex: number;
   let gameSummaryMocks: Array<GameSummary>;
 
   beforeEach(() => {
-    gameSummaryCallbackWrapper = {
-      gameCompleted: () => {
-        return;
-      },
-    };
-
-    gameSummaryCallbackSpy = spyOn(
-      gameSummaryCallbackWrapper,
-      "gameCompleted"
-    ).and.callThrough();
+    gameSummaryCallbackMock = jest.fn(() => {
+      return;
+    });
   });
 
   describe("when machine is run with a reliable game simulator", () => {
@@ -88,16 +80,12 @@ describe("Monte Carlo machine", () => {
         },
       };
 
-      mcm = monteCarloMachine(
-        numGames,
-        gameSimulator,
-        gameSummaryCallbackWrapper.gameCompleted
-      );
+      mcm = monteCarloMachine(numGames, gameSimulator, gameSummaryCallbackMock);
       simulationSummary = await mcm.run();
     });
 
     it("should return correct simulation summary", () => {
-      expect(simulationSummary).toEqual({
+      expect(simulationSummary).toStrictEqual({
         numWonGames: 2,
         isCompletedSuccessfully: true,
         numSimulations: 4,
@@ -106,7 +94,7 @@ describe("Monte Carlo machine", () => {
     });
 
     it("should call the game summary callback x times", () => {
-      expect(gameSummaryCallbackSpy).toHaveBeenCalledTimes(4);
+      expect(gameSummaryCallbackMock).toHaveBeenCalledTimes(4);
     });
   });
 
@@ -120,16 +108,12 @@ describe("Monte Carlo machine", () => {
         },
       };
 
-      mcm = monteCarloMachine(
-        numGames,
-        gameSimulator,
-        gameSummaryCallbackWrapper.gameCompleted
-      );
+      mcm = monteCarloMachine(numGames, gameSimulator, gameSummaryCallbackMock);
       simulationSummary = await mcm.run();
     });
 
     it("should return correct simulation summary that includes error", () => {
-      expect(simulationSummary).toEqual({
+      expect(simulationSummary).toStrictEqual({
         numWonGames: 0,
         isCompletedSuccessfully: false,
         numSimulations: 1,
@@ -138,7 +122,7 @@ describe("Monte Carlo machine", () => {
     });
 
     it("should not call the game summary callback", () => {
-      expect(gameSummaryCallbackSpy).not.toHaveBeenCalled();
+      expect(gameSummaryCallbackMock).not.toHaveBeenCalled();
     });
   });
 });

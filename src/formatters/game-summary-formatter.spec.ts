@@ -5,7 +5,7 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import "jasmine";
+import { describe, expect, it } from "@jest/globals";
 
 import { gameSummaryFormatter } from "./game-summary-formatter";
 
@@ -20,7 +20,7 @@ describe("gameSummaryFormatter", () => {
       winningSlot: 0,
     });
 
-    expect(summary).toBeInstanceOf(String);
+    expect(typeof summary).toBe("string");
   });
 
   it("should return a string of 6 delimited segments", () => {
@@ -37,6 +37,6 @@ describe("gameSummaryFormatter", () => {
       delimiter
     ).split(delimiter);
 
-    expect(summary).toHaveSize(6);
+    expect(summary).toHaveLength(6);
   });
 });
