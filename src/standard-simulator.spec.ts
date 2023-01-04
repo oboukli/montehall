@@ -5,7 +5,14 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import "jasmine";
+import {
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  jest,
+} from "@jest/globals";
 
 import {
   GameSimulator,
@@ -31,15 +38,15 @@ describe("Standard Monty Hall problem simulator", () => {
       });
 
       it("should have valid setup of three slots", () => {
-        expect(gameSummary.numSlots).toEqual(3);
+        expect(gameSummary.numSlots).toStrictEqual(3);
       });
 
       it("should not have revealedLosingSlots as an array", () => {
-        expect(Array.isArray(gameSummary.revealedLosingSlots)).toBeFalse();
+        expect(Array.isArray(gameSummary.revealedLosingSlots)).toBe(false);
       });
 
       it("should have revealedLosingSlots as integer", () => {
-        expect(Number.isInteger(gameSummary.revealedLosingSlots)).toBeTrue();
+        expect(Number.isInteger(gameSummary.revealedLosingSlots)).toBe(true);
       });
 
       it("should have a valid playerInitialPickedSlot", () => {
@@ -63,19 +70,19 @@ describe("Standard Monty Hall problem simulator", () => {
       });
 
       it("should have a non-revealed playerInitialPickedSlot", () => {
-        expect(gameSummary.playerInitialPickedSlot).not.toEqual(
+        expect(gameSummary.playerInitialPickedSlot).not.toStrictEqual(
           gameSummary.revealedLosingSlots as number
         );
       });
 
       it("should have a non-revealed confirmedPlayerPickedSlot", () => {
-        expect(gameSummary.confirmedPlayerPickedSlot).not.toEqual(
+        expect(gameSummary.confirmedPlayerPickedSlot).not.toStrictEqual(
           gameSummary.revealedLosingSlots as number
         );
       });
 
       it("should have a non-revealed winningSlot", () => {
-        expect(gameSummary.winningSlot).not.toEqual(
+        expect(gameSummary.winningSlot).not.toStrictEqual(
           gameSummary.revealedLosingSlots as number
         );
       });
@@ -83,21 +90,21 @@ describe("Standard Monty Hall problem simulator", () => {
 
     describe("the random number generator", () => {
       it("should be called a minimum of times", async () => {
-        const spyRng = jasmine.createSpy("spyRng", rng).and.callThrough();
-        const s = standardSimulator(setupOptions, spyRng);
+        const rngMock = jest.fn<RandomNumberGenerator>((x, y) => rng(x, y));
+        const s = standardSimulator(setupOptions, rngMock);
 
         await s.simulateGame();
 
-        expect(spyRng.calls.count()).toBeGreaterThanOrEqual(2);
+        expect(rngMock.mock.calls.length).toBeGreaterThanOrEqual(2);
       });
 
       it("should be called with args 0 and 2", async () => {
-        const spyRng = jasmine.createSpy("spyRng", rng).and.callThrough();
-        const s = standardSimulator(setupOptions, spyRng);
+        const rngMock = jest.fn<RandomNumberGenerator>((x, y) => rng(x, y));
+        const s = standardSimulator(setupOptions, rngMock);
 
         await s.simulateGame();
 
-        expect(spyRng).toHaveBeenCalledWith(0, 2);
+        expect(rngMock).toHaveBeenCalledWith(0, 2);
       });
     });
   }
@@ -119,9 +126,9 @@ describe("Standard Monty Hall problem simulator", () => {
 
       const gameSummary = await simulator.simulateGame();
 
-      expect(gameSummary.isNaivePlayer).toBeTrue();
+      expect(gameSummary.isNaivePlayer).toStrictEqual(true);
 
-      expect(gameSummary.confirmedPlayerPickedSlot).toEqual(
+      expect(gameSummary.confirmedPlayerPickedSlot).toStrictEqual(
         gameSummary.playerInitialPickedSlot
       );
     });
@@ -145,9 +152,9 @@ describe("Standard Monty Hall problem simulator", () => {
 
       const gameSummary = await simulator.simulateGame();
 
-      expect(gameSummary.isNaivePlayer).toBeFalse();
+      expect(gameSummary.isNaivePlayer).toStrictEqual(false);
 
-      expect(gameSummary.confirmedPlayerPickedSlot).not.toEqual(
+      expect(gameSummary.confirmedPlayerPickedSlot).not.toStrictEqual(
         gameSummary.playerInitialPickedSlot
       );
     });
@@ -166,7 +173,8 @@ describe("Standard Monty Hall problem simulator", () => {
           rng
         );
 
-        await expectAsync(sim.simulateGame()).toBeRejectedWithError(RangeError);
+        expect.assertions(1);
+        await expect(sim.simulateGame()).rejects.toBeInstanceOf(RangeError);
       });
     });
 
@@ -182,7 +190,8 @@ describe("Standard Monty Hall problem simulator", () => {
           }
         );
 
-        await expectAsync(sim.simulateGame()).toBeRejectedWithError(Error);
+        expect.assertions(1);
+        await expect(sim.simulateGame()).rejects.toBeInstanceOf(Error);
       });
     });
   });

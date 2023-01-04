@@ -5,7 +5,7 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import "jasmine";
+import { describe, expect, it } from "@jest/globals";
 
 import { simulationSummaryFormatter } from "./simulation-summary-formatter";
 
@@ -25,7 +25,7 @@ describe("simulationSummaryFormatter", () => {
       "\n"
     );
 
-    expect(formattedSimulationSummary).toBeInstanceOf(String);
+    expect(typeof formattedSimulationSummary).toBe("string");
   });
 
   it("should return a string when optional argument is not passed", () => {
@@ -42,7 +42,7 @@ describe("simulationSummaryFormatter", () => {
       }
     );
 
-    expect(formattedSimulationSummary).toBeInstanceOf(String);
+    expect(typeof formattedSimulationSummary).toBe("string");
   });
 
   it("should return a string of 6 delimited segments when optional argument is not passed", () => {
@@ -59,7 +59,7 @@ describe("simulationSummaryFormatter", () => {
       }
     ).split("\n");
 
-    expect(formattedSimulationSummarySegments).toHaveSize(6);
+    expect(formattedSimulationSummarySegments).toHaveLength(6);
   });
 
   it("should return a string of 6 delimited segments", () => {
@@ -78,7 +78,7 @@ describe("simulationSummaryFormatter", () => {
       delimiter
     ).split(delimiter);
 
-    expect(formattedSimulationSummarySegments).toHaveSize(6);
+    expect(formattedSimulationSummarySegments).toHaveLength(6);
   });
 
   it("should return a string of 5 delimited segments when simulationCount is 0", () => {
@@ -97,6 +97,6 @@ describe("simulationSummaryFormatter", () => {
       delimiter
     ).split(delimiter);
 
-    expect(formattedSimulationSummarySegments).toHaveSize(5);
+    expect(formattedSimulationSummarySegments).toHaveLength(5);
   });
 });

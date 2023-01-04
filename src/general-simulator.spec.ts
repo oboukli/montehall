@@ -5,7 +5,7 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import "jasmine";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
 import { generalSimulator, RandomNumberGenerator, SetupOptions } from ".";
 
@@ -21,15 +21,13 @@ describe("Simulator of Generalized Monty Hall problem", () => {
 
     describe("with a player who does not switch (naive)", () => {
       let setupOptions: SetupOptions;
-      let spyRng: jasmine.Spy<RandomNumberGenerator>;
+      let rngMock: jest.Mock<RandomNumberGenerator>;
 
       beforeEach(() => {
         const fakeRng = fakeRngGen();
-        spyRng = jasmine
-          .createSpy("spyRng")
-          .and.callFake(
-            (): Promise<number> => Promise.resolve(fakeRng.next().value)
-          );
+        rngMock = jest.fn(
+          (): Promise<number> => Promise.resolve(fakeRng.next().value)
+        );
 
         setupOptions = {
           isNaivePlayer: true,
@@ -38,11 +36,11 @@ describe("Simulator of Generalized Monty Hall problem", () => {
       });
 
       it("should return a valid game summary (case 001)", async () => {
-        const simulator = generalSimulator(setupOptions, spyRng);
+        const simulator = generalSimulator(setupOptions, rngMock);
 
         const gameSummary = await simulator.simulateGame();
 
-        expect(gameSummary).toEqual({
+        expect(gameSummary).toStrictEqual({
           winningSlot: 0,
           revealedLosingSlots: [2],
           isNaivePlayer: true,
@@ -53,7 +51,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
       });
 
       it("should not return an invalid game summary (case 001)", async () => {
-        const simulator = generalSimulator(setupOptions, spyRng);
+        const simulator = generalSimulator(setupOptions, rngMock);
 
         const gameSummary = await simulator.simulateGame();
 
@@ -71,33 +69,31 @@ describe("Simulator of Generalized Monty Hall problem", () => {
       });
 
       it("should call the RNG a minimum of times for the naive player (case 001)", async () => {
-        const s = generalSimulator(setupOptions, spyRng);
+        const s = generalSimulator(setupOptions, rngMock);
 
         await s.simulateGame();
 
-        expect(spyRng.calls.count()).toEqual(2);
+        expect(rngMock.mock.calls).toHaveLength(2);
       });
 
       it("should call the RNG with args 0 and 2 (case 001)", async () => {
-        const s = generalSimulator(setupOptions, spyRng);
+        const s = generalSimulator(setupOptions, rngMock);
 
         await s.simulateGame();
 
-        expect(spyRng).toHaveBeenCalledWith(0, 2);
+        expect(rngMock).toHaveBeenCalledWith(0, 2);
       });
     });
 
     describe("with a player who switches (prudent)", () => {
       let setupOptions: SetupOptions;
-      let spyRng: jasmine.Spy<RandomNumberGenerator>;
+      let rngMock: jest.Mock<RandomNumberGenerator>;
 
       beforeEach(() => {
         const fakeRng = fakeRngGen();
-        spyRng = jasmine
-          .createSpy("spyRng")
-          .and.callFake(
-            (): Promise<number> => Promise.resolve(fakeRng.next().value)
-          );
+        rngMock = jest.fn(
+          (): Promise<number> => Promise.resolve(fakeRng.next().value)
+        );
 
         setupOptions = {
           isNaivePlayer: false,
@@ -106,11 +102,11 @@ describe("Simulator of Generalized Monty Hall problem", () => {
       });
 
       it("should return a valid game summary (case 002)", async () => {
-        const simulator = generalSimulator(setupOptions, spyRng);
+        const simulator = generalSimulator(setupOptions, rngMock);
 
         const gameSummary = await simulator.simulateGame();
 
-        expect(gameSummary).toEqual({
+        expect(gameSummary).toStrictEqual({
           winningSlot: 0,
           revealedLosingSlots: [2],
           isNaivePlayer: false,
@@ -121,11 +117,11 @@ describe("Simulator of Generalized Monty Hall problem", () => {
       });
 
       it("should not return an invalid game summary (case 002)", async () => {
-        const simulator = generalSimulator(setupOptions, spyRng);
+        const simulator = generalSimulator(setupOptions, rngMock);
 
         const gameSummary = await simulator.simulateGame();
 
-        expect(gameSummary.confirmedPlayerPickedSlot).not.toEqual(
+        expect(gameSummary.confirmedPlayerPickedSlot).not.toStrictEqual(
           gameSummary.playerInitialPickedSlot
         );
 
@@ -143,19 +139,19 @@ describe("Simulator of Generalized Monty Hall problem", () => {
       });
 
       it("should call the RNG a minimum of times for the prudent player (case 002)", async () => {
-        const s = generalSimulator(setupOptions, spyRng);
+        const s = generalSimulator(setupOptions, rngMock);
 
         await s.simulateGame();
 
-        expect(spyRng.calls.count()).toEqual(4);
+        expect(rngMock.mock.calls).toHaveLength(4);
       });
 
       it("should call the RNG with args 0 and 2 (case 002)", async () => {
-        const s = generalSimulator(setupOptions, spyRng);
+        const s = generalSimulator(setupOptions, rngMock);
 
         await s.simulateGame();
 
-        expect(spyRng).toHaveBeenCalledWith(0, 2);
+        expect(rngMock).toHaveBeenCalledWith(0, 2);
       });
     });
   });
@@ -181,15 +177,13 @@ describe("Simulator of Generalized Monty Hall problem", () => {
     describe("with a player who does not change pick", () => {
       describe("pick one, reveal three, do not change pick, player wins", () => {
         let setupOptions: SetupOptions;
-        let spyRng: jasmine.Spy<RandomNumberGenerator>;
+        let rngMock: jest.Mock<RandomNumberGenerator>;
 
         beforeEach(() => {
           const fakeRng = prudentFriendlyRngGen();
-          spyRng = jasmine
-            .createSpy("spyRng")
-            .and.callFake(
-              (): Promise<number> => Promise.resolve(fakeRng.next().value)
-            );
+          rngMock = jest.fn(
+            (): Promise<number> => Promise.resolve(fakeRng.next().value)
+          );
 
           setupOptions = {
             isNaivePlayer: true,
@@ -198,11 +192,11 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         });
 
         it("should return a valid game summary where player wins (case 003)", async () => {
-          const simulator = generalSimulator(setupOptions, spyRng);
+          const simulator = generalSimulator(setupOptions, rngMock);
 
           const gameSummary = await simulator.simulateGame();
 
-          expect(gameSummary).toEqual({
+          expect(gameSummary).toStrictEqual({
             winningSlot: 4,
             revealedLosingSlots: [0, 2, 3],
             isNaivePlayer: true,
@@ -213,7 +207,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         });
 
         it("should not return an invalid game summary (case 003)", async () => {
-          const simulator = generalSimulator(setupOptions, spyRng);
+          const simulator = generalSimulator(setupOptions, rngMock);
 
           const gameSummary = await simulator.simulateGame();
 
@@ -231,33 +225,31 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         });
 
         it("should call the RNG a minimum of times for the naive player (case 003)", async () => {
-          const s = generalSimulator(setupOptions, spyRng);
+          const s = generalSimulator(setupOptions, rngMock);
 
           await s.simulateGame();
 
-          expect(spyRng.calls.count()).toEqual(3);
+          expect(rngMock.mock.calls).toHaveLength(3);
         });
 
         it("should call the RNG with args 0 and 4 (case 003)", async () => {
-          const s = generalSimulator(setupOptions, spyRng);
+          const s = generalSimulator(setupOptions, rngMock);
 
           await s.simulateGame();
 
-          expect(spyRng).toHaveBeenCalledWith(0, 4);
+          expect(rngMock).toHaveBeenCalledWith(0, 4);
         });
       });
 
       describe("pick one, reveal three, do not change pick, player loses", () => {
         let setupOptions: SetupOptions;
-        let spyRng: jasmine.Spy<RandomNumberGenerator>;
+        let rngMock: jest.Mock<RandomNumberGenerator>;
 
         beforeEach(() => {
           const fakeRng = naiveFriendlyRngGen();
-          spyRng = jasmine
-            .createSpy("spyRng")
-            .and.callFake(
-              (): Promise<number> => Promise.resolve(fakeRng.next().value)
-            );
+          rngMock = jest.fn(
+            (): Promise<number> => Promise.resolve(fakeRng.next().value)
+          );
 
           setupOptions = {
             isNaivePlayer: true,
@@ -266,11 +258,11 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         });
 
         it("should return a valid game summary where player loses (case 003)", async () => {
-          const simulator = generalSimulator(setupOptions, spyRng);
+          const simulator = generalSimulator(setupOptions, rngMock);
 
           const gameSummary = await simulator.simulateGame();
 
-          expect(gameSummary).toEqual({
+          expect(gameSummary).toStrictEqual({
             winningSlot: 4,
             revealedLosingSlots: [1, 2, 3],
             isNaivePlayer: true,
@@ -285,15 +277,13 @@ describe("Simulator of Generalized Monty Hall problem", () => {
     describe("with a player who changes pick", () => {
       describe("pick one, reveal three, change pick", () => {
         let setupOptions: SetupOptions;
-        let spyRng: jasmine.Spy<RandomNumberGenerator>;
+        let rngMock: jest.Mock<RandomNumberGenerator>;
 
         beforeEach(() => {
           const fakeRng = naiveFriendlyRngGen();
-          spyRng = jasmine
-            .createSpy("spyRng")
-            .and.callFake(
-              (): Promise<number> => Promise.resolve(fakeRng.next().value)
-            );
+          rngMock = jest.fn(
+            (): Promise<number> => Promise.resolve(fakeRng.next().value)
+          );
 
           setupOptions = {
             isNaivePlayer: false,
@@ -302,11 +292,11 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         });
 
         it("should return a valid game summary (case 004)", async () => {
-          const simulator = generalSimulator(setupOptions, spyRng);
+          const simulator = generalSimulator(setupOptions, rngMock);
 
           const gameSummary = await simulator.simulateGame();
 
-          expect(gameSummary).toEqual({
+          expect(gameSummary).toStrictEqual({
             winningSlot: 4,
             revealedLosingSlots: [1, 2, 3],
             isNaivePlayer: false,
@@ -317,11 +307,11 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         });
 
         it("should not return an invalid game summary (case 004)", async () => {
-          const simulator = generalSimulator(setupOptions, spyRng);
+          const simulator = generalSimulator(setupOptions, rngMock);
 
           const gameSummary = await simulator.simulateGame();
 
-          expect(gameSummary.confirmedPlayerPickedSlot).not.toEqual(
+          expect(gameSummary.confirmedPlayerPickedSlot).not.toStrictEqual(
             gameSummary.playerInitialPickedSlot
           );
 
@@ -339,19 +329,19 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         });
 
         it("should call the RNG a minimum of times for the prudent player (case 004)", async () => {
-          const s = generalSimulator(setupOptions, spyRng);
+          const s = generalSimulator(setupOptions, rngMock);
 
           await s.simulateGame();
 
-          expect(spyRng.calls.count()).toEqual(6);
+          expect(rngMock.mock.calls).toHaveLength(6);
         });
 
         it("should call the RNG with args 0 and 4 (case 004)", async () => {
-          const s = generalSimulator(setupOptions, spyRng);
+          const s = generalSimulator(setupOptions, rngMock);
 
           await s.simulateGame();
 
-          expect(spyRng).toHaveBeenCalledWith(0, 4);
+          expect(rngMock).toHaveBeenCalledWith(0, 4);
         });
       });
     });
@@ -365,15 +355,13 @@ describe("Simulator of Generalized Monty Hall problem", () => {
 
     describe("pick one, reveal three, do not change pick", () => {
       let setupOptions: SetupOptions;
-      let spyRng: jasmine.Spy<RandomNumberGenerator>;
+      let rngMock: jest.Mock<RandomNumberGenerator>;
 
       beforeEach(() => {
         const fakeRng = fakeRngGen();
-        spyRng = jasmine
-          .createSpy("spyRng")
-          .and.callFake(
-            (): Promise<number> => Promise.resolve(fakeRng.next().value)
-          );
+        rngMock = jest.fn(
+          (): Promise<number> => Promise.resolve(fakeRng.next().value)
+        );
 
         setupOptions = {
           isNaivePlayer: true,
@@ -382,27 +370,27 @@ describe("Simulator of Generalized Monty Hall problem", () => {
       });
 
       it("should be correct (case 005)", async () => {
-        const simulator = generalSimulator(setupOptions, spyRng);
+        const simulator = generalSimulator(setupOptions, rngMock);
 
         const gameSummary = await simulator.simulateGame();
 
-        expect(gameSummary.revealedLosingSlots).toEqual([0, 1, 2]);
+        expect(gameSummary.revealedLosingSlots).toStrictEqual([0, 1, 2]);
       });
 
       it("should call the RNG a minimum of times for the naive player (case 005)", async () => {
-        const s = generalSimulator(setupOptions, spyRng);
+        const s = generalSimulator(setupOptions, rngMock);
 
         await s.simulateGame();
 
-        expect(spyRng.calls.count()).toEqual(2);
+        expect(rngMock.mock.calls).toHaveLength(2);
       });
 
       it("should call the RNG with args 0 and 4 (case 005)", async () => {
-        const s = generalSimulator(setupOptions, spyRng);
+        const s = generalSimulator(setupOptions, rngMock);
 
         await s.simulateGame();
 
-        expect(spyRng).toHaveBeenCalledWith(0, 4);
+        expect(rngMock).toHaveBeenCalledWith(0, 4);
       });
     });
   });

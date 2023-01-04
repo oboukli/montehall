@@ -9,7 +9,7 @@ import { mkdtemp, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 
-import "jasmine";
+import { beforeAll, describe, expect, it } from "@jest/globals";
 
 import { tableRng } from "./table";
 
@@ -40,12 +40,13 @@ describe("tableRng", () => {
     const rng = tableRng(tempFilePath);
     const n1 = await rng(0, 0);
     const n2 = await rng(0, 0);
-    const promise = rng(0, 0);
+
+    expect.assertions(3);
 
     expect(n1).toBe(7);
 
     expect(n2).toBe(11);
 
-    await expectAsync(promise).toBeRejectedWithError(RangeError);
+    await expect(rng(0, 0)).rejects.toBeInstanceOf(RangeError);
   });
 });
