@@ -12,23 +12,24 @@ aimed at:
 
 1. Creating a simulation of the famous counterintuitive [Monty Hall problem](https://en.wikipedia.org/wiki/Monty_Hall_problem)
 2. Solving the strategy problem with [Monte Carlo methods](https://en.wikipedia.org/wiki/Monte_Carlo_method)
-3. Producing fairly readable code and Node.js solution suitable
-   for a best practice tutorial.
+3. Creating a simulation of a general Montehall Problem with $n$ number of doors
+4. Producing fairly readable code and Node.js solution suitable
+   for a pretty good practice tutorial.
 
-Inspired by a Numberphile [video](https://www.youtube.com/watch?v=4Lb-6rxZxx0).
+Inspired by a [Numberphile video](https://www.youtube.com/watch?v=4Lb-6rxZxx0).
 
 [![Monty Hall Problem - Numberphile](https://img.youtube.com/vi/4Lb-6rxZxx0/0.jpg)
 ](https://www.youtube.com/watch?v=4Lb-6rxZxx0)
 
 ## Setup
 
-Node.js (latest v16.x, or higher) and NPM are required to run the app.
+Node.js (latest v16.x, or higher) and NPM are required to run the app:
 
 ```shell
 npm install
 ```
 
-Or, with Docker and Bash
+Or, using Docker and Bash (recommended)
 
 ```bash
 docker pull node
@@ -49,9 +50,10 @@ or, with Docker and Bash
 docker run --rm -v $(pwd):/src --workdir="/src" node npm run montehall
 ```
 
-The player should win 1/3 of the games, given a sufficiently large number
-of random game attempts. However, a prudent, or "wise," player who switches should
-win 2/3 of the games, which can be simulated using the `--wise` option:
+A player who does not switches their door pick should statistically win 1/3
+of the games, given a sufficiently large number of random game attempts.
+However, a prudent, or "wise," player who switches pick should win 2/3
+of the games, which can be simulated using the `--wise` option:
 
 ```shell
 npm run montehall -- --wise
@@ -69,12 +71,25 @@ The default number of simulated games is 16384.
 This can be changed using the `--games` option, or by changing the value for
 the `games` key in the `montehall.json` configuration file.
 
+## General Monte Hall problem
+
+A standard (default) game has three doors. A general game has $n$ doors.
+
+The CLI option `--doors <number>` can be used to specify the number of doors.
+
+Examples:
+
+```shell
+npm run montehall -- --doors 100
+npm run montehall -- --doors 181 --games 1000 --wise
+```
+
 ## High-quality results
 
 A randomness source is required to simulate the games. Achieving high-quality
 simulation results requires a high-quality randomness source.
 
-The default source of randomness used is a pseudo one: the
+The default source of randomness used is a fast pseudo one: the
 [`Math.random()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
 function.
 
@@ -154,7 +169,7 @@ In alphabetical order:
 ## License
 
 This software is released under an [MIT-style license](LICENSE).
-Copyright © 2017-2022 Omar Boukli-Hacene.
+Copyright © 2017-2023 Omar Boukli-Hacene.
 
 ---
 
