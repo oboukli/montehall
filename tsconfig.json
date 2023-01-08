@@ -11,15 +11,15 @@
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "dist",
+    "outDir": "dist/",
     "pretty": true,
     "removeComments": true,
-    "rootDir": "src",
+    "rootDir": "src/",
     "sourceMap": true,
     "strict": true,
     "target": "es2021",
     "types": ["node"]
   },
-  "include": ["src"],
-  "exclude": ["dist", "node_modules", "spec"]
+  "include": ["src/"],
+  "exclude": ["**/*.spec.ts"]
 }
