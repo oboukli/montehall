@@ -19,4 +19,11 @@ module.exports = {
   env: {
     node: true,
   },
+  overrides: [
+    {
+      files: ["**/*.spec.ts"],
+      plugins: ["jest"],
+      extends: ["plugin:jest/recommended"],
+    },
+  ],
 };
