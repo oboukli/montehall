@@ -1,5 +1,5 @@
 dist/
 node_modules/
-spec/
+test-out/
 
 package-lock.json
