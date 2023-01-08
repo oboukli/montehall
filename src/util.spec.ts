@@ -66,19 +66,19 @@ describe("Function getConfig", () => {
 });
 
 describe("Function rngFactory", () => {
-  it("should return valid object", () => {
+  it("when rngType is advanced should return a function", () => {
     const rng = rngFactory("advanced");
 
     expect(rng).toBeInstanceOf(Function);
   });
 
-  it("should return valid object", () => {
+  it("when rngType is table should return a function", () => {
     const rng = rngFactory("table", "dummy path");
 
     expect(rng).toBeInstanceOf(Function);
   });
 
-  it("should return valid object", () => {
+  it("when rngType is basic should return a function", () => {
     const rng = rngFactory("basic");
 
     expect(rng).toBeInstanceOf(Function);
@@ -86,7 +86,7 @@ describe("Function rngFactory", () => {
 });
 
 describe("Function gameSimulatorFactory", () => {
-  it("should return valid object", () => {
+  it("when 3 slots should return valid object", () => {
     const gameSimulator = gameSimulatorFactory(
       {
         isNaivePlayer: true,
@@ -104,7 +104,7 @@ describe("Function gameSimulatorFactory", () => {
     expect(gameSimulator.simulateGame()).toBeInstanceOf(Object);
   });
 
-  it("should return valid object", () => {
+  it("when 5 slots should return valid object", () => {
     const gameSimulator = gameSimulatorFactory(
       {
         isNaivePlayer: true,
