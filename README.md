@@ -27,13 +27,15 @@ Node.js (latest v16.x, or higher) and NPM are required to run the app:
 
 ```shell
 npm install
+npm run build
 ```
 
 Or, using Docker and Bash (recommended)
 
 ```bash
 docker pull node
-docker run --rm -v $(pwd):/src --workdir="/src" node npm install
+docker run --rm --volume=$(pwd):/src --workdir="/src" node npm install
+docker run --rm --volume=$(pwd):/src --workdir="/src" node npm run build
 ```
 
 ## Running the CLI app
@@ -47,7 +49,7 @@ npm run montehall
 or, with Docker and Bash
 
 ```bash
-docker run --rm -v $(pwd):/src --workdir="/src" node npm run montehall
+docker run --rm --volume=$(pwd):/src --workdir="/src" node npm run montehall
 ```
 
 A player who does not switches their door pick should statistically win 1/3

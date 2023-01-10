@@ -26,7 +26,10 @@ steps:
     displayName: npm version
 
   - script: npm ci
-    displayName: Build
+    displayName: Install packages
+
+  - script: npm run build
+  - displayName: Build
 
   - script: npm test
     displayName: Run tests
