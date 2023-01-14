@@ -1,3 +1,9 @@
+# Copyright (c) 2019-2023 Omar Boukli-Hacene. All rights reserved.
+# Distributed under an MIT-style license that can be
+# found in the LICENSE file.
+
+# SPDX-License-Identifier: MIT
+
 trigger:
   branches:
     include:
@@ -5,16 +11,19 @@ trigger:
 
 strategy:
   matrix:
-    linux_node_lts:
+    linux_node_maintenance:
       imageName: ubuntu-latest
       node_version: 16.x
-    linux_node_current:
+    linux_node_lts:
       imageName: ubuntu-latest
       node_version: 18.x
-    mac_node_current:
+    linux_node_current:
+      imageName: ubuntu-latest
+      node_version: 19.x
+    macos_node_lts:
       imageName: macOS-latest
       node_version: 18.x
-    windows_node_current:
+    windows_node_lts:
       imageName: windows-latest
       node_version: 18.x
 
@@ -28,7 +37,7 @@ steps:
     displayName: Set up Node.js
 
   - script: npm --version
-    displayName: npm version
+    displayName: NPM version
 
   - script: npm ci
     displayName: Install packages
