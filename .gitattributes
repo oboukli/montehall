@@ -1,1 +1,3 @@
 * -text
+
+src/cli.ts linguist-language=typescript
