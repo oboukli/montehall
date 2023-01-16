@@ -39,19 +39,33 @@ jobs:
       - name: Run unit tests
         run: npm test
 
+      - name: Pack
+        id: pack_artifact
+        run: >-
+          echo "artifact_name="$(
+          npm pack --json --pack-destination ${{ runner.temp }}
+          | jq --raw-output '.[0] | .filename'
+          )""
+          >> $GITHUB_OUTPUT
+
+      - name: Install
+        run: npm install --global ${{ steps.pack_artifact.outputs.artifact_name }}
+        working-directory: ${{ runner.temp }}
+
       - name: Run integration tests
         run: |-
-          npm run montehall -- --version
-          npm run montehall -- --help
-          npm run montehall
-          npm run montehall -- --games 11
-          npm run montehall -- --random advanced
-          npm run montehall -- --wise
-          npm run montehall -- --random advanced --wise
-          npm run montehall -- --games 0 --random advanced --wise
-          npm run montehall -- --games 3 --random advanced --wise --verbose
-          npm run montehall -- --games 100 --table-file vendor/numbers.txt
-          npm run montehall -- --games 100 --table-file vendor/numbers.txt --wise
-          npm run montehall -- --doors 100 --games 100
-          npm run montehall -- --doors 100 --games 100 --wise
-          npm run montehall -- --doors 100 --games 3 --wise --verbose
+          montehall --version
+          montehall --help
+          montehall
+          montehall --games 11
+          montehall --random advanced
+          montehall --wise
+          montehall --random advanced --wise
+          montehall --games 0 --random advanced --wise
+          montehall --games 3 --random advanced --wise --verbose
+          montehall --games 100 --table-file vendor/numbers.txt
+          montehall --games 100 --table-file vendor/numbers.txt --wise
+          montehall --doors 100 --games 100
+          montehall --doors 100 --games 100 --wise
+          montehall --doors 100 --games 3 --wise --verbose
+        working-directory: ${{ github.workspace }}/..
