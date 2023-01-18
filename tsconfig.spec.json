@@ -6,5 +6,5 @@
     "rootDir": "./"
   },
   "include": [".eslintrc.js", "jest.config.ts", "src/"],
-  "exclude": []
+  "exclude": ["src/cli.ts"]
 }
