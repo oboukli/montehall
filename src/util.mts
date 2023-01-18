@@ -5,7 +5,8 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import { readFile } from "node:fs/promises";
+import { PathLike } from "node:fs";
+import { FileHandle, readFile } from "node:fs/promises";
 
 import {
   GameSimulator,
@@ -25,7 +26,9 @@ export type RandomNumberProviderType = "basic" | "advanced" | "table";
  * @param filename Path name of JSON file to deserialize
  * @returns Configuration object
  */
-export async function getConfig<T>(filename: string): Promise<T> {
+export async function getConfig<T>(
+  filename: PathLike | FileHandle
+): Promise<T> {
   const content = await readFile(filename, {
     encoding: "utf8",
   });

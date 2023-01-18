@@ -9,6 +9,7 @@ SPDX-License-Identifier: MIT
 
 import { EOL } from "node:os";
 import process from "node:process";
+import { URL } from "node:url";
 
 import { Command, InvalidArgumentError, Option } from "commander";
 import { IPackageJson } from "package-json-type";
@@ -25,8 +26,8 @@ import {
 import { gameSummaryFormatter } from "./formatters/game-summary-formatter.mjs";
 import { simulationSummaryFormatter } from "./formatters/simulation-summary-formatter.mjs";
 
-const pkgFileName = "./package.json";
-const configFileName = "./config.json";
+const pkgFileName = new URL("../package.json", import.meta.url);
+const configFileName = new URL("../config.json", import.meta.url);
 
 function buildCliCommand(
   pkgInfo: IPackageJson,
@@ -102,7 +103,7 @@ async function main() {
     ]);
   } catch {
     process.stderr.write(
-      `Could not read configuration. Check the "${pkgFileName}" and the "${configFileName}" files.${EOL}`
+      `Could not read configuration. Check the "${pkgFileName.toString()}" and the "${configFileName.toString()}" files.${EOL}`
     );
 
     return 1;
