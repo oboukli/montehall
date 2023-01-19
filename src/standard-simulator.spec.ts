@@ -19,9 +19,9 @@ import {
   GameSummary,
   RandomNumberGenerator,
   SetupOptions,
-  standardSimulator,
-} from ".";
-import { naiveRng } from "./random/naive";
+} from "./montehall";
+import { standardSimulator } from "./montehall.mjs";
+import { naiveRng } from "./random/naive.mjs";
 
 describe("Standard Monty Hall problem simulator", () => {
   let rng: RandomNumberGenerator;

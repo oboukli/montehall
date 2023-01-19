@@ -6,7 +6,7 @@ SPDX-License-Identifier: MIT
 */
 
 import { SetupOptions, MonteCarloMachineResult } from "../montehall";
-import { b2text } from "./common";
+import { b2text } from "./common.mjs";
 
 export const simulationSummaryFormatter = (
   o: SetupOptions,

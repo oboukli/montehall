@@ -7,7 +7,7 @@ SPDX-License-Identifier: MIT
 
 import { describe, expect, it } from "@jest/globals";
 
-import { getRevealedSlots } from "./algo";
+import { getRevealedSlots } from "./algo.mjs";
 
 describe("getRevealedSlots", () => {
   describe("when total of 3 slots", () => {

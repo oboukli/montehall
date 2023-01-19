@@ -7,7 +7,7 @@ SPDX-License-Identifier: MIT
 
 import { describe, expect, it } from "@jest/globals";
 
-import { gameSummaryFormatter } from "./game-summary-formatter";
+import { gameSummaryFormatter } from "./game-summary-formatter.mjs";
 
 describe("gameSummaryFormatter", () => {
   it("should return a string", () => {

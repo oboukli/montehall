@@ -1,6 +1,6 @@
 {
   "name": "montehall",
-  "version": "1.1.13",
+  "version": "1.2.0",
   "description": "A Monte Carlo machine for the Monty Hall Problem",
   "author": "Omar Boukli-Hacene",
   "license": "MIT",
@@ -13,7 +13,8 @@
   "bugs": {
     "url": "https://github.com/oboukli/montehall/issues"
   },
-  "main": "./dist/index.js",
+  "type": "module",
+  "main": "./dist/montehall.mjs",
   "bin": "./dist/cli.js",
   "engines": {
     "node": ">=16.19.0"
@@ -47,7 +48,7 @@
   "files": [
     ".nvmrc",
     "dist/**/*.js",
-    "montehall.json"
+    "config.json"
   ],
   "keywords": [
     "async",

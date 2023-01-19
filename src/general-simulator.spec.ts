@@ -7,7 +7,8 @@ SPDX-License-Identifier: MIT
 
 import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 
-import { generalSimulator, RandomNumberGenerator, SetupOptions } from ".";
+import { RandomNumberGenerator, SetupOptions } from "./montehall";
+import { generalSimulator } from "./montehall.mjs";
 
 describe("Simulator of Generalized Monty Hall problem", () => {
   describe("simulating standard three-door problem", () => {

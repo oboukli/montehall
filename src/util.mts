@@ -9,15 +9,13 @@ import { readFile } from "node:fs/promises";
 
 import {
   GameSimulator,
-  generalSimulator,
   RandomNumberGenerator,
   SetupOptions,
-  standardSimulator,
-} from ".";
-
-import { naiveRng } from "./random/naive";
-import { csPrng } from "./random/csprng";
-import { tableRng } from "./random/table";
+} from "./montehall";
+import { generalSimulator, standardSimulator } from "./montehall.mjs";
+import { naiveRng } from "./random/naive.mjs";
+import { csPrng } from "./random/csprng.mjs";
+import { tableRng } from "./random/table.mjs";
 
 export type RandomNumberProviderType = "basic" | "advanced" | "table";
 
