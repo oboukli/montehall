@@ -6,7 +6,7 @@ SPDX-License-Identifier: MIT
 */
 
 import { GameSummary } from "../montehall";
-import { b2text } from "./common";
+import { b2text } from "./common.mjs";
 
 export const gameSummaryFormatter = (
   gameSummary: GameSummary,

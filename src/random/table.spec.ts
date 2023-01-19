@@ -11,7 +11,7 @@ import path from "node:path";
 
 import { beforeAll, describe, expect, it } from "@jest/globals";
 
-import { tableRng } from "./table";
+import { tableRng } from "./table.mjs";
 
 describe("tableRng", () => {
   let tempFilePath: string;

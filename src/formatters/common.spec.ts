@@ -7,7 +7,7 @@ SPDX-License-Identifier: MIT
 
 import { describe, expect, it } from "@jest/globals";
 
-import { b2text } from "./common";
+import { b2text } from "./common.mjs";
 
 describe("Function b2text", () => {
   it("should return the second argument when the first argument is true", () => {

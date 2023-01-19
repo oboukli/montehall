@@ -11,11 +11,11 @@ import {
   GameSimulator,
   GameSummary,
   GameSummaryCallback,
-  monteCarloMachine,
   MonteCarloMachine,
   MonteCarloMachineResult,
   SetupOptions,
-} from ".";
+} from "./montehall";
+import { monteCarloMachine } from "./montehall.mjs";
 
 describe("Monte Carlo machine", () => {
   let mcm: MonteCarloMachine;

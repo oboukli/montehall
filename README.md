@@ -71,7 +71,7 @@ npm run montehall -- --help
 
 The default number of simulated games is 16384.
 This can be changed using the `--games` option, or by changing the value for
-the `games` key in the `montehall.json` configuration file.
+the `games` key in the `config.json` configuration file.
 
 ## General Monte Hall problem
 
@@ -116,7 +116,7 @@ The file path can be passed as a CLI option:
 npm run montehall -- --games 100 --table-file vendor/numbers.txt
 ```
 
-Or, alternatively, the file path can be configured in `montehall.json`.
+Or, alternatively, the file path can be configured in `config.json`.
 
 Example:
 

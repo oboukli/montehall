@@ -7,7 +7,7 @@ SPDX-License-Identifier: MIT
 
 import { describe, expect, it } from "@jest/globals";
 
-import { simulationSummaryFormatter } from "./simulation-summary-formatter";
+import { simulationSummaryFormatter } from "./simulation-summary-formatter.mjs";
 
 describe("simulationSummaryFormatter", () => {
   it("should return a string", () => {

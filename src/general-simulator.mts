@@ -5,7 +5,7 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import { getRevealedSlots } from "./helpers/algo";
+import { getRevealedSlots } from "./helpers/algo.mjs";
 import {
   GameSimulator,
   GameSummary,

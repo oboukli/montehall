@@ -14,7 +14,7 @@ import {
   getConfig,
   rngFactory,
   toErrString,
-} from "./util";
+} from "./util.mjs";
 
 describe("Function toErrString", () => {
   it("should convert base Error message to string", () => {
@@ -56,7 +56,7 @@ describe("Function toErrString", () => {
 
 describe("Function getConfig", () => {
   it("should return valid object", async () => {
-    const appConfig = await getConfig<AppConfig>("montehall.json");
+    const appConfig = await getConfig<AppConfig>("config.json");
 
     expect(appConfig).toStrictEqual({
       numGamesToSimulate: 16384,

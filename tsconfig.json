@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["es2021"],
-    "module": "commonjs",
+    "module": "ES2020",
     "moduleResolution": "node",
     "noImplicitReturns": true,
     "noUnusedLocals": true,

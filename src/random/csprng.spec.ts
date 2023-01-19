@@ -7,7 +7,7 @@ SPDX-License-Identifier: MIT
 
 import { describe, expect, it } from "@jest/globals";
 
-import { csPrng } from "./csprng";
+import { csPrng } from "./csprng.mjs";
 
 describe("csPrng", () => {
   it("should return a promise that resolves when awaited", async () => {

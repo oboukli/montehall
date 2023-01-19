@@ -13,24 +13,20 @@ import process from "node:process";
 import { Command, InvalidArgumentError, Option } from "commander";
 import { IPackageJson } from "package-json-type";
 
-import {
-  AppConfig,
-  GameSummaryCallback,
-  monteCarloMachine,
-  SetupOptions,
-} from ".";
+import { AppConfig, GameSummaryCallback, SetupOptions } from "./montehall";
+import { monteCarloMachine } from "./montehall.mjs";
 import {
   gameSimulatorFactory,
   getConfig,
   RandomNumberProviderType,
   rngFactory,
   toErrString,
-} from "./util";
-import { gameSummaryFormatter } from "./formatters/game-summary-formatter";
-import { simulationSummaryFormatter } from "./formatters/simulation-summary-formatter";
+} from "./util.mjs";
+import { gameSummaryFormatter } from "./formatters/game-summary-formatter.mjs";
+import { simulationSummaryFormatter } from "./formatters/simulation-summary-formatter.mjs";
 
 const pkgFileName = "./package.json";
-const configFileName = "./montehall.json";
+const configFileName = "./config.json";
 
 function buildCliCommand(
   pkgInfo: IPackageJson,
