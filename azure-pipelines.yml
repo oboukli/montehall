@@ -47,3 +47,6 @@ steps:
 
   - script: npm test
     displayName: Run tests
+
+  - script: npm run montehall -- --version
+    displayName: Run smoke test
