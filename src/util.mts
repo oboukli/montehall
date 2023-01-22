@@ -69,12 +69,11 @@ export function gameSimulatorFactory(
   setupOptions: SetupOptions,
   rng: RandomNumberGenerator
 ): GameSimulator {
-  switch (setupOptions.numSlots) {
-    case 3:
-      return standardSimulator(setupOptions, rng);
-    default:
-      return generalSimulator(setupOptions, rng);
+  if (setupOptions.numSlots === 3) {
+    return standardSimulator(setupOptions, rng);
   }
+
+  return generalSimulator(setupOptions, rng);
 }
 
 /**
