@@ -36,10 +36,10 @@ function buildCliCommand(
   const program = new Command();
 
   return program
-    .name(pkgInfo.name || "")
+    .name(pkgInfo.name ?? "")
     .description("Montehall: A Monte Carlo Machine for the Monty Hall Problem")
     .version(
-      pkgInfo.version || "",
+      pkgInfo.version ?? "",
       "-V, --version",
       "Output version information"
     )
@@ -109,7 +109,7 @@ async function main() {
     return 1;
   }
 
-  const defaultNumGames = Number(appConfig.numGamesToSimulate || 0);
+  const defaultNumGames = Number(appConfig.numGamesToSimulate ?? 0);
 
   const options = buildCliCommand(pkgInfo, defaultNumGames).opts();
 
@@ -117,7 +117,7 @@ async function main() {
   const isPrudentPlayer = options.wise as boolean;
 
   const numbersFilePath: string =
-    (options.tableFile as string) || appConfig.numbersFilePath || "";
+    (options.tableFile as string) ?? appConfig.numbersFilePath ?? "";
   if (options.random === "table") {
     if (numbersFilePath === "") {
       process.stdout.write(`Random number table file not specified.${EOL}`);
