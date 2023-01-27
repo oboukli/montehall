@@ -5,6 +5,6 @@
     "outDir": "test-out/",
     "rootDir": "./"
   },
-  "include": [".eslintrc.js", "jest.config.ts", "src/"],
+  "include": [".eslintrc.js", "jest.config.cts", "src/"],
   "exclude": ["src/cli.ts"]
 }
