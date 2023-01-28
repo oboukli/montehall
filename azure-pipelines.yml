@@ -36,6 +36,9 @@ steps:
       versionSpec: $(node_version)
     displayName: Set up Node.js
 
+  - script: npm install -g npm@latest
+    displayName: Update NPM
+
   - script: npm --version
     displayName: NPM version
 
@@ -48,5 +51,5 @@ steps:
   - script: npm test
     displayName: Run tests
 
-  - script: npm run montehall -- --version
+  - script: npx -- montehall --version
     displayName: Run smoke test
