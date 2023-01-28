@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: OBoukli Montehall
+message: >-
+  If you use this software, kindly cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Omar
+    family-names: Boukli Hacene
+repository-code: "https://github.com/oboukli/montehall"
+abstract: >-
+  A software Monte Carlo machine for the Monty Hall problem.
+license: MIT
