@@ -23,7 +23,7 @@ Inspired by a [Numberphile video](https://www.youtube.com/watch?v=4Lb-6rxZxx0).
 
 ## Setup
 
-Node.js (latest v16.x, or higher) and NPM are required to run the app:
+Node.js (latest v16.x, or higher) and NPM (v9.x) are required to run the app:
 
 ```shell
 npm install
@@ -43,13 +43,13 @@ docker run --rm --volume=$(pwd):/src --workdir="/src" node npm run build
 Running the default simulation with a player that does not switch:
 
 ```shell
-npm run montehall
+npx montehall
 ```
 
 or, with Docker and Bash
 
 ```bash
-docker run --rm --volume=$(pwd):/src --workdir="/src" node npm run montehall
+docker run --rm --volume=$(pwd):/src --workdir="/src" node npx montehall
 ```
 
 A player who does not switches their door pick should statistically win 1/3
@@ -58,13 +58,13 @@ However, a prudent, or "wise," player who switches pick should win 2/3
 of the games, which can be simulated using the `--wise` option:
 
 ```shell
-npm run montehall -- --wise
+npx montehall --wise
 ```
 
 A list of available options is accessible from the CLI:
 
 ```shell
-npm run montehall -- --help
+npx montehall --help
 ```
 
 ## Number of game simulations
@@ -82,8 +82,8 @@ The CLI option `--doors <number>` can be used to specify the number of doors.
 Examples:
 
 ```shell
-npm run montehall -- --doors 100
-npm run montehall -- --doors 181 --games 1000 --wise
+npx montehall --doors 100
+npx montehall --doors 181 --games 1000 --wise
 ```
 
 ## High-quality results
@@ -102,7 +102,7 @@ use the `--random advanced` option, which employs a cryptographically
 secure pseudorandom number generator (CSPRNG.)
 
 ```shell
-npm run montehall -- --wise --random advanced
+npx montehall --wise --random advanced
 ```
 
 ### Using pre-generated random numbers (experimental)
@@ -113,7 +113,7 @@ a deterministic simulation.
 The file path can be passed as a CLI option:
 
 ```shell
-npm run montehall -- --games 100 --table-file vendor/numbers.txt
+npx montehall --games 100 --table-file vendor/numbers.txt
 ```
 
 Or, alternatively, the file path can be configured in `config.json`.
@@ -127,7 +127,7 @@ Example:
 ```
 
 ```shell
-npm run montehall -- --games 100 --random table
+npx montehall --games 100 --random table
 ```
 
 The file must have one number per text line. Example:

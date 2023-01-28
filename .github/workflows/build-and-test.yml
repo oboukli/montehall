@@ -1,7 +1,6 @@
 name: Build and test
 
 on:
-  pull_request:
   push:
   workflow_dispatch:
 
@@ -27,6 +26,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Update NPM
+        run: npm install -g npm@latest
+
       - name: Install packages
         run: npm ci
 
@@ -38,6 +40,9 @@ jobs:
 
       - name: Run unit tests
         run: npm test
+
+      - name: Run with npx
+        run: npx -- montehall --version
 
       - name: Pack
         id: pack_artifact
