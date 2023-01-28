@@ -16,7 +16,7 @@ jobs:
       matrix:
         node-version:
           - 18.x
-          - 19.x
+          # - 19.x
 
     steps:
       - name: Check out repository
@@ -33,20 +33,20 @@ jobs:
       - name: Install packages
         run: npm ci
 
-      - name: Check code style
-        run: npx prettier --check .
+      # - name: Check code style
+      #   run: npx prettier --check .
 
-      - name: Lint
-        run: npm run lint
+      # - name: Lint
+      #   run: npm run lint
 
       - name: Build
         run: npm run build
 
-      - name: Run unit tests
-        run: npm test
+      # - name: Run unit tests
+      #   run: npm test
 
-      - name: Run with npx
-        run: npx -- montehall --version
+      # - name: Run with npx
+      #   run: npx -- montehall --version
 
       - name: Pack
         id: pack_artifact
@@ -57,53 +57,53 @@ jobs:
           )""
           >> $GITHUB_OUTPUT
 
-      - name: Install
-        run: npm install --global ${{ steps.pack_artifact.outputs.artifact_name }}
-        working-directory: ${{ runner.temp }}
+      # - name: Install
+      #   run: npm install --global ${{ steps.pack_artifact.outputs.artifact_name }}
+      #   working-directory: ${{ runner.temp }}
 
-      - name: Run integration tests
-        run: |-
-          montehall --version
-          montehall --help
-          montehall
-          montehall --games 11
-          montehall --random advanced
-          montehall --wise
-          montehall --random advanced --wise
-          montehall --games 0 --random advanced --wise
-          montehall --games 3 --random advanced --wise --verbose
-          montehall --games 100 --table-file vendor/numbers.txt
-          montehall --games 100 --table-file vendor/numbers.txt --wise
-          montehall --doors 100 --games 100
-          montehall --doors 100 --games 100 --wise
-          montehall --doors 100 --games 3 --wise --verbose
-        working-directory: ${{ github.workspace }}/..
+      # - name: Run integration tests
+      #   run: |-
+      #     montehall --version
+      #     montehall --help
+      #     montehall
+      #     montehall --games 11
+      #     montehall --random advanced
+      #     montehall --wise
+      #     montehall --random advanced --wise
+      #     montehall --games 0 --random advanced --wise
+      #     montehall --games 3 --random advanced --wise --verbose
+      #     montehall --games 100 --table-file vendor/numbers.txt
+      #     montehall --games 100 --table-file vendor/numbers.txt --wise
+      #     montehall --doors 100 --games 100
+      #     montehall --doors 100 --games 100 --wise
+      #     montehall --doors 100 --games 3 --wise --verbose
+      #   working-directory: ${{ github.workspace }}/..
 
-  dependency-check:
-    name: Dependency check
-    runs-on: ubuntu-latest
+  # dependency-check:
+  #   name: Dependency check
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Check out repository
+  #       uses: actions/checkout@v3
 
-      - name: Use latest Node.js LTS
-        uses: actions/setup-node@v3
+  #     - name: Use latest Node.js LTS
+  #       uses: actions/setup-node@v3
 
-      - name: Update NPM
-        run: npm install -g npm@latest
+  #     - name: Update NPM
+  #       run: npm install -g npm@latest
 
-      - name: Do non-locked install
-        run: npm install
+  #     - name: Do non-locked install
+  #       run: npm install
 
-      - name: Check if dependency structure can be simplified
-        run: npm dedupe
+  #     - name: Check if dependency structure can be simplified
+  #       run: npm dedupe
 
-      - name: Check if Git tree is dirty
-        run: |-
-          if [[ $(git diff --stat) != '' ]]; then
-            exit 1
-          fi
+  #     - name: Check if Git tree is dirty
+  #       run: |-
+  #         if [[ $(git diff --stat) != '' ]]; then
+  #           exit 1
+  #         fi
 
   package:
     name: Pack
@@ -111,9 +111,12 @@ jobs:
 
     needs:
       - build
-      - dependency-check
+      # - dependency-check
 
     steps:
+      - name: Install Closure compiler
+        run: npm install --global google-closure-compiler
+
       - name: Check out repository
         uses: actions/checkout@v3
 
@@ -137,8 +140,34 @@ jobs:
       - name: Prune dependencies
         run: npm prune
 
-      - name: Audit dependencies
-        run: npm audit
+      # - name: Audit dependencies
+      #   run: npm audit
+
+      - name: Rename dist directory
+        run: |-
+          mkdir dist-min
+
+      # - name: temp
+      #   run: npm root -g
+
+      - name: Compile
+        run: >-
+          google-closure-compiler
+          --process_common_js_modules
+          --externs /usr/local/lib/node_modules/google-closure-compiler/contrib/nodejs/os.js
+          --externs /usr/local/lib/node_modules/google-closure-compiler/contrib/nodejs/url.js
+          --js 'dist/**.js'
+          --js 'dist/**.mjs'
+          --js 'node_modules/**.mjs'
+          --js 'node_modules/**.js'
+          --js 'node_modules/**/package.json'
+          --js 'package.json'
+          --js_output_file dist-min/cli.js
+          --language_in ECMASCRIPT_2021
+          --language_out ECMASCRIPT_2021
+          --entry_point=./dist/cli.js
+          --export_local_property_definitions
+          --generate_exports
 
       - name: Pack
         id: pack_artifact

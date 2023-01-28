@@ -7,9 +7,9 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import { EOL } from "node:os";
-import process from "node:process";
-import { URL } from "node:url";
+import { EOL } from "os";
+import process from "process";
+import { URL } from "url";
 
 import { Command, InvalidArgumentError, Option } from "commander";
 import { IPackageJson } from "package-json-type";
