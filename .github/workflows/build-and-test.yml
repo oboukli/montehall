@@ -20,22 +20,32 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 18.x
-          - 20.x
-          - 21.x
+          - version: 18.x
+          - version: 20.x
+            run-sonarscanner: true
+          - version: 21.x
 
     steps:
+      - name: Check out repository with full history
+        if: ${{ matrix.node-version.run-sonarscanner }}
+        uses: actions/checkout@v3
+        with:
+          # Shallow clones disabled for a better relevancy of SonarSource analysis.
+          fetch-depth: 0
+          persist-credentials: false
+
       - name: Check out repository
+        if: ${{ ! matrix.node-version.run-sonarscanner }}
         uses: actions/checkout@v3
         with:
           persist-credentials: false
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version.version }}
         uses: actions/setup-node@v3
         with:
           cache: npm
           check-latest: false
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node-version.version }}
 
       - name: Configure and update NPM
         run: |-
@@ -56,6 +66,13 @@ jobs:
 
       - name: Run unit tests
         run: npm test
+
+      - name: Analyze with SonarCloud
+        if: ${{ matrix.node-version.run-sonarscanner }}
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Run with npx
         run: npx -- montehall --version
