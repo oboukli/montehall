@@ -4,6 +4,7 @@
 [![Azure Pipelines build status](https://dev.azure.com/omarboukli/montehall/_apis/build/status/oboukli.montehall?branchName=main)](https://dev.azure.com/omarboukli/montehall/_build/latest?definitionId=1&branchName=main)
 [![CodeQL](https://github.com/oboukli/montehall/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/oboukli/montehall/actions/workflows/codeql-analysis.yml?query=branch%3Amain)
 [![Known vulnerabilities](https://snyk.io/test/github/oboukli/montehall/badge.svg)](https://snyk.io/test/github/oboukli/montehall)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=oboukli_montehall&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=oboukli_montehall)
 
 [![Code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
@@ -171,7 +172,7 @@ Partial list of showcases, in alphabetical order:
 - Node.js
 - NPM
 - Prettier
-- SonarScanner
+- SonarCloud
 - Strict static rules and type safety
 - Symantec versioning
 - TypeScript
