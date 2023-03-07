@@ -49,7 +49,7 @@ npx montehall
 or, with Docker and Bash
 
 ```bash
-docker run --rm --volume=$(pwd):/src --workdir="/src" node npx montehall
+docker run --rm --volume="$(pwd):/src" --workdir="/src" node npx montehall
 ```
 
 A player who does not switches their door pick should statistically win 1/3
@@ -146,27 +146,32 @@ See `vendor/numbers.txt` for a sample file.
 
 ## Technical showcases
 
-In alphabetical order:
+Partial list of showcases, in alphabetical order:
 
 - Asynchronous programming
 - Azure Pipelines
 - Behavior-driven development (BDD)
-- Code test coverage
 - Coding without `null`
 - Coding without classes
 - Command line interface (CLI)
+- Commander.js
 - Conventional Commits
+- Distribution package clean of development dependencies
+- ECMAScript Modules
 - ESLint
 - Functional programming
 - GitHub Actions
+- High code test coverage
 - Markdown
 - Node.js
 - NPM
 - Prettier
+- SonarScanner
 - Strict static rules and type safety
 - Symantec versioning
 - TypeScript
 - Unbiased pseudo-randomness
+- Unit testing with Jest (and Jasmine)
 
 ## License
 
