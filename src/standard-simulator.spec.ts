@@ -262,7 +262,7 @@ describe("Standard Monty Hall problem simulator", () => {
             numSlots: 3,
           },
           () => {
-            throw Error();
+            throw new Error();
           }
         );
 
