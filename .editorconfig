@@ -1,6 +1,6 @@
 root = true
 
-[*.{md,js,json,ts,yml}]
+[*.{cjs,md,mts,js,json,ts,yml}]
 charset = utf-8
 end_of_line = lf
 indent_size = 2
