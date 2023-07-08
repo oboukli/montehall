@@ -27,6 +27,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -92,6 +94,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
       - name: Use latest Node.js LTS
         uses: actions/setup-node@v3
@@ -122,6 +126,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
       - name: Use latest Node.js LTS
         uses: actions/setup-node@v3
