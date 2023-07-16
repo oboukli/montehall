@@ -34,7 +34,7 @@ describe("gameSummaryFormatter", () => {
         revealedLosingSlots: 2,
         winningSlot: 0,
       },
-      delimiter
+      delimiter,
     ).split(delimiter);
 
     expect(summary).toHaveLength(6);

@@ -59,12 +59,12 @@ export interface GameSummary {
  */
 export type RandomNumberGenerator = (
   min: number,
-  max: number
+  max: number,
 ) => Promise<number>;
 
 export type GameSimulatorFactory = (
   setupOptions: SetupOptions,
-  rng: RandomNumberGenerator
+  rng: RandomNumberGenerator,
 ) => GameSimulator;
 
 export type GameSummaryCallback = (gameSummary: GameSummary) => void;

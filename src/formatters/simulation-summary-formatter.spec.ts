@@ -22,7 +22,7 @@ describe("simulationSummaryFormatter", () => {
         isCompletedSuccessfully: true,
         numSimulations: 17,
       },
-      "\n"
+      "\n",
     );
 
     expect(typeof formattedSimulationSummary).toBe("string");
@@ -39,7 +39,7 @@ describe("simulationSummaryFormatter", () => {
         numWonGames: 7,
         isCompletedSuccessfully: true,
         numSimulations: 19,
-      }
+      },
     );
 
     expect(typeof formattedSimulationSummary).toBe("string");
@@ -56,7 +56,7 @@ describe("simulationSummaryFormatter", () => {
         numWonGames: 7,
         isCompletedSuccessfully: true,
         numSimulations: 19,
-      }
+      },
     ).split("\n");
 
     expect(formattedSimulationSummarySegments).toHaveLength(6);
@@ -75,7 +75,7 @@ describe("simulationSummaryFormatter", () => {
         isCompletedSuccessfully: true,
         numSimulations: 17,
       },
-      delimiter
+      delimiter,
     ).split(delimiter);
 
     expect(formattedSimulationSummarySegments).toHaveLength(6);
@@ -94,7 +94,7 @@ describe("simulationSummaryFormatter", () => {
         isCompletedSuccessfully: true,
         numSimulations: 0,
       },
-      delimiter
+      delimiter,
     ).split(delimiter);
 
     expect(formattedSimulationSummarySegments).toHaveLength(5);

@@ -31,7 +31,7 @@ const configFileName = new URL("../config.json", import.meta.url);
 
 function buildCliCommand(
   pkgInfo: IPackageJson,
-  defaultNumGames: number
+  defaultNumGames: number,
 ): Command {
   const program = new Command();
 
@@ -41,39 +41,39 @@ function buildCliCommand(
     .version(
       pkgInfo.version ?? "",
       "-V, --version",
-      "Output version information"
+      "Output version information",
     )
     .helpOption("-h, --help", "Output usage information")
     .option(
       "-g, --games <number>",
       `Number of games to simulate`,
       argToN("Not a valid number of simulations."),
-      defaultNumGames
+      defaultNumGames,
     )
     .option(
       "-s, --doors <number>",
       `Number of doors to simulate`,
       argToN("Not a valid number of doors."),
-      3
+      3,
     )
     .addOption(
       new Option("-r, --random [type]", "Random number generator type")
         .default("basic")
         .preset("advanced")
-        .choices(["basic", "advanced", "table"])
+        .choices(["basic", "advanced", "table"]),
     )
     .addOption(
       new Option(
         "-t, --table-file <file path>",
-        "Pre-generated random numbers file path"
-      ).implies({ random: "table" })
+        "Pre-generated random numbers file path",
+      ).implies({ random: "table" }),
     )
     .option("-v, --verbose", "Show a summary for each game", false)
     .option("-w, --wise", "Wise player", false)
     .parse();
 
   function argToN(
-    validationErrMsg: string
+    validationErrMsg: string,
   ): (value: string, previous: number) => number {
     return (x) => {
       const n = Number(x);
@@ -103,7 +103,7 @@ async function main() {
     ]);
   } catch {
     process.stderr.write(
-      `Could not read configuration. Check the "${pkgFileName.toString()}" and the "${configFileName.toString()}" files.${EOL}`
+      `Could not read configuration. Check the "${pkgFileName.toString()}" and the "${configFileName.toString()}" files.${EOL}`,
     );
 
     return 1;
@@ -128,7 +128,7 @@ async function main() {
 
   const rng = rngFactory(
     options.random as RandomNumberProviderType,
-    numbersFilePath
+    numbersFilePath,
   );
 
   let gameSummaryCallback: GameSummaryCallback;
@@ -151,7 +151,7 @@ async function main() {
   const mcm = monteCarloMachine(
     numGames,
     gameSimulatorFactory(setupOptions, rng),
-    gameSummaryCallback
+    gameSummaryCallback,
   );
 
   mcm
@@ -161,7 +161,7 @@ async function main() {
         setupOptions,
         numGames,
         simulationSummary,
-        EOL
+        EOL,
       );
       process.stdout.write(`${formattedSimulationSummary}${EOL}`);
 

@@ -12,7 +12,7 @@ export const simulationSummaryFormatter = (
   o: SetupOptions,
   numRequestedGames: number,
   summary: MonteCarloMachineResult,
-  eol = "\n"
+  eol = "\n",
 ): string => {
   const padding = 17;
 

@@ -27,7 +27,7 @@ export type RandomNumberProviderType = "basic" | "advanced" | "table";
  * @returns Configuration object
  */
 export async function getConfig<T>(
-  filename: PathLike | FileHandle
+  filename: PathLike | FileHandle,
 ): Promise<T> {
   const content = await readFile(filename, {
     encoding: "utf8",
@@ -46,7 +46,7 @@ export async function getConfig<T>(
  */
 export function rngFactory(
   rngType: RandomNumberProviderType,
-  numbersFilePath = ""
+  numbersFilePath = "",
 ): RandomNumberGenerator {
   switch (rngType) {
     case "advanced":
@@ -67,7 +67,7 @@ export function rngFactory(
  */
 export function gameSimulatorFactory(
   setupOptions: SetupOptions,
-  rng: RandomNumberGenerator
+  rng: RandomNumberGenerator,
 ): GameSimulator {
   if (setupOptions.numSlots === 3) {
     return standardSimulator(setupOptions, rng);

@@ -21,7 +21,7 @@ import {
  */
 export function standardSimulator(
   setupOptions: SetupOptions,
-  rng: RandomNumberGenerator
+  rng: RandomNumberGenerator,
 ): GameSimulator {
   /**
    *

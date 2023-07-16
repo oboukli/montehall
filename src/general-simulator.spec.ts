@@ -27,7 +27,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
       beforeEach(() => {
         const fakeRng = fakeRngGen();
         rngMock = jest.fn(
-          (): Promise<number> => Promise.resolve(fakeRng.next().value)
+          (): Promise<number> => Promise.resolve(fakeRng.next().value),
         );
 
         setupOptions = {
@@ -57,15 +57,15 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         const gameSummary = await simulator.simulateGame();
 
         expect(gameSummary.revealedLosingSlots).not.toContain(
-          gameSummary.playerInitialPickedSlot
+          gameSummary.playerInitialPickedSlot,
         );
 
         expect(gameSummary.revealedLosingSlots).not.toContain(
-          gameSummary.confirmedPlayerPickedSlot
+          gameSummary.confirmedPlayerPickedSlot,
         );
 
         expect(gameSummary.revealedLosingSlots).not.toContain(
-          gameSummary.winningSlot
+          gameSummary.winningSlot,
         );
       });
 
@@ -93,7 +93,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
       beforeEach(() => {
         const fakeRng = fakeRngGen();
         rngMock = jest.fn(
-          (): Promise<number> => Promise.resolve(fakeRng.next().value)
+          (): Promise<number> => Promise.resolve(fakeRng.next().value),
         );
 
         setupOptions = {
@@ -123,19 +123,19 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         const gameSummary = await simulator.simulateGame();
 
         expect(gameSummary.confirmedPlayerPickedSlot).not.toStrictEqual(
-          gameSummary.playerInitialPickedSlot
+          gameSummary.playerInitialPickedSlot,
         );
 
         expect(gameSummary.revealedLosingSlots).not.toContain(
-          gameSummary.playerInitialPickedSlot
+          gameSummary.playerInitialPickedSlot,
         );
 
         expect(gameSummary.revealedLosingSlots).not.toContain(
-          gameSummary.confirmedPlayerPickedSlot
+          gameSummary.confirmedPlayerPickedSlot,
         );
 
         expect(gameSummary.revealedLosingSlots).not.toContain(
-          gameSummary.winningSlot
+          gameSummary.winningSlot,
         );
       });
 
@@ -183,7 +183,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         beforeEach(() => {
           const fakeRng = prudentFriendlyRngGen();
           rngMock = jest.fn(
-            (): Promise<number> => Promise.resolve(fakeRng.next().value)
+            (): Promise<number> => Promise.resolve(fakeRng.next().value),
           );
 
           setupOptions = {
@@ -213,15 +213,15 @@ describe("Simulator of Generalized Monty Hall problem", () => {
           const gameSummary = await simulator.simulateGame();
 
           expect(gameSummary.revealedLosingSlots).not.toContain(
-            gameSummary.playerInitialPickedSlot
+            gameSummary.playerInitialPickedSlot,
           );
 
           expect(gameSummary.revealedLosingSlots).not.toContain(
-            gameSummary.confirmedPlayerPickedSlot
+            gameSummary.confirmedPlayerPickedSlot,
           );
 
           expect(gameSummary.revealedLosingSlots).not.toContain(
-            gameSummary.winningSlot
+            gameSummary.winningSlot,
           );
         });
 
@@ -249,7 +249,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         beforeEach(() => {
           const fakeRng = naiveFriendlyRngGen();
           rngMock = jest.fn(
-            (): Promise<number> => Promise.resolve(fakeRng.next().value)
+            (): Promise<number> => Promise.resolve(fakeRng.next().value),
           );
 
           setupOptions = {
@@ -283,7 +283,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
         beforeEach(() => {
           const fakeRng = naiveFriendlyRngGen();
           rngMock = jest.fn(
-            (): Promise<number> => Promise.resolve(fakeRng.next().value)
+            (): Promise<number> => Promise.resolve(fakeRng.next().value),
           );
 
           setupOptions = {
@@ -313,19 +313,19 @@ describe("Simulator of Generalized Monty Hall problem", () => {
           const gameSummary = await simulator.simulateGame();
 
           expect(gameSummary.confirmedPlayerPickedSlot).not.toStrictEqual(
-            gameSummary.playerInitialPickedSlot
+            gameSummary.playerInitialPickedSlot,
           );
 
           expect(gameSummary.revealedLosingSlots).not.toContain(
-            gameSummary.playerInitialPickedSlot
+            gameSummary.playerInitialPickedSlot,
           );
 
           expect(gameSummary.revealedLosingSlots).not.toContain(
-            gameSummary.confirmedPlayerPickedSlot
+            gameSummary.confirmedPlayerPickedSlot,
           );
 
           expect(gameSummary.revealedLosingSlots).not.toContain(
-            gameSummary.winningSlot
+            gameSummary.winningSlot,
           );
         });
 
@@ -361,7 +361,7 @@ describe("Simulator of Generalized Monty Hall problem", () => {
       beforeEach(() => {
         const fakeRng = fakeRngGen();
         rngMock = jest.fn(
-          (): Promise<number> => Promise.resolve(fakeRng.next().value)
+          (): Promise<number> => Promise.resolve(fakeRng.next().value),
         );
 
         setupOptions = {
