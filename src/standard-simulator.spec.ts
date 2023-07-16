@@ -47,7 +47,7 @@ describe("Standard Monty Hall problem simulator", () => {
       expect(gameSummary.isNaivePlayer).toStrictEqual(true);
 
       expect(gameSummary.confirmedPlayerPickedSlot).toStrictEqual(
-        gameSummary.playerInitialPickedSlot
+        gameSummary.playerInitialPickedSlot,
       );
     });
 
@@ -80,7 +80,7 @@ describe("Standard Monty Hall problem simulator", () => {
 
         it("should have a valid confirmedPlayerPickedSlot", () => {
           expect(gameSummary.confirmedPlayerPickedSlot).toBeGreaterThanOrEqual(
-            0
+            0,
           );
           expect(gameSummary.confirmedPlayerPickedSlot).toBeLessThanOrEqual(2);
         });
@@ -97,19 +97,19 @@ describe("Standard Monty Hall problem simulator", () => {
 
         it("should have a non-revealed playerInitialPickedSlot", () => {
           expect(gameSummary.playerInitialPickedSlot).not.toStrictEqual(
-            gameSummary.revealedLosingSlots as number
+            gameSummary.revealedLosingSlots as number,
           );
         });
 
         it("should have a non-revealed confirmedPlayerPickedSlot", () => {
           expect(gameSummary.confirmedPlayerPickedSlot).not.toStrictEqual(
-            gameSummary.revealedLosingSlots as number
+            gameSummary.revealedLosingSlots as number,
           );
         });
 
         it("should have a non-revealed winningSlot", () => {
           expect(gameSummary.winningSlot).not.toStrictEqual(
-            gameSummary.revealedLosingSlots as number
+            gameSummary.revealedLosingSlots as number,
           );
         });
       });
@@ -152,7 +152,7 @@ describe("Standard Monty Hall problem simulator", () => {
       expect(gameSummary.isNaivePlayer).toStrictEqual(false);
 
       expect(gameSummary.confirmedPlayerPickedSlot).not.toStrictEqual(
-        gameSummary.playerInitialPickedSlot
+        gameSummary.playerInitialPickedSlot,
       );
     });
 
@@ -185,7 +185,7 @@ describe("Standard Monty Hall problem simulator", () => {
 
         it("should have a valid confirmedPlayerPickedSlot", () => {
           expect(gameSummary.confirmedPlayerPickedSlot).toBeGreaterThanOrEqual(
-            0
+            0,
           );
           expect(gameSummary.confirmedPlayerPickedSlot).toBeLessThanOrEqual(2);
         });
@@ -202,19 +202,19 @@ describe("Standard Monty Hall problem simulator", () => {
 
         it("should have a non-revealed playerInitialPickedSlot", () => {
           expect(gameSummary.playerInitialPickedSlot).not.toStrictEqual(
-            gameSummary.revealedLosingSlots as number
+            gameSummary.revealedLosingSlots as number,
           );
         });
 
         it("should have a non-revealed confirmedPlayerPickedSlot", () => {
           expect(gameSummary.confirmedPlayerPickedSlot).not.toStrictEqual(
-            gameSummary.revealedLosingSlots as number
+            gameSummary.revealedLosingSlots as number,
           );
         });
 
         it("should have a non-revealed winningSlot", () => {
           expect(gameSummary.winningSlot).not.toStrictEqual(
-            gameSummary.revealedLosingSlots as number
+            gameSummary.revealedLosingSlots as number,
           );
         });
       });
@@ -246,7 +246,7 @@ describe("Standard Monty Hall problem simulator", () => {
       it("should asynchronously throw RangeError", async () => {
         const sim = standardSimulator(
           { numSlots: 2, isNaivePlayer: false },
-          rng
+          rng,
         );
 
         expect.assertions(1);
@@ -263,7 +263,7 @@ describe("Standard Monty Hall problem simulator", () => {
           },
           () => {
             throw new Error();
-          }
+          },
         );
 
         expect.assertions(1);

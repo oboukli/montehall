@@ -23,7 +23,7 @@ import {
 export function monteCarloMachine(
   numGames: number,
   gameSimulator: GameSimulator,
-  gameSummaryCallback: GameSummaryCallback
+  gameSummaryCallback: GameSummaryCallback,
 ): { run: () => Promise<MonteCarloMachineResult> } {
   /**
    * Runs the Monte Carlo machine.

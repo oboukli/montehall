@@ -10,7 +10,7 @@ import { b2text } from "./common.mjs";
 
 export const gameSummaryFormatter = (
   gameSummary: GameSummary,
-  eol = "\n"
+  eol = "\n",
 ): string => {
   const padding = 27;
   const playerStrategy = b2text(gameSummary.isNaivePlayer, "naive", "prudent");
@@ -22,19 +22,19 @@ export const gameSummaryFormatter = (
   s += `${"Player strategy:".padEnd(padding)}${playerStrategy}${eol}`;
 
   s += `${"Initial picked slot(s):".padEnd(
-    padding
+    padding,
   )}${gameSummary.playerInitialPickedSlot.toString()}${eol}`;
 
   s += `${"Revealed losing slot(s):".padEnd(
-    padding
+    padding,
   )}${gameSummary.revealedLosingSlots.toString()}${eol}`;
 
   s += `${"Confirmed slot(s):".padEnd(
-    padding
+    padding,
   )}${gameSummary.confirmedPlayerPickedSlot.toString()}${eol}`;
 
   s += `${"Winning slot(s):".padEnd(
-    padding
+    padding,
   )}${gameSummary.winningSlot.toString()}`;
 
   return s;

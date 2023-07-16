@@ -8,7 +8,7 @@ SPDX-License-Identifier: MIT
 export function getRevealedSlots(
   len: number,
   s1: number,
-  s2: number
+  s2: number,
 ): Array<number> {
   const [min, max] = s1 < s2 ? [s1, s2] : [s2, s1];
   const a = Array<number>(len - 2);

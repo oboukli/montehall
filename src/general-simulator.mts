@@ -22,7 +22,7 @@ import {
  */
 export function generalSimulator(
   setupOptions: SetupOptions,
-  rng: RandomNumberGenerator
+  rng: RandomNumberGenerator,
 ): GameSimulator {
   /**
    *
@@ -62,7 +62,7 @@ export function generalSimulator(
     const revealedLosingSlots = getRevealedSlots(
       setupOptions.numSlots,
       winningSlot,
-      untappedSlot
+      untappedSlot,
     );
 
     let confirmedPlayerPickedSlot;

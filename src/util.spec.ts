@@ -92,13 +92,13 @@ describe("Function gameSimulatorFactory", () => {
         isNaivePlayer: true,
         numSlots: 3,
       },
-      rngFactory("basic")
+      rngFactory("basic"),
     );
 
     expect(gameSimulator).toBeInstanceOf(Object);
 
     expect(gameSimulator.simulateGame.bind(gameSimulator)).toBeInstanceOf(
-      Function
+      Function,
     );
 
     expect(gameSimulator.simulateGame()).toBeInstanceOf(Object);
@@ -110,13 +110,13 @@ describe("Function gameSimulatorFactory", () => {
         isNaivePlayer: true,
         numSlots: 5,
       },
-      rngFactory("basic")
+      rngFactory("basic"),
     );
 
     expect(gameSimulator).toBeInstanceOf(Object);
 
     expect(gameSimulator.simulateGame.bind(gameSimulator)).toBeInstanceOf(
-      Function
+      Function,
     );
 
     expect(gameSimulator.simulateGame()).toBeInstanceOf(Object);

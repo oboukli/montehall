@@ -14,6 +14,6 @@ export function naiveRng(min: number, max: number): Promise<number> {
   const _min = Math.ceil(min);
 
   return Promise.resolve(
-    Math.floor(Math.random() * (Math.floor(max) - _min + 1)) + _min
+    Math.floor(Math.random() * (Math.floor(max) - _min + 1)) + _min,
   );
 }
