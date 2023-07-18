@@ -16,7 +16,11 @@ aimed at:
 4. Producing fairly readable code and Node.js solution suitable
    for a pretty good practice tutorial.
 
-Inspired by [Numberphile's Monty Hall problem video](https://www.youtube.com/watch?v=4Lb-6rxZxx0).
+Inspired by
+[Numberphile's Monty Hall problem video](https://www.youtube.com/watch?v=4Lb-6rxZxx0).
+
+[![Monty Hall Problem - Numberphile](https://img.youtube.com/vi/4Lb-6rxZxx0/0.jpg)
+](https://www.youtube.com/watch?v=4Lb-6rxZxx0)
 
 ## Setup
 
