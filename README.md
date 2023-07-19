@@ -152,11 +152,14 @@ Partial list of showcases, in alphabetical order:
 - Asynchronous programming
 - Azure Pipelines
 - Behavior-driven development (BDD)
+- CodeQL
 - Coding without `null`
 - Coding without classes
-- Command line interface (CLI)
+- Command-line interface (CLI)
 - Commander.js
+- Continuous integration
 - Conventional Commits
+- DevSkim
 - Distribution package clean of development dependencies
 - ECMAScript Modules
 - ESLint
@@ -164,6 +167,7 @@ Partial list of showcases, in alphabetical order:
 - GitHub Actions
 - High code test coverage
 - Markdown
+- Markdownlint
 - Node.js
 - NPM
 - Prettier
@@ -181,4 +185,4 @@ Copyright © 2017-2023 Omar Boukli-Hacene.
 
 ---
 
-Made for the joy of it 🐻
+Written for the joy of it 🐻
