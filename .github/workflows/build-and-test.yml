@@ -36,7 +36,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Update NPM
-        run: npm install -g npm@latest
+        run: npm install --global npm@latest
 
       - name: Install packages
         run: npm ci
@@ -101,7 +101,7 @@ jobs:
         uses: actions/setup-node@v3
 
       - name: Update NPM
-        run: npm install -g npm@latest
+        run: npm install --global npm@latest
 
       - name: Do non-locked install
         run: npm install
@@ -135,7 +135,7 @@ jobs:
           node-version: lts/*
 
       - name: Update NPM
-        run: npm install -g npm@latest
+        run: npm install --global npm@latest
 
       - name: Install packages
         run: npm ci
