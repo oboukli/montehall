@@ -60,7 +60,7 @@ jobs:
         id: pack_artifact
         run: >-
           echo "artifact_name="$(
-          npm pack --json --pack-destination ${{ runner.temp }}
+          npm pack --json --pack-destination '${{ runner.temp }}'
           | jq --raw-output '.[0] | .filename'
           )""
           >> $GITHUB_OUTPUT
@@ -80,8 +80,8 @@ jobs:
           montehall --random advanced --wise
           montehall --games 0 --random advanced --wise
           montehall --games 3 --random advanced --wise --verbose
-          montehall --games 100 --table-file vendor/numbers.txt
-          montehall --games 100 --table-file vendor/numbers.txt --wise
+          montehall --games 100 --table-file ./vendor/numbers.txt
+          montehall --games 100 --table-file ./vendor/numbers.txt --wise
           montehall --doors 100 --games 100
           montehall --doors 100 --games 100 --wise
           montehall --doors 100 --games 3 --wise --verbose
@@ -156,7 +156,7 @@ jobs:
         id: pack_artifact
         run: >-
           echo "artifact_name="$(
-          npm pack --json --pack-destination ${{ runner.temp }}
+          npm pack --json --pack-destination '${{ runner.temp }}'
           | jq --raw-output '.[0] | .filename'
           )""
           >> $GITHUB_OUTPUT
