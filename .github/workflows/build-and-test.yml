@@ -35,8 +35,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Update NPM
-        run: npm install --global npm@latest
+      - name: Configure and update NPM
+        run: |-
+          npm config set fund=false --global
+          npm install --global npm@latest
 
       - name: Install packages
         run: npm ci
@@ -99,9 +101,13 @@ jobs:
 
       - name: Use latest Node.js LTS
         uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
 
-      - name: Update NPM
-        run: npm install --global npm@latest
+      - name: Configure and update NPM
+        run: |-
+          npm config set fund=false --global
+          npm install --global npm@latest
 
       - name: Do non-locked install
         run: npm install
@@ -134,8 +140,10 @@ jobs:
         with:
           node-version: lts/*
 
-      - name: Update NPM
-        run: npm install --global npm@latest
+      - name: Configure and update NPM
+        run: |-
+          npm config set fund=false --global
+          npm install --global npm@latest
 
       - name: Install packages
         run: npm ci

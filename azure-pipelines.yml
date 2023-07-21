@@ -36,8 +36,10 @@ steps:
       versionSpec: $(node_version)
     displayName: Set up Node.js
 
-  - script: npm install --global npm@latest
-    displayName: Update NPM
+  - script: |-
+      npm config set fund=false --global
+      npm install --global npm@latest
+    displayName: Configure and update NPM
 
   - script: npm --version
     displayName: NPM version
