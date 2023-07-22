@@ -36,22 +36,37 @@ steps:
       versionSpec: $(node_version)
     displayName: Set up Node.js
 
-  - script: |-
-      npm config set fund=false --global
-      npm install --global npm@latest
-    displayName: Configure and update NPM
+  - task: Npm@1
+    inputs:
+      command: custom
+      customCommand: config set fund=false --global
+    displayName: Configure NPM
 
-  - script: npm --version
-    displayName: NPM version
+  - task: Npm@1
+    inputs:
+      command: custom
+      customCommand: install --global npm@latest
+    displayName: Update NPM
 
-  - script: npm ci
+  - task: Npm@1
+    inputs:
+      command: ci
     displayName: Install packages
 
-  - script: npm run build
+  - task: Npm@1
+    inputs:
+      command: custom
+      customCommand: run build
     displayName: Build
 
-  - script: npm test
+  - task: Npm@1
+    inputs:
+      command: custom
+      customCommand: test
     displayName: Run tests
 
-  - script: npx -- montehall --version
+  - task: Npm@1
+    inputs:
+      command: custom
+      customCommand: exec montehall -- --version
     displayName: Run smoke test
