@@ -145,6 +145,9 @@ jobs:
           npm config set fund=false --global
           npm install --global npm@latest
 
+      - name: Audit dependencies
+        run: npm audit
+
       - name: Install packages
         run: npm ci
 
@@ -156,9 +159,6 @@ jobs:
 
       - name: Prune dependencies
         run: npm prune
-
-      - name: Audit dependencies
-        run: npm audit
 
       - name: Pack
         id: pack_artifact
