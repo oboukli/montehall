@@ -21,8 +21,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Use latest Node.js LTS
+        uses: actions/setup-node@v3
+        with:
+          cache: npm
+          check-latest: false
+          node-version: lts/*
+
       - name: Install markdownlint-cli
-        run: sudo npm install --global markdownlint-cli
+        run: npm install --global markdownlint-cli
 
       - name: Check out code
         uses: actions/checkout@v3
