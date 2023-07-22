@@ -33,6 +33,8 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
+          cache: npm
+          check-latest: false
           node-version: ${{ matrix.node-version }}
 
       - name: Configure and update NPM
@@ -102,6 +104,8 @@ jobs:
       - name: Use latest Node.js LTS
         uses: actions/setup-node@v3
         with:
+          cache: npm
+          check-latest: false
           node-version: lts/*
 
       - name: Configure and update NPM
@@ -135,6 +139,8 @@ jobs:
       - name: Use latest Node.js LTS
         uses: actions/setup-node@v3
         with:
+          cache: npm
+          check-latest: false
           node-version: lts/*
 
       - name: Configure and update NPM
