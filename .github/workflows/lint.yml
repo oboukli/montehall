@@ -21,6 +21,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
       - name: Use latest Node.js LTS
         uses: actions/setup-node@v3
         with:
@@ -30,11 +35,6 @@ jobs:
 
       - name: Install markdownlint-cli
         run: npm install --global markdownlint-cli
-
-      - name: Check out code
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false
 
       - name: Run markdownlint
         run: markdownlint .
