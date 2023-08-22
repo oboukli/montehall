@@ -10,7 +10,7 @@ import {
   GameSummaryCallback,
   MonteCarloMachineResult,
   GameSimulator,
-} from "./montehall";
+} from "./montehall.mjs";
 
 /**
  * Monte Carlo method machine for the Monty Hall problem.

@@ -7,7 +7,7 @@ SPDX-License-Identifier: MIT
 
 import { describe, expect, it } from "@jest/globals";
 
-import { AppConfig } from "./montehall";
+import { AppConfig } from "./montehall.mjs";
 
 import {
   gameSimulatorFactory,
