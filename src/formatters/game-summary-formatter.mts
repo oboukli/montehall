@@ -5,7 +5,7 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import { GameSummary } from "../montehall";
+import { GameSummary } from "../montehall.mjs";
 import { b2text } from "./common.mjs";
 
 export const gameSummaryFormatter = (

@@ -7,7 +7,7 @@ SPDX-License-Identifier: MIT
 
 import { readFile } from "node:fs/promises";
 
-import { RandomNumberGenerator } from "../montehall";
+import { RandomNumberGenerator } from "../montehall.mjs";
 
 /**
  * Provides experimental numbers from pre-prepared,

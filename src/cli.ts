@@ -14,8 +14,12 @@ import { URL } from "node:url";
 import { Command, InvalidArgumentError, Option } from "commander";
 import { IPackageJson } from "package-json-type";
 
-import { AppConfig, GameSummaryCallback, SetupOptions } from "./montehall";
-import { monteCarloMachine } from "./montehall.mjs";
+import {
+  AppConfig,
+  GameSummaryCallback,
+  SetupOptions,
+  monteCarloMachine,
+} from "./montehall.mjs";
 import {
   gameSimulatorFactory,
   getConfig,

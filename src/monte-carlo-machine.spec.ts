@@ -14,8 +14,8 @@ import {
   MonteCarloMachine,
   MonteCarloMachineResult,
   SetupOptions,
-} from "./montehall";
-import { monteCarloMachine } from "./montehall.mjs";
+  monteCarloMachine,
+} from "./montehall.mjs";
 
 describe("Monte Carlo machine", () => {
   let mcm: MonteCarloMachine;

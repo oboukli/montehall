@@ -12,8 +12,9 @@ import {
   GameSimulator,
   RandomNumberGenerator,
   SetupOptions,
-} from "./montehall";
-import { generalSimulator, standardSimulator } from "./montehall.mjs";
+  generalSimulator,
+  standardSimulator,
+} from "./montehall.mjs";
 import { naiveRng } from "./random/naive.mjs";
 import { csPrng } from "./random/csprng.mjs";
 import { tableRng } from "./random/table.mjs";

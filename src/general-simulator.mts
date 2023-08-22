@@ -11,7 +11,7 @@ import {
   GameSummary,
   RandomNumberGenerator,
   SetupOptions,
-} from "./montehall";
+} from "./montehall.mjs";
 
 /**
  * Simulates one generalized Monty Hall problem game.
