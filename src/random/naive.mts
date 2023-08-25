@@ -1,5 +1,8 @@
 /*!
- * Any copyright is dedicated to the Public Domain. https://creativecommons.org/publicdomain/zero/1.0/
+Any copyright is dedicated to the Public Domain.
+License: https://creativecommons.org/publicdomain/zero/1.0/
+
+SPDX-License-Identifier: CC0-1.0
  */
 
 /**
