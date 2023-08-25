@@ -1,6 +1,6 @@
 {
   "name": "montehall",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "A Monte Carlo machine for the Monty Hall Problem",
   "author": "Omar Boukli-Hacene",
   "license": "MIT",
@@ -17,7 +17,7 @@
   "main": "./dist/montehall.mjs",
   "bin": "./dist/cli.js",
   "engines": {
-    "node": ">=16.19.0"
+    "node": ">=16.20.2"
   },
   "scripts": {
     "prelint": "tsc --project tsconfig.spec.json",
@@ -30,20 +30,20 @@
     "commander": "^11.0.0"
   },
   "devDependencies": {
-    "@jest/globals": "^29.6.1",
-    "@types/node": "^20.4.3",
-    "@typescript-eslint/eslint-plugin": "^6.1.0",
-    "@typescript-eslint/parser": "^6.1.0",
-    "eslint": "^8.45.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-import-resolver-typescript": "^3.5.5",
-    "eslint-plugin-import": "^2.27.5",
+    "@jest/globals": "^29.6.4",
+    "@types/node": "^20.5.6",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-typescript": "^3.6.0",
+    "eslint-plugin-import": "^2.28.1",
     "eslint-plugin-jest": "^27.2.3",
     "eslint-plugin-prettier": "^5.0.0",
-    "jest": "^29.6.1",
+    "jest": "^29.6.4",
     "package-json-type": "^1.0.3",
-    "prettier": "3.0.0",
-    "typescript": "^5.1.6"
+    "prettier": "3.0.2",
+    "typescript": "^5.2.2"
   },
   "files": [
     ".nvmrc",
