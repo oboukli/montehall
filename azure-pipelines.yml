@@ -13,19 +13,19 @@ strategy:
   matrix:
     linux_node_maintenance:
       imageName: ubuntu-latest
-      node_version: 16.x
+      node_version: 18.x
     linux_node_lts:
       imageName: ubuntu-latest
-      node_version: 18.x
+      node_version: 20.x
     linux_node_current:
       imageName: ubuntu-latest
-      node_version: 20.x
+      node_version: 21.x
     macos_node_lts:
       imageName: macOS-latest
-      node_version: 18.x
+      node_version: 20.x
     windows_node_lts:
       imageName: windows-latest
-      node_version: 18.x
+      node_version: 20.x
 
 pool:
   vmImage: $(imageName)
