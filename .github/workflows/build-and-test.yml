@@ -22,6 +22,7 @@ jobs:
         node-version:
           - 18.x
           - 20.x
+          - 21.x
 
     steps:
       - name: Check out repository
