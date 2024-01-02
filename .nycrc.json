@@ -1,0 +1,5 @@
+{
+  "all": false,
+  "extension": [".js", ".mjs"],
+  "reporter": ["json", "lcov", "text"]
+}
