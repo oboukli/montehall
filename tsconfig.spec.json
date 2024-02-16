@@ -2,8 +2,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "CommonJS",
+    "moduleResolution": "Node10",
     "outDir": "test-out/",
-    "rootDir": "./"
+    "rootDir": "./",
+    "types": ["node", "jest"]
   },
   "include": [".eslintrc.js", "jest.config.cts", "src/"],
   "exclude": ["src/cli.ts"]
