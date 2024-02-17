@@ -79,12 +79,6 @@ export interface MonteCarloMachineResult {
   readonly numSimulations: number;
 }
 
-export interface AppConfig {
-  readonly numGamesToSimulate: number;
-
-  readonly numbersFilePath: string;
-}
-
 export { generalSimulator } from "./general-simulator.mjs";
 
 export { monteCarloMachine } from "./monte-carlo-machine.mjs";

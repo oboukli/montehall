@@ -7,14 +7,7 @@ SPDX-License-Identifier: MIT
 
 import { describe, expect, it } from "@jest/globals";
 
-import { AppConfig } from "./montehall.mjs";
-
-import {
-  gameSimulatorFactory,
-  getConfig,
-  rngFactory,
-  toErrString,
-} from "./util.mjs";
+import { gameSimulatorFactory, rngFactory, toErrString } from "./util.mjs";
 
 describe("Function toErrString", () => {
   it("should convert base Error message to string", () => {
@@ -51,17 +44,6 @@ describe("Function toErrString", () => {
     const err = toErrString(undefined);
 
     expect(err).toStrictEqual("undefined");
-  });
-});
-
-describe("Function getConfig", () => {
-  it("should return valid object", async () => {
-    const appConfig = await getConfig<AppConfig>("config.json");
-
-    expect(appConfig).toStrictEqual({
-      numGamesToSimulate: 16384,
-      numbersFilePath: "./data/numbers.txt",
-    });
   });
 });
 

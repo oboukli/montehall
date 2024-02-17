@@ -9,20 +9,17 @@ SPDX-License-Identifier: MIT
 
 import { EOL } from "node:os";
 import process from "node:process";
-import { URL } from "node:url";
 
 import { Command, InvalidArgumentError, Option } from "commander";
-import { IPackageJson } from "package-json-type";
 
+import { appParams } from "./app-params.mjs";
 import {
-  AppConfig,
   GameSummaryCallback,
   SetupOptions,
   monteCarloMachine,
 } from "./montehall.mjs";
 import {
   gameSimulatorFactory,
-  getConfig,
   RandomNumberProviderType,
   rngFactory,
   toErrString,
@@ -30,23 +27,13 @@ import {
 import { gameSummaryFormatter } from "./formatters/game-summary-formatter.mjs";
 import { simulationSummaryFormatter } from "./formatters/simulation-summary-formatter.mjs";
 
-const pkgFileName = new URL("../package.json", import.meta.url);
-const configFileName = new URL("../config.json", import.meta.url);
-
-function buildCliCommand(
-  pkgInfo: IPackageJson,
-  defaultNumGames: number,
-): Command {
+function buildCliCommand(defaultNumGames: number): Command {
   const program = new Command();
 
   return program
-    .name(pkgInfo.name ?? "")
-    .description("Montehall: A Monte Carlo Machine for the Monty Hall Problem")
-    .version(
-      pkgInfo.version ?? "",
-      "-V, --version",
-      "Output version information",
-    )
+    .name(appParams.name)
+    .description(appParams.description)
+    .version(appParams.version, "-V, --version", "Output version information")
     .helpOption("-h, --help", "Output usage information")
     .option(
       "-g, --games <number>",
@@ -93,35 +80,14 @@ function buildCliCommand(
 /**
  * CLI app entry point.
  */
-async function main() {
-  let pkgInfo: IPackageJson;
-  let appConfig: AppConfig;
-
-  try {
-    const pkgInfoPromise = getConfig<IPackageJson>(pkgFileName);
-    const appConfigPromise = getConfig<AppConfig>(configFileName);
-
-    [pkgInfo, appConfig] = await Promise.all([
-      pkgInfoPromise,
-      appConfigPromise,
-    ]);
-  } catch {
-    process.stderr.write(
-      `Could not read configuration. Check the "${pkgFileName.toString()}" and the "${configFileName.toString()}" files.${EOL}`,
-    );
-
-    return 1;
-  }
-
-  const defaultNumGames = Number(appConfig.numGamesToSimulate ?? 0);
-
-  const options = buildCliCommand(pkgInfo, defaultNumGames).opts();
+function main() {
+  const options = buildCliCommand(appParams.numGamesToSimulate).opts();
 
   const numGames = options.games as number;
   const isPrudentPlayer = options.wise as boolean;
 
   const numbersFilePath: string =
-    (options.tableFile as string) ?? appConfig.numbersFilePath ?? "";
+    (options.tableFile as string) ?? appParams.numbersFilePath;
   if (options.random === "table") {
     if (numbersFilePath === "") {
       process.stdout.write(`Random number table file not specified.${EOL}`);
@@ -180,11 +146,9 @@ async function main() {
   return 0;
 }
 
-main()
-  .then((x) => {
-    process.exitCode = x;
-  })
-  .catch((e) => {
-    process.stderr.write(`${toErrString(e)}${EOL}`);
-    process.exitCode = 1;
-  });
+try {
+  process.exitCode = main();
+} catch (e) {
+  process.stderr.write(`${toErrString(e)}${EOL}`);
+  process.exitCode = 1;
+}

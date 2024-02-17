@@ -5,9 +5,6 @@ Licensed under an MIT-style license.
 SPDX-License-Identifier: MIT
 */
 
-import { PathLike } from "node:fs";
-import { FileHandle, readFile } from "node:fs/promises";
-
 import {
   GameSimulator,
   RandomNumberGenerator,
@@ -20,22 +17,6 @@ import { csPrng } from "./random/csprng.mjs";
 import { tableRng } from "./random/table.mjs";
 
 export type RandomNumberProviderType = "basic" | "advanced" | "table";
-
-/**
- * Deserialize configuration JSON UTF-8 file.
- *
- * @param filename Path name of JSON file to deserialize
- * @returns Configuration object
- */
-export async function getConfig<T>(
-  filename: PathLike | FileHandle,
-): Promise<T> {
-  const content = await readFile(filename, {
-    encoding: "utf8",
-  });
-
-  return JSON.parse(content) as T;
-}
 
 /**
  * Create a random number provider.
