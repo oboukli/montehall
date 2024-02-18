@@ -1,6 +1,6 @@
 {
   "name": "montehall",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "A Monte Carlo machine for the Monty Hall Problem",
   "author": "Omar Boukli-Hacene",
   "license": "MIT",
@@ -20,16 +20,17 @@
     "node": ">=16.20.2"
   },
   "scripts": {
-    "prelint": "tsc --project tsconfig.spec.json",
-    "lint": "eslint . --ext .mts,.ts",
     "build": "tsc",
     "pretest": "tsc --project tsconfig.spec.json",
-    "test": "jest --config=test-out/jest.config.cjs"
+    "test": "jest --config=test-out/jest.config.cjs",
+    "prelint": "npm run pretest",
+    "lint": "eslint '.' --ext .mts,.ts"
   },
   "dependencies": {
     "commander": "^11.1.0"
   },
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@jest/globals": "^29.7.0",
     "@types/node": "^20.11.25",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
@@ -49,7 +50,6 @@
   "files": [
     ".nvmrc",
     "CITATION.cff",
-    "config.json",
     "dist/**/*.*"
   ],
   "keywords": [

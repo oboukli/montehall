@@ -1,5 +1,5 @@
 {
   "all": false,
-  "extension": [".js", ".mjs"],
+  "extends": "@istanbuljs/nyc-config-typescript",
   "reporter": ["json", "lcov", "text"]
 }
